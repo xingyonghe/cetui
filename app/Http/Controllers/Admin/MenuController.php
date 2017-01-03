@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminMenu;
-//use App\Http\Requests\Admin\MenuRequest;
+use App\Http\Requests\MenuRequest;
 
 /**
  * 系统菜单控制器
@@ -15,10 +15,9 @@ class MenuController extends Controller
 {
 
     public function __construct(){
-//        //分享menus下拉菜单数据到模板admin.menu.edit
         view()->composer(['admin.menu.edit'],function($view){
-            //            $view->with('menus',D('SysMenu')->getMenus())
-            $view->with('awesome',json_encode(array_chunk(config('awesome'), 5)));
+            $view->with('menus',AdminMenu::getMenus())
+            ->with('awesome',json_encode(array_chunk(config('awesome'), 5)));
         });
     }
 
@@ -28,29 +27,21 @@ class MenuController extends Controller
      * @date 2017-1-3
      * @return
      */
-    public function index(){
-//        $menus = D('SysMenu')->returnMenus();
-//        $menus = array_pluck($menus,'title','id');
-//        $pid = (int)request()->get('pid',0);
-//        $lists = D('SysMenu')
-//            ->where('pid',$pid)
-//            ->orderBy('sort','asc')
-//            ->get(['id', 'title', 'pid', 'sort', 'url', 'hide', 'group'])
-//            ->toArray();
-//        if($menus && $lists){
-//            foreach($lists as $key=>&$val){
-//                if($val['pid']){
-//                    $val['up_title'] = $menus[$val['pid']];
-//                } else{
-//                    $val['up_title'] = '无';
-//                }
-//                $group = explode(':',$val['group']);
-//                $val['group'] = $group[0];
-//            }
-//        }
-//        $this->intToString($lists,array('hide'=>array(1=>'隐藏',0=>'显示')));
-        $lists = [];
-        $pid = 0;
+    public function index()
+    {
+        $pid = (int)request()->get('pid',0);
+        $lists = AdminMenu::where('pid',$pid)
+            ->orderBy('sort','asc')
+            ->get(['id', 'title', 'pid', 'sort', 'url', 'hide', 'group','name'])
+            ->toArray();
+        foreach($lists as $key=>&$val){
+            if($val['pid']){
+                $val['up_title'] = get_menu($val['pid']);
+            } else{
+                $val['up_title'] = '无';
+            }
+        }
+        $this->intToString($lists,['hide'=>[1=>'隐藏',0=>'显示']]);
         return view('admin.menu.index',compact('lists','pid'));
     }
 
@@ -61,7 +52,8 @@ class MenuController extends Controller
      * @param int $pid 上级菜单ID
      * @return
      */
-    public function create(int $pid){
+    public function create(int $pid)
+    {
         $view = view('admin.menu.edit',compact('pid'));
         return $this->ajaxReturn($view->render(),1,'','新增菜单');
     }
@@ -69,11 +61,12 @@ class MenuController extends Controller
     /**
      * 菜单修改
      * @author xingyonghe
-     * @date 2016-11-10
+     * @date 2017-1-3
      * @param int $id
      * @return
      */
-    public function edit(int $id){
+    public function edit(int $id)
+    {
         $info = D('SysMenu')->find($id);
         $pid = $info['pid'];
         $view = view('admin.menu.edit',compact('info','pid'));
@@ -83,18 +76,16 @@ class MenuController extends Controller
     /**
      * 菜单更新
      * @author xingyonghe
-     * @date 2016-11-10
+     * @date 2017-1-3
      * @param MenuRequest $request
      * @return
      */
     public function update(MenuRequest $request){
-        $resualt = D('SysMenu')->updateData($request->all());
+        $resualt = AdminMenu::updateData($request->all());
         if($resualt){
-            cache()->forget('MENUS_LIST');//更新菜单缓存
-            session()->forget('ADMIN_MENU_LIST');//更新菜单session
-            return $this->ajaxReturn(isset($resualt['id'])?'菜单信息修改成功':'菜单信息新增成功',1,url()->previous());
+            return $this->ajaxReturn(isset($resualt['id'])?'菜单信息修改成功':'菜单信息新增成功',0,url()->previous());
         }else{
-            return $this->ajaxReturn(D('SysMenu')->getError());
+            return $this->ajaxReturn('数据信息操作失败');
         }
     }
 

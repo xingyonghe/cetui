@@ -50,6 +50,7 @@
                         <th class="hidden-phone">上级菜单</th>
                         <th class="hidden-phone">分组</th>
                         <th class="hidden-phone">URL</th>
+                        <th class="hidden-phone">标识</th>
                         <th class="hidden-phone">排序</th>
                         <th class="hidden-phone">隐藏</th>
                         <th class="hidden-phone">操作</th>
@@ -64,6 +65,7 @@
                             <td class="hidden-phone">{{ $item['up_title'] }}</td>
                             <td class="hidden-phone">{{ $item['group'] }}</td>
                             <td class="center hidden-phone">{{ $item['url'] }}</td>
+                            <td class="center hidden-phone">{{ $item['name'] }}</td>
                             <td class="hidden-phone">{{ $item['sort'] }}</td>
                             <td class="hidden-phone">{{ $item['hide_text'] }}</td>
                             <td class="hidden-phone">

@@ -24,16 +24,23 @@
                             <label for="curl" class="control-label col-lg-2">链接</label>
                             <div class="input-group m-bot15 col-lg-10">
                                 <span class="input-group-addon"><i class="icon-link"></i></span>
-                                <input  class="form-control" placeholder="后台菜单别名" type="text" name="url" value="{{$info['url'] ?? ''}}">
+                                <input  class="form-control" placeholder="后台菜单url链接" type="text" name="url" value="{{$info['url'] ?? ''}}">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="curl" class="control-label col-lg-2">标识</label>
+                            <div class="input-group m-bot15 col-lg-10">
+                                <span class="input-group-addon"><i class="icon-link"></i></span>
+                                <input  class="form-control" placeholder="后台菜单唯一标识" type="text" name="name" value="{{$info['name'] ?? ''}}">
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">上级菜单</label>
                             <div class="col-lg-10">
                                 <select class="form-control m-bot15" name="pid">
-                                    {{--@foreach($menus as $menu)--}}
-                                        {{--<option value="{{ $menu['id'] }}" @if($pid==$menu['id']) selected @endif>{{$menu['title_show']}}</option>--}}
-                                    {{--@endforeach--}}
+                                    @foreach($menus as $menu)
+                                        <option value="{{ $menu['id'] }}" @if($pid==$menu['id']) selected @endif>{{$menu['title_show']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -58,7 +65,9 @@
                                 <input  class="form-control" placeholder="用于左侧分组的二级菜单" type="text" name="group" value="{{$info['group'] ?? ''}}">
                             </div>
                         </div>
-                        <input  type="hidden" name="id" value="{{$info['id'] ?? ''}}"/>
+                        @if(isset($info))
+                            <input  type="hidden" name="id" value="{{$info['id']}}"/>
+                        @endif
                     </form>
                 </div>
             </div>

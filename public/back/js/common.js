@@ -46,10 +46,10 @@ $(function(){
                         var url = form.get(0).action;
                         var query = form.serialize();
                         $.post(url,query,function(datas){
-                            if(datas.status==1){
-                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
-                            }else{
+                            if(datas.status == -1){
                                 updateAlert(datas.info);
+                            }else{
+                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
                             }
                         });
                     }

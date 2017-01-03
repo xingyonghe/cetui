@@ -13,7 +13,7 @@ class CommonModel extends Model{
      * @param $data 表单数据
      * @return bool
      */
-    protected function toUpdate($data)
+    protected function updateData($data)
     {
         if(empty($data['id'])){
             //新增
