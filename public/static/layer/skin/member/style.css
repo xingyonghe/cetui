@@ -1,0 +1,75 @@
+html #layui_layer_skinmemberstylecss {
+  display: none;
+  position: absolute;
+  width: 1989px;
+}
+body .layer-ext-member {
+  border-radius: 3px;
+  background: #f8f8f8;
+}
+body .layer-ext-member .layui-layer-padding {
+  padding: 27px 20px 22px 75px;
+}
+body .layer-ext-member .layui-layer-title {
+
+  border-bottom: 1px solid #eee;
+  font-size: 18px;
+  color: #ffffff;
+  background: #F77B6F;
+  padding: 0;
+  text-indent: 1em;
+  font-family: "Microsoft YaHei", "微软雅黑", "SimHei", "黑体";
+  height: 50px;
+  line-height: 50px;
+  -webkit-border-radius: 5px 5px 0 0;
+  border-bottom: none;
+}
+body .layer-ext-member .layui-layer-close {
+  background: url(close.png);
+  width: 14px;
+  height: 14px;
+  top: 3px;
+  -webkit-transition: all 0.3s ease 0s;
+          transition: all 0.3s ease 0s;
+  right: 5px;
+}
+body .layer-ext-member .layui-layer-close:hover {
+  -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+  text-indent: 0;
+  text-decoration: none;
+  background-position: 0 0;
+}
+body .layer-ext-member .layui-layer-content {
+  font-size: 16px;
+  text-align: center;
+  color: #797979;
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 50px;
+  min-height: 120px;
+}
+body .layer-ext-member .layui-layer-btn {
+  text-align: center;
+  padding-right: 15px;
+}
+body .layer-ext-member .layui-layer-btn .layui-layer-btn0 {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 25px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #ff6c60;
+  border-color: #ff6c60;
+  color: #FFFFFF;
+}
+body .layer-ext-member .layui-layer-btn .layui-layer-btn1 {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 25px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #b0b5b9;
+  border-color: #b0b5b9;
+  color: #fff;
+}
