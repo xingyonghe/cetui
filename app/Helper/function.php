@@ -54,7 +54,8 @@ function select($name, $list=[], $select=null, $options = [])
         }
 
     }
-    $html  = '</select>';
+    $html  .= '</select>';
+    return $html;
 }
 
 /**
@@ -199,3 +200,26 @@ function get_menu($menu_id,$name='title')
     $menu = \App\Models\AdminMenu::find($menu_id);
     return empty($menu) ? '': $menu[$name];
 }
+
+
+/**
+ * 获取网站配置
+ * @author xingyonghe
+ * @date 2017-1-4
+ * @param $name 配置标识
+ * @return mixed
+ */
+function configs($name)
+{
+    $configs = \App\Models\Config::all();
+    foreach($configs as $key=>&$value){
+        if($value['type'] == 3){
+            $value['value'] = parse_config_attr($value['value']);
+        }
+    }
+    $configs = array_pluck($configs,'value','name');
+    return isset($configs[$name]) ? $configs[$name] : '';
+}
+
+
+

@@ -5,7 +5,9 @@
                 <div class=" form">
                     <form method="post" action="{{ route('admin.menu.update') }}" class="cmxform form-horizontal form-datas">
                         {{ csrf_field() }}
-
+                        @if(isset($info))
+                            <input  type="hidden" name="id" value="{{$info['id']}}"/>
+                        @endif
                         <div class="form-group ">
                             <label for="cname" class="control-label col-lg-2">标题</label>
                             <div class="input-group m-bot15 col-lg-10">
@@ -65,9 +67,6 @@
                                 <input  class="form-control" placeholder="用于左侧分组的二级菜单" type="text" name="group" value="{{$info['group'] ?? ''}}">
                             </div>
                         </div>
-                        @if(isset($info))
-                            <input  type="hidden" name="id" value="{{$info['id']}}"/>
-                        @endif
                     </form>
                 </div>
             </div>

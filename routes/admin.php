@@ -21,6 +21,24 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get('menu/sort/{pid}',    'MenuController@sort')->name('admin.menu.sort');//排序
         Route::post('menu/order',        'MenuController@order')->name('admin.menu.order');//更新排序
 
+        //配置管理
+        Route::get ('config/index',           'ConfigController@index')->name('admin.config.index');//配置列表
+        Route::get ('config/create',          'ConfigController@create')->name('admin.config.create'); //新增配置
+        Route::get ('config/edit/{id}',       'ConfigController@edit')->name('admin.config.edit')->where('id','\d+'); //修改配置
+        Route::post('config/update',          'ConfigController@update')->name('admin.config.update');   //更新配置
+        Route::get ('config/destroy/{id}',    'ConfigController@destroy')->name('admin.config.destroy')->where('id','\d+');//删除配置
+        Route::get ('config/setting/{group?}','ConfigController@setting')->name('admin.config.setting')->where('group','\d+'); //网站设置
+        Route::post('config/post',            'ConfigController@post')->name('admin.config.post'); //更新设置
+
+        //导航管理
+        Route::get ('channel/index',       'ChannelController@index')->name('admin.channel.index');        //列表
+        Route::get ('channel/create',      'ChannelController@create')->name('admin.channel.create');          //新增
+        Route::get ('channel/edit/{id}',   'ChannelController@edit')->name('admin.channel.edit')->where('id','\d+');         //修改
+        Route::post('channel/update',      'ChannelController@update')->name('admin.channel.update');       //更新
+        Route::get ('channel/destroy/{id}','ChannelController@destroy')->name('admin.channel.destroy')->where('id','\d+');      //删除
+        Route::get ('channel/sort',        'ChannelController@sort')->name('admin.channel.sort');         //排序
+        Route::post('channel/order',       'ChannelController@order')->name('admin.channel.order');     //更新排序
+
         /*-*-*-*-*-*-*-*-*-*-*网红*-*-*-*-*-*-*-*-*-*-*/
         //网红管理
         Route::get('netred/index',         'NetredController@index')->name('admin.netred.index');//会员网红
