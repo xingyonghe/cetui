@@ -4,6 +4,7 @@
  * 单选框封装
  * @author: xingyonghe
  * @date: 2017-1-3
+ * @param $model 模块名称，默认为后台，针对单选框各个部分的样式不同
  * @param $name 字段名称
  * @param array $list 数据
  * @param null $cheked 选中的值
@@ -11,25 +12,67 @@
  * @return string
  * @use {!! radio('hide',[0=>'显示',1=>'隐藏'],$info['hide'] ?? 0,[]) !!}
  */
-function radio($name, $list=[], $cheked=null, $options = [])
+function radio($model='admin', $name, $list=[], $cheked=null, $options = [])
 {
+    $option = get_options($options);
+    $html  = '';
+    switch($model){
+        case 'admin':
+            foreach ($list as $value => $display) {
+                if($cheked == $value){
+                    $html .= '<label class="label_radio r_on"><input type="radio" name="'.$name.'" value="'.$value.'" checked=checked '.$option.'>'.$display.'</label>';
+                }else{
+                    $html .= '<label class="label_radio"><input type="radio" name="'.$name.'" value="'.$value.'" '.$option.'>'.$display.'</label>';
+                }
+
+            }
+            break;
+    }
+    return $html;
+}
+
+/**
+ * 下拉框封装
+ * @author: xingyonghe
+ * @date: 2017-1-4
+ * @param $name 字段名称
+ * @param array $list 数据
+ * @param null $cheked 选中的值
+ * @param array $options 其他参数，如：id,class等
+ * @return string
+ * @use {!! select('hide',[0=>'显示',1=>'隐藏'],$info['hide'] ?? 0,[]) !!}
+ */
+function select($name, $list=[], $select=null, $options = [])
+{
+    $option = get_options($options);
+    $html  = '<select name="'.$name.'"  '.$option.'>';
+    foreach ($list as $value => $display) {
+        if($select == $value){
+            $html .= '<option value="'.$value.'" selected=selected>'.$display.'</option>';
+        }else{
+            $html .= '<option value="'.$value.'">'.$display.'</option>';
+        }
+
+    }
+    $html  = '</select>';
+}
+
+/**
+ * 获取标签属性，针对单选，多选，下拉框
+ * @author: xingyonghe
+ * @date: 2017-1-4
+ * @param $options
+ * @return string
+ */
+function get_options($options){
     $html   = [];
     foreach ((array) $options as $key => $value) {
         if (! is_null($value) && ! is_null($key)) {
             $html[] = $key . '="' . e($value) . '"';
         }
     }
-    $option = count($html) > 0 ? ' ' . implode(' ', $html) : '';
-    $radio  = '';
-    foreach ($list as $value => $display) {
-        if($cheked == $value){
-            $radio .= '<label class="label_radio r_on"><input type="radio" name="'.$name.'" value="'.$value.'" checked=checked '.$option.'>'.$display.'</label>';
-        }else{
-            $radio .= '<label class="label_radio"><input type="radio" name="'.$name.'" value="'.$value.'" '.$option.'>'.$display.'</label>';
-        }
+    return count($html) > 0 ? ' ' . implode(' ', $html) : '';
 
-    }
-    return $radio;
 }
 
 /**

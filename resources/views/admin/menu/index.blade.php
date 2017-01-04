@@ -16,7 +16,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(function(){
-
+            highlight_subnav("{{ route('admin.menu.index') }}");
         })
     </script>
 @endsection
@@ -30,14 +30,14 @@
                 <div class="clearfix">
                     <div class="btn-group">
                         <a href="javascript:void(0)" url="{{ route('admin.menu.create',[$pid]) }}" class="btn btn-primary ajax-update">
-                            新增 <i class="fa icon-plus"></i>
+                            新增 <i class="icon-plus"></i>
                         </a>
                     </div>
-                    {{--<div class="btn-group">--}}
-                        {{--<a href="javascript:void(0)" url="{{ route('admin.menu.sort',[$pid]) }}" class="btn btn-primary ajax-sort">--}}
-                            {{--排序 <i class="fa icon-resize-vertical"></i>--}}
-                        {{--</a>--}}
-                    {{--</div>--}}
+                    <div class="btn-group">
+                        <a href="javascript:void(0)" url="{{ route('admin.menu.sort',[$pid]) }}" class="btn btn-primary ajax-sort">
+                            排序 <i class="icon-sort-by-order"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="space15"></div>
                 <table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -69,10 +69,12 @@
                             <td class="hidden-phone">{{ $item['sort'] }}</td>
                             <td class="hidden-phone">{{ $item['hide_text'] }}</td>
                             <td class="hidden-phone">
-                                <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ url('admin/menu/edit',[$item['id']]) }}"><i class="icon-pencil"></i>
-                                    修改</a>
-                                <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ url('admin/menu/destroy',[$item['id']]) }}"><i class="icon-trash "></i>
-                                    删除</a>
+                                <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.menu.edit',[$item['id']]) }}">
+                                    <i class="icon-pencil"></i>修改
+                                </a>
+                                <a class="btn btn-danger btn-xs ajax-confirm destroy" href="javascript:void(0)" url="{{ route('admin.menu.destroy',[$item['id']]) }}">
+                                    <i class="icon-trash "></i>删除
+                                </a>
                             </td>
                         </tr>
                     @endforeach

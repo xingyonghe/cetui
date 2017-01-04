@@ -11,6 +11,7 @@ return [
     'icon-zoom-out',
     'icon-user-md',
     'icon-sun',
+    'icon-tasks',
 
     //常用表单修饰符
     //分组、书签'icon-bookmark'

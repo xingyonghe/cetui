@@ -30,7 +30,7 @@
                         <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">标识</label>
                             <div class="input-group m-bot15 col-lg-10">
-                                <span class="input-group-addon"><i class="icon-link"></i></span>
+                                <span class="input-group-addon"><i class="icon-ok-sign"></i></span>
                                 <input  class="form-control" placeholder="后台菜单唯一标识" type="text" name="name" value="{{$info['name'] ?? ''}}">
                             </div>
                         </div>
@@ -47,14 +47,14 @@
                         <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">是否隐藏</label>
                             <div class="col-lg-10 radios has-js">
-                                {!! radio('hide',[0=>'显示',1=>'隐藏'],$info['hide'] ?? 0) !!}
+                                {!! radio('admin','hide',[0=>'显示',1=>'隐藏'],$info['hide'] ?? 0) !!}
                             </div>
                         </div>
                         <div class="form-group ">
                             <label for="curl" class="control-label col-lg-2">样式图标</label>
                             <div class="input-group m-bot15 col-lg-10">
                                 <div id="awesome" style="display: none"></div>
-                                <span class="input-group-addon" id="icon-tag"><i class="icon-tag"></i></span>
+                                <span class="input-group-addon" id="icon-tag"><i class="{{ empty($info['icon']) ? 'icon-tag' : $info['icon'] }}"></i></span>
                                 <input  class="form-control" id="icon" placeholder="请选择菜单修饰图标" type="text" name="icon" value="{{ $info['icon'] ?? '' }}">
                             </div>
                         </div>

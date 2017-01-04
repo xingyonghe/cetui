@@ -10,12 +10,12 @@
         <!-- 顶部菜单 start -->
         <nav class="navbar-menu" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                {{--@foreach($menus['main'] as $menu)--}}
-                    {{--<a class="navbar-brand {{ $menu['current'] }}" href="{{ route($menu['url']) }}">--}}
-                        {{--<i class="{{ $menu['icon'] }}"></i>--}}
-                        {{--{{ $menu['title'] }}</a>--}}
-                {{--@endforeach--}}
+            <div class="navbar-header" style="margin-left: 35px">
+                @foreach($menus['main'] as $menu)
+                    <a class="navbar-brand {{ $menu['current'] }}" href="{{ url($menu['url']) }}">
+                        <i class="{{ $menu['icon'] }}"></i>
+                        {{ $menu['title'] }}</a>
+                @endforeach
             </div>
         </nav>
         <!-- 顶部菜单 end -->

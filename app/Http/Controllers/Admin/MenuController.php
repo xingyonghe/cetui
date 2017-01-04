@@ -52,10 +52,10 @@ class MenuController extends Controller
      * @param int $pid 上级菜单ID
      * @return
      */
-    public function create(int $pid)
+    public function create(int $pid=0)
     {
         $view = view('admin.menu.edit',compact('pid'));
-        return $this->ajaxReturn($view->render(),1,'','新增菜单');
+        return $this->ajaxReturn($view->render(),0,'','新增菜单');
     }
 
     /**
@@ -67,10 +67,10 @@ class MenuController extends Controller
      */
     public function edit(int $id)
     {
-        $info = D('SysMenu')->find($id);
+        $info = AdminMenu::find($id);
         $pid = $info['pid'];
         $view = view('admin.menu.edit',compact('info','pid'));
-        return $this->ajaxReturn($view->render(),1,'','修改菜单');
+        return $this->ajaxReturn($view->render(),0,'','修改菜单');
     }
 
     /**
@@ -92,95 +92,46 @@ class MenuController extends Controller
     /**
      * 菜单删除
      * @author xingyonghe
-     * @date 2016-11-16
+     * @date 2016-7-3
+     * @return
      */
     public function destroy(int $id){
-        $resualt = D('SysMenu')->destroy($id);
+        $resualt = AdminMenu::destroy($id);
         if($resualt){
-            cache()->forget('MENUS_LIST');//更新菜单缓存
-            session()->forget('ADMIN_MENU_LIST');//更新菜单session
             return redirect()->back()->withSuccess('删除信息成功!');
         }else{
-            return redirect()->back()->with('error','删除信息失败');
+            return redirect()->back()->withErrors('删除信息失败');
         }
     }
 
-    /**
-     * 批量菜单新增
-     * @author xingyonghe
-     * @date 2016-11-16
-     */
-    public function batch(int $pid=0){
-        $menus = D('SysMenu')->returnMenus();
-        $menus = array_pluck($menus,'title','id');
-        if($menus){
-            if($pid){
-                $up_title = $menus[$pid];
-            } else{
-                $up_title = '顶级菜单';
-            }
-        }
-        $view = view('admin.menu.batch',compact('pid','up_title'));
-        return $this->ajaxReturn($view->render(),1,'','批量新增菜单');
-    }
-
-    /**
-     * 批量菜单更新
-     * @author xingyonghe
-     * @date 2016-11-16
-     */
-    public function submit(){
-        $tree = request()->menus;
-        $lists = explode(',',str_replace(array("\r\n","\n","\r"),',',$tree));
-        if($lists == array('0'=>'')){
-            return $this->ajaxReturn('请按格式填写批量导入的至少一条菜单信息');
-        }
-        foreach ($lists as $key => $item) {
-            $record = explode('|', $item);
-            D('SysMenu')->create(array(
-                'title'=> $record[0],
-                'url'  => $record[2],
-                'pid'  => request()->pid,
-                'sort' => $record[1],
-                'hide' => $record[3],
-                'icon' => $record[4] ?? '',
-                'group'=> $record[5] ?? '',
-            ));
-        }
-        cache()->forget('MENUS_LIST');//更新菜单缓存
-        session()->forget('ADMIN_MENU_LIST');//更新菜单session
-        return $this->ajaxReturn('菜单批量新增成功',1,url()->previous());
-    }
 
     /**
      * 菜单排序
      * @author: xingyonghe
-     * @date: 2016-11-18
+     * @date: 2016-7-4
      * @param int $pid
-     * @return \Illuminate\Http\JsonResponse
+     * @return
      */
     public function sort(int $pid=0){
-        $datas = D('SysMenu')->where('pid',$pid)->orderBy('sort','asc')->get()->toArray();
+        $datas = AdminMenu::where('pid',$pid)->orderBy('sort','asc')->get()->toArray();
         $view = view('admin.menu.sort',compact('datas'));
-        return $this->ajaxReturn($view->render(),1,'','菜单排序');
+        return $this->ajaxReturn($view->render(),0,'','菜单排序');
     }
 
     /**
      * 更新排序
      * @author: xingyonghe
-     * @date: 2016-11-18
+     * @date: 2016-7-4
      * @return mixed
      */
     public function order(){
-        $ids = request()->ids;
-        $ids = explode(',', $ids);
+        $data = request()->only('ids');
+        $ids = explode(',', $data['ids']);
         foreach ($ids as $sort=>$id){
-            $info = D('SysMenu')->find($id);
+            $info = AdminMenu::find($id);
             $resualt = $info->update(array('sort'=>$sort+1));
         }
-        cache()->forget('MENUS_LIST');//更新菜单缓存
-        session()->forget('ADMIN_MENU_LIST');//更新菜单session
-        return $this->ajaxReturn('菜单排序更新成功',1,url()->previous());
+        return $this->ajaxReturn('菜单排序更新成功',0,url()->previous());
     }
 
 

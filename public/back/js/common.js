@@ -82,7 +82,9 @@ $(function(){
         var target = $(this).attr('url');
         var that = this;
         $.get(target).success(function(data){
-            if(data.status == 1){
+            if(data.status == -1){
+                updateAlert(data.error);
+            }else{
                 layer.open({
                     type    : 1,
                     skin    : 'layer-ext-admin',
@@ -103,16 +105,14 @@ $(function(){
                         $('input[name=ids]').val(arr.join(','));
                         var query = {'ids' :  arr.join(','), '_token':_token};
                         $.post(url,query,function(datas){
-                            if(datas.status==1){
-                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
-                            }else{
+                            if(datas.status == -1){
                                 updateAlert(datas.info);
+                            }else{
+                                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
                             }
                         });
                     }
                 });
-            }else{
-                updateAlert(data.error);
             }
         });
         return false;

@@ -13,7 +13,8 @@
     }
 </style>
 <div class="sort">
-    {!! Form::open(['url' => route('admin.menu.order'),'class'=>'cmxform form-horizontal tasi-form form-sort']) !!}
+    <form method="post" action="{{ route('admin.menu.order') }}" class="cmxform form-horizontal form-sort">
+        {{ csrf_field() }}
         <div class="sort_center" >
             <div class="sort_option">
                 <select multiple class="form-control select">
@@ -32,7 +33,7 @@
         <div class="sort_bottom">
             <input type="hidden" name="ids">
         </div>
-    {!!Form::close()!!}
+    </form>
 </div>
 <script type="text/javascript">
     $(function(){

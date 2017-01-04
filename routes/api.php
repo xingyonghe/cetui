@@ -1,18 +1,18 @@
 <?php
-
-use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+/**
+ * api路由
+ * @author xingyonghe
+ * @date 2017-1-4
+ */
+Route::group(['namespace'=>'Api'],function(){
+    //手机短信发送
+    Route::post('sendsms',    'SmsApiController@sendSMS')->name('api.sendsms');
+    //手机短信验证
+    Route::post('verifysms',  'SmsApiController@verifySMS')->name('api.verifysms');
+    //文件上传
+    Route::post('file',       'UploadApiController@file')->name('api.file');
+    //图片上传，返回图片ID
+    Route::post('picture',    'UploadApiController@picture')->name('api.picture');
+    //图片上传，返回图片路径
+    Route::post('logo',       'UploadApiController@logo')->name('api.logo');
+});

@@ -1,0 +1,73 @@
+<style type="text/css">
+    .sort_center .sort_option{
+        width: 200px;  float: left
+    }
+    .sort_center .sort_option select{
+        height: 350px;
+    }
+    .sort_center .sort_btn{
+        float: left;  width: 100px;
+    }
+    .sort_center .sort_btn .btn{
+        margin-bottom:5px
+    }
+</style>
+<div class="sort">
+    <form method="post" action="{{ route('admin.adform.order') }}" class="cmxform form-horizontal form-sort">
+        {{ csrf_field() }}
+        <div class="sort_center" >
+            <div class="sort_option">
+                <select multiple class="form-control select">
+                    @foreach($datas as $id=>$name)
+                        <option class="sortids" title="{{ $name }}" value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="sort_btn">
+                <button class="top btn btn-primary" type="button">第 一</button>
+                <button class="up btn btn-primary" type="button">上 移</button>
+                <button class="down btn btn-primary" type="button">下 移</button>
+                <button class="bottom btn btn-primary" type="button">最 后</button>
+            </div>
+        </div>
+        <div class="sort_bottom">
+            <input type="hidden" name="ids">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        sort();
+        $(".top").click(function(){
+            rest();
+            $(".sortids:selected").prependTo(".select");
+            sort();
+        })
+        $(".bottom").click(function(){
+            rest();
+            $(".sortids:selected").appendTo(".select");
+            sort();
+        })
+        $(".up").click(function(){
+            rest();
+            $(".sortids:selected").after($(".sortids:selected").prev());
+            sort();
+        })
+        $(".down").click(function(){
+            rest();
+            $(".sortids:selected").before($(".sortids:selected").next());
+            sort();
+        })
+        function sort(){
+            $('.sortids').text(function(){
+                return ($(this).index()+1)+'.'+$(this).text();
+            });
+        }
+        //重置所有option文字。
+        function rest(){
+            $('.sortids').text(function(){
+                return $(this).text().split('.')[1]
+            });
+        }
+    })
+</script>

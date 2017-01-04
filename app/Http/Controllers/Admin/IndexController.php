@@ -1,7 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Xingyonghe
- * Date: 2017/1/3
- * Time: 10:12
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//自动导入网红信息
+//随机分配三个标签

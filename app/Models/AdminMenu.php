@@ -31,7 +31,7 @@ class AdminMenu extends CommonModel
      * @return mixed
      */
     protected function getMenus(){
-        $menus = $this->orderBy('sort', 'asc')->get()->toArray();
+        $menus = $this->returnMenus();
         $menus = $this->toFormatTree($menus);
         $menus = array_merge(array(0=>array('id'=>0,'title_show'=>'顶级菜单')), $menus);
         return $menus;
@@ -80,24 +80,16 @@ class AdminMenu extends CommonModel
         return;
     }
 
-
-
-
-//
-//    /**
-//     * 获取所有菜单并存入缓存
-//     * @author xingyonghe
-//     * @date 2016-11-10
-//     * @return mixed
-//     */
-//    public function returnMenus(){
-//        $menus = cache()->get('MENUS_LIST');
-//        if(empty($menus)){
-//            $menus = $this->orderBy('sort', 'asc')->get()->toArray();
-//            cache()->forever('MENUS_LIST',$menus);//永久保存
-//        }
-//        return $menus;
-//    }
+    /**
+     * 获取所有菜单并存入缓存
+     * @author xingyonghe
+     * @date 2017-1-3
+     * @return mixed
+     */
+    protected function returnMenus(){
+        $menus = $this->orderBy('sort', 'asc')->get()->toArray();
+        return $menus;
+    }
 //
 //    /**
 //     * 返回后台节点数据
