@@ -2,44 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfcde009-ed88-46ba-8270-c7c196752d91" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitattributes" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585df088b8414.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585dfde4e3bf3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e03d934af8.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e03efd02f2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e04005df29.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e041613240.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e04455f1ed.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e045bd62a6.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e0465557d0.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e04806bc9e.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e0495c5992.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e04a4c0ce2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e04b5787e2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e862ed54bc.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e86885f901.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-24/585e868b3d7ba.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f20f4410a7.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f259c0d7b8.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f2ec1198a2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f3201c8abc.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f332bafc6d.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f343175346.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-25/585f6da5e7a5f.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-27/586227d12bebf.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-27/5862526e62311.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-27/586264a65bab7.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/picture/2016-12-30/5865c24ec41a3.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Helper/function.php" afterPath="$PROJECT_DIR$/app/Helper/function.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/NetredController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/NetredController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Kernel.php" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Models/Category.php" afterPath="$PROJECT_DIR$/app/Models/Category.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Models/CommonModel.php" afterPath="$PROJECT_DIR$/app/Models/CommonModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/netred/system.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/netred/system.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin.php" afterPath="$PROJECT_DIR$/routes/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -111,8 +74,8 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/home/rednet/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="815">
-              <caret line="108" column="26" lean-forward="true" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
+            <state relative-caret-position="752">
+              <caret line="105" column="33" lean-forward="true" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -606,23 +569,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1483584636798</updated>
-      <workItem from="1483584637995" duration="15816000" />
+      <workItem from="1483584637995" duration="16624000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15816000" />
+    <option name="totallyTimeSpent" value="16624000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1062" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1062" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297414" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -632,7 +605,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -900,8 +872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/home/rednet/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="815">
-          <caret line="108" column="26" lean-forward="true" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
+        <state relative-caret-position="752">
+          <caret line="105" column="33" lean-forward="true" selection-start-line="105" selection-start-column="33" selection-end-line="105" selection-end-column="33" />
           <folding />
         </state>
       </provider>
