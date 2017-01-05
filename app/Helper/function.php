@@ -221,5 +221,55 @@ function configs($name)
     return isset($configs[$name]) ? $configs[$name] : '';
 }
 
+/**
+ * 生成订单号/流水号
+ * @author xingyonghe
+ * @date 2016-11-23
+ * @return string
+ */
+function create_order_sn(){
+    $order_sn = 'ZH'. strtoupper(dechex(date('m'))).date('d').substr(time(),-5).substr(microtime(),2,5).sprintf('%d',rand(0,9));
+    return $order_sn;
+}
+
+/**
+ * 获取广告平台字段信息
+ * @author xingyonghe
+ * @date 2015-12-25
+ * @param $id 广告平台ID
+ * @param string $field 广告平台字段名称
+ * @return string 广告平台字段名称对应的平台ID的值
+ */
+function  get_platform_filed($id,$field ='name')
+{
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\UserNetredPlatform::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
+
+/**
+ * 获取广告平台形式信息
+ * @author xingyonghe
+ * @date 2015-12-25
+ * @param $id 广告平台ID
+ * @param string $field 广告形式字段名称
+ * @return string 广告形式字段名称对应的形式ID的值
+ */
+function  get_adform_filed($id,$field ='name')
+{
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\UserNetredAdform::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
 
 

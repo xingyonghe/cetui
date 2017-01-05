@@ -11,6 +11,7 @@ class Category extends CommonModel
     protected $guarded = [
         'id', 'created_at', 'updated_at'
     ];
+    protected $formatTree;
 
     /**
      * 获取所有分类
@@ -75,6 +76,9 @@ class Category extends CommonModel
         });
         return array_get($cate, '0.name');
     }
+
+
+
 
 
 

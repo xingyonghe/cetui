@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\UserNetred;
 
 class NetredController extends Controller
 {
+    protected $model = 'netred';
 
     /**
      * 会员网红
@@ -24,7 +26,7 @@ class NetredController extends Controller
                 }
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(configs('ADMIN_PAGE_LIMIT') ?? 10);
         $this->intToString($lists,[
             'status'=> UserNetred::STATUS_TEXT,
         ]);
@@ -45,13 +47,14 @@ class NetredController extends Controller
     {
         $stage_name = (string)request()->get('stage_name','');
         $lists = UserNetred::where('status',UserNetred::STATUS_NORMAL)
+            ->whereNull('userid')
             ->where(function ($query) use($stage_name) {
                 if($stage_name){
                     $query->where('stage_name','like','%'.$stage_name.'%');
                 }
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(configs('ADMIN_PAGE_LIMIT') ?? 10);
         $this->intToString($lists,[
             'status'=> UserNetred::STATUS_TEXT,
         ]);
@@ -70,7 +73,7 @@ class NetredController extends Controller
     public function create()
     {
         $view = view('admin.netred.edit');
-        return $this->ajaxReturn($view->render(),1,'','新增平台信息');
+        return $this->ajaxReturn($view->render(),0,'','新增平台信息');
     }
 
     /**
@@ -84,7 +87,7 @@ class NetredController extends Controller
     {
         $info = UserPlatform::find($id);
         $view = view('admin.netred.edit',compact('info'));
-        return $this->ajaxReturn($view->render(),1,'','编辑平台信息');
+        return $this->ajaxReturn($view->render(),0,'','编辑平台信息');
     }
 
     /**
@@ -98,7 +101,7 @@ class NetredController extends Controller
     {
         $resault = UserPlatform::toUpdate(request()->all());
         if($resault){
-            return $this->ajaxReturn(isset($resault['id'])?'平台信息修改成功':'平台信息新增成功',1,url()->previous());
+            return $this->ajaxReturn(isset($resault['id'])?'平台信息修改成功':'平台信息新增成功',0,url()->previous());
         }else{
             return $this->ajaxReturn('操作失败，请稍后再试');
         }
@@ -117,7 +120,7 @@ class NetredController extends Controller
         if($resualt){
             return redirect()->back()->withSuccess('删除平台信息成功!');
         }else{
-            return redirect()->back()->with('error','删除平台信息失败');
+            return redirect()->back()->withErrors('删除平台信息失败');
         }
     }
 
@@ -182,6 +185,52 @@ class NetredController extends Controller
         return view('admin.category.index',compact('lists','model'));
     }
 
+    /**
+     * 系统网红导入
+     * @author xingyonghe
+     * @date 2016-1-5
+     */
+    public function import()
+    {
+        $view = view('admin.netred.import');
+        return $this->ajaxReturn($view->render(),0,'','批量导入网红信息');
+    }
+
+    /**
+     * 系统网红导入更新
+     * @author xingyonghe
+     * @date 2016-1-5
+     */
+    public function post()
+    {
+        $data = request()->only('info');
+        $lists = explode(',',str_replace(array("\r\n","\n","\r"),',',$data['info']));
+        if($lists == array('0'=>'')){
+            return $this->ajaxReturn('请按格式填写批量导入的至少一条网红信息');
+        }
+        foreach ($lists as $key => $item) {
+            $record = explode('-', $item);
+            $category = Category::select('id','name','pid')
+                ->where('model',$this->model)
+                ->orderBy('sort','asc')
+                ->get()->random(3)->toArray();
+            $category = array_pluck($category,'id');
+            foreach($category as $key=>$val){
+                $category[$key] = 'catid_'.$val;
+            }
+            UserNetred::create([
+                'status'      => UserNetred::STATUS_NORMAL,
+                'catids'      => $category,
+                'platform'    => $record[1],
+                'stage_name'  => $record[0],
+                'fans'        => $record[2],
+                'average_num' => $record[3],
+                'avatar'      => '/uploads/picture/2017-01-05/'.$record[4].'.png',
+            ]);
+        }
+        return $this->ajaxReturn('批量导入成功',1,url()->previous());
+
+    }
 
 
 }

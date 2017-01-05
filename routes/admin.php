@@ -47,6 +47,7 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get('netred/recycle',       'NetredController@recycle')->name('admin.netred.recycle');//会员网红已删除
         Route::get('netred/create',        'NetredController@create')->name('admin.netred.create');//新增
         Route::get('netred/import',        'NetredController@import')->name('admin.netred.import');//导入
+        Route::post('netred/post',         'NetredController@post')->name('admin.netred.post');//导入更新
         Route::post('netred/verify',       'NetredController@verify')->name('admin.netred.verify');//审核通过
         Route::post('netred/refuse',       'NetredController@refuse')->name('admin.netred.refuse');//审核不通过
         Route::get('netred/edit/{id}',     'NetredController@edit')->name('admin.netred.edit');//编辑

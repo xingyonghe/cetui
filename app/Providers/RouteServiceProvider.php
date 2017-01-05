@@ -40,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapAdminRoutes();//系统总后台路由
+
+        $this->mapAdsRoutes();//广告主
+
+        $this->mapNetredRoutes();//网红
     }
 
     /**
@@ -85,6 +89,28 @@ class RouteServiceProvider extends ServiceProvider
             'prefix' => 'admin',
         ], function ($router) {
             require base_path('routes/admin.php');
+        });
+    }
+
+    protected function mapAdsRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'prefix' => 'ads',
+        ], function ($router) {
+            require base_path('routes/ads.php');
+        });
+    }
+
+    protected function mapNetredRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'prefix' => 'netred',
+        ], function ($router) {
+            require base_path('routes/netred.php');
         });
     }
 }

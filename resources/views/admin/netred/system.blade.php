@@ -5,6 +5,38 @@
     <script type="text/javascript">
         $(function () {
             highlight_subnav("{{ route('admin.netred.system') }}");
+            $('.ajax-import').click(function(){
+                layer.closeAll();
+                var target = $(this).attr('url');
+                $.get(target,function(data){
+                    if(data.status == -1){
+                        updateAlert(data.error);
+                    }else{
+                        layer.open({
+                            type    : 1,
+                            skin    : 'layer-ext-admin',
+                            closeBtn: 1,
+                            title   : data.title,
+                            area    : ['650px'],
+                            btn     : ['确定', '取消'],
+                            content : data.info,
+                            yes     : function(index){
+                                var form = $('.form-datas');
+                                var url = form.get(0).action;
+                                var query = form.serialize();
+                                $.post(url,query,function(datas){
+                                    if(datas.status == -1){
+                                        updateAlert(datas.info);
+                                    }else{
+                                        updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                },'json');
+                return false;
+            })
         })
     </script>
 @endsection
@@ -22,14 +54,13 @@
                         </a>
                     </div>
                     <div class="btn-group">
-                        <a href="javascript:void(0)" url="{{ route('admin.netred.import') }}" class="btn btn-primary">
+                        <a href="javascript:void(0)" url="{{ route('admin.netred.import') }}" class="btn btn-primary ajax-import">
                             导入 <i class="icon-signin"></i>
                         </a>
                     </div>
                 </div>
                 <div class="row">
-                    <form method="post" action="{{ route('admin.netred.system') }}" class="cmxform form-horizontal form-datas">
-                        {{ csrf_field() }}
+                    <form method="get" action="{{ route('admin.netred.system') }}" class="cmxform form-horizontal">
                         <div class="col-lg-3 search_button">
                             <button class="btn btn-primary" type="submit"><i class="fa  icon-zoom-in"></i>搜索</button>
                         </div>
@@ -46,9 +77,6 @@
                         <th>ID</th>
                         <th class="hidden-phone">头像</th>
                         <th class="hidden-phone">艺名</th>
-                        <th class="hidden-phone">用户</th>
-                        <th class="hidden-phone">性别</th>
-                        <th class="hidden-phone">分类</th>
                         <th class="hidden-phone">平台</th>
                         <th class="hidden-phone">添加时间</th>
                         <th class="hidden-phone">操作</th>
@@ -61,14 +89,11 @@
                             <td>{{ $data->id }}</td>
                             <td><img src="{{ $data->avatar }}" width="auto" height="20"></td>
                             <td>{{ $data->stage_name }}</td>
-                            <td>{{ $data->userid }}</td>
-                            <td>@if($data->sex == 1)男@else女@endif</td>
-                            <td>@if($data->type == 1)直播@else短视频@endif</td>
                             <td class="hidden-phone">{{ get_platform_filed($data['platform']) }}</td>
                             <td class="hidden-phone">{{ $data->created_at->format('Y-m-d') }}</td>
                             <td class="hidden-phone">
-                                <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.star.edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
-                                <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ route('admin.star.destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
+                                <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.netred.edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
+                                <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ route('admin.netred.destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
                             </td>
                         </tr>
                     @endforeach
