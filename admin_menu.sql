@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2017-01-05 18:15:26
+Date: 2017-01-06 17:58:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,14 +30,14 @@ CREATE TABLE `admin_menu` (
   `hide` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否隐藏:0显示，1隐藏',
   `group` varchar(50) NOT NULL DEFAULT '' COMMENT '分组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='系统菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='系统菜单';
 
 -- ----------------------------
 -- Records of admin_menu
 -- ----------------------------
 INSERT INTO `admin_menu` VALUES ('1', '首页', '0', 'admin', 'admin.index.index', '1', 'icon-home', '0', '');
 INSERT INTO `admin_menu` VALUES ('2', '系统', '0', 'admin/menu/index', 'admin.menu.index', '6', 'icon-cogs', '0', '');
-INSERT INTO `admin_menu` VALUES ('3', '用户', '0', 'admin/user/index', 'admin.user.index', '2', 'icon-user', '0', '');
+INSERT INTO `admin_menu` VALUES ('3', '用户', '0', 'admin/bank/index', 'admin.bank.index', '2', 'icon-user', '0', '');
 INSERT INTO `admin_menu` VALUES ('4', '客服', '0', 'admin/custom/index', 'admin.custom.index', '3', 'icon-user-md', '0', '');
 INSERT INTO `admin_menu` VALUES ('5', '菜单管理', '2', 'admin/menu/index', 'admin.menu.index', '5', '', '0', '系统设置');
 INSERT INTO `admin_menu` VALUES ('6', '新增', '5', 'admin/menu/create', 'admin.menu.create', '0', '', '1', '系统设置');
@@ -83,6 +83,37 @@ INSERT INTO `admin_menu` VALUES ('45', '修改', '41', 'admin/config/edit', 'adm
 INSERT INTO `admin_menu` VALUES ('46', '更新', '41', 'admin/config/update', 'admin.config.update', '0', '', '1', '系统设置');
 INSERT INTO `admin_menu` VALUES ('47', '删除', '41', 'admin/config/destroy', 'admin.config.destroy', '0', '', '1', '系统设置');
 INSERT INTO `admin_menu` VALUES ('48', '导入', '17', 'admin/netred/import', 'admin.netred.import', '0', '', '0', '网红管理');
+INSERT INTO `admin_menu` VALUES ('49', '会员管理', '3', 'admin/user/index', 'admin.user.index', '2', '', '0', '用户管理');
+INSERT INTO `admin_menu` VALUES ('50', '广告主', '3', 'admin/user/ads', 'admin.user.ads', '3', '', '0', '用户管理');
+INSERT INTO `admin_menu` VALUES ('51', '账户管理', '3', 'admin/bank/index', 'admin.bank.index', '1', '', '0', '模块设置');
+
+-- ----------------------------
+-- Table structure for admin_user
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_user`;
+CREATE TABLE `admin_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+  `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '昵称',
+  `type` tinyint(4) DEFAULT '1' COMMENT '管理员分类：1系统管理员2网红管理员3广告主管理员',
+  `qq` varchar(30) DEFAULT '' COMMENT '客服QQ',
+  `role_id` tinyint(4) NOT NULL DEFAULT '0' COMMENT '用户组ID',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态：-1删除，0禁用，1正常',
+  `remember_token` varchar(100) DEFAULT NULL COMMENT '记住我标识',
+  `reg_time` timestamp NULL DEFAULT NULL COMMENT '注册时间',
+  `login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
+  `login_ip` char(15) NOT NULL DEFAULT '' COMMENT '最后登录ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `admin_user_username_unique` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+
+-- ----------------------------
+-- Records of admin_user
+-- ----------------------------
+INSERT INTO `admin_user` VALUES ('1', 'admin', '$2y$10$gcM59gn/8fF7loOVC1a.QuffmG1wM1hKl.OpBc6BdiCh2Fz1WawRa', '超管', '1', '', '1', '1', 'NUpLpFBJYvFzJHS5xSLyiM51bdN5M40PLMLqBa5rGFDwTqn7FYN652F4LeCc', '2016-11-15 09:17:38', '2017-01-05 11:29:33', '127.0.0.1');
+INSERT INTO `admin_user` VALUES ('2', 'xingyonghe', '$2y$10$1gGSm8H9xJx3/butYr/KheO2.gPnmh8prxOQ0AcPaXL0AgINKxM0m', '风影', '3', '365754061', '2', '1', 'KNYnalxXCJmMIp7OTmQywx2ybHgoaFLQPR27QqRmnGrfqeqr8zFh1Jdrxcaf', '2016-11-16 03:30:16', '2016-11-17 02:16:55', '127.0.0.1');
+INSERT INTO `admin_user` VALUES ('3', 'xingyingfeng', '$2y$10$6m.iqImB7wikG6L0SVJPt.pM0kdRQvvNzMvZWq4ETHw628LNycZ6C', '永和测试', '1', '1342234898', '2', '1', null, '2016-11-16 03:33:25', '2016-11-16 03:33:25', '');
 
 -- ----------------------------
 -- Table structure for category
@@ -232,6 +263,109 @@ INSERT INTO `picture` VALUES ('2', '/uploads/picture/2017-01-04/586c8cc5cbd96.jp
 INSERT INTO `picture` VALUES ('3', '/uploads/picture/2017-01-04/586d14cd86e31.jpg', '', 'e87a76650049c27eec42d44a606b45c0', 'b411e1d6de5067b60b05c12f0e3176bafda337f2', '2017-01-04 23:29:17');
 INSERT INTO `picture` VALUES ('4', '/uploads/picture/2017-01-04/586d15d6a65da.jpg', '', '3b0101902d2c97e7cba61e3f8f8cd8b5', 'fef034e82ecedf27a045264afdd1f0aaaf983df9', '2017-01-04 23:33:42');
 INSERT INTO `picture` VALUES ('5', '/uploads/picture/2017-01-04/586d1623d7e01.png', '', '90d041042ea62d03b062793923d12a35', '2b22045077bc3e53013755cf3eac042dd3ffaf28', '2017-01-04 23:34:59');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL COMMENT '用户名:手机号',
+  `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+  `remember_token` varchar(100) DEFAULT NULL COMMENT '记住我',
+  `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '联系人',
+  `is_auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT '手机号是否认证通过:1已认证，0未认证',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '用户类型:1普通2广告主',
+  `qq` varchar(20) NOT NULL DEFAULT '' COMMENT 'QQ',
+  `weixin` varchar(150) NOT NULL DEFAULT '' COMMENT '微信',
+  `balance` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `company` varchar(255) NOT NULL DEFAULT '0' COMMENT '公司名称',
+  `custom_id` int(11) NOT NULL DEFAULT '0' COMMENT '客服ID',
+  `custom_name` varchar(150) NOT NULL DEFAULT '' COMMENT '客服名称',
+  `status` tinyint(4) NOT NULL DEFAULT '2' COMMENT '状态:-1删除、0锁定、1正常、2待审核',
+  `email` varchar(255) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `reg_time` timestamp NULL DEFAULT NULL COMMENT '注册时间',
+  `reg_ip` varchar(45) NOT NULL DEFAULT '' COMMENT '注册IP',
+  `login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
+  `login_ip` varchar(45) NOT NULL DEFAULT '' COMMENT '最后登录IP',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户基本信息';
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', '13667635645', '$2y$10$D6JkE5X1i.ShnE5igAaNVOt//HKWHEke1f4ApUS8znYYP24MIDR/K', '2WitdgH0jSICzADOGI6isDVRShRZjotBl6dTUIQHtUfZ5jRPPuZQidYsUHPu', '邢永和', '1', '1', '1342234898', 'sdfddd', '0.00', '', '3', '永和测试', '1', 'asdfasd@qq.com', '2016-11-17 18:46:49', '127.0.0.1', '2017-01-06 10:27:12', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', 'Bap70KsObpnZO2MsKHeAtQR33H3y3bT8sao2M2cM95OLNj5qZe9LVewoCKyg', '形影楓', '1', '2', '123123123', '', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-12-27 16:24:13', '127.0.0.1');
+
+-- ----------------------------
+-- Table structure for user_account
+-- ----------------------------
+DROP TABLE IF EXISTS `user_account`;
+CREATE TABLE `user_account` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `bank_id` int(10) DEFAULT NULL COMMENT '账户类型，关联银行ID',
+  `account` varchar(100) DEFAULT '' COMMENT '账户',
+  `deposit` varchar(255) DEFAULT '' COMMENT '开户行',
+  `username` varchar(255) DEFAULT '' COMMENT '开户姓名',
+  `userid` int(255) DEFAULT NULL COMMENT '账户用户ID',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_account
+-- ----------------------------
+INSERT INTO `user_account` VALUES ('14', '3', '622254554454554458787455', '撒发射点大师傅撒旦发生', '孙大发大水法的', '1', '2017-01-06 17:00:42', '2017-01-06 17:00:42');
+
+-- ----------------------------
+-- Table structure for user_bank
+-- ----------------------------
+DROP TABLE IF EXISTS `user_bank`;
+CREATE TABLE `user_bank` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT '' COMMENT '名称',
+  `logo` varchar(255) DEFAULT '' COMMENT 'logo',
+  `sort` tinyint(2) DEFAULT '0' COMMENT '排序',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_bank
+-- ----------------------------
+INSERT INTO `user_bank` VALUES ('1', '支付宝账号', '', '1', '2017-01-06 14:57:53', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('2', '招商银行', '', '2', '2017-01-06 14:58:15', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('3', '上海浦东发展银行', '', '3', '2017-01-06 14:58:32', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('4', '中国民生银行', '', '4', '2017-01-06 14:58:42', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('5', '中国农业银行', '', '5', '2017-01-06 14:58:51', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('6', '中国建设银行', '', '6', '2017-01-06 14:58:58', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('7', '中国银行', '', '7', '2017-01-06 14:59:06', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('8', '中国工商银行', '', '8', '2017-01-06 14:59:14', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('9', '交通银行', '', '9', '2017-01-06 14:59:22', '2017-01-06 15:00:11');
+INSERT INTO `user_bank` VALUES ('10', '华夏银行', '', '10', '2017-01-06 14:59:31', '2017-01-06 15:00:11');
+
+-- ----------------------------
+-- Table structure for user_cash_log
+-- ----------------------------
+DROP TABLE IF EXISTS `user_cash_log`;
+CREATE TABLE `user_cash_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `order_id` varchar(20) NOT NULL DEFAULT '' COMMENT '流水号',
+  `account` varchar(100) NOT NULL DEFAULT '' COMMENT '账户',
+  `money` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '提现金额',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:1待处理、2成功、3拒绝处理',
+  `created_at` timestamp NULL DEFAULT NULL COMMENT '记录时间',
+  `pay_time` timestamp NULL DEFAULT NULL COMMENT '付款时间',
+  `ip` varchar(45) NOT NULL DEFAULT '' COMMENT 'IP地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户提现记录';
+
+-- ----------------------------
+-- Records of user_cash_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_netred

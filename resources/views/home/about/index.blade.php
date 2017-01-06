@@ -1,7 +1,7 @@
 @extends('home.layouts.base')
-@section('style')
+@section('styles')
 @endsection
-@section('script')
+@section('scripts')
 <script type="text/javascript">
     $(function(){
 
@@ -32,12 +32,12 @@
         <div class="tou">关于我们</div>
         <div class="duan"><p>地址：重庆高新区石桥铺新锐地带13层</p>
             <p>咨询热线：400-086-7335</p>
-            <p>在线客服：<a href="#"><img src="{{ asset('assets/home/images/qq.png') }}"/></a>
-                <a href="#"><img src="{{ asset('assets/home/images/qq.png') }}"/></a>
-                <a href="#"><img src="{{ asset('assets/home/images/qq.png') }}"/></a></p>
+            <p>在线客服：<a href="#"><img src="{{ asset('home/images/qq.png') }}"/></a>
+                <a href="#"><img src="{{ asset('home/images/qq.png') }}"/></a>
+                <a href="#"><img src="{{ asset('home/images/qq.png') }}"/></a></p>
         </div>
         <div class="qingchu"></div>
-        <div class="ditu"><img src="{{ asset('assets/home/images/ditu.png') }}"/></div>
+        <div class="ditu"><img src="{{ asset('home/images/ditu.png') }}"/></div>
 
 
     </div>

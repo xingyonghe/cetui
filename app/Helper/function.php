@@ -109,7 +109,7 @@ function  get_custom_qq($custom_id)
     if(empty($custom_id)){
         return '';
     }
-    $info = \App\Models\SysAdmin::find($custom_id);
+    $info = \App\Models\AdminUser::find($custom_id);
     if(empty($info) || empty($info['qq'])){
         return '';
     }

@@ -11,7 +11,8 @@
 */
 namespace App\Libraries\Seo;
 
-class SEO{
+class SEO
+{
     protected $title = '';
     protected $keywords = '';
     protected $description = '';
@@ -25,7 +26,8 @@ class SEO{
      * @param string $title
      * @return $this
      */
-    public function setTitle(string $title){
+    public function setTitle(string $title)
+    {
         $this->title = $title;
         return $this;
     }
@@ -37,7 +39,8 @@ class SEO{
      * @param string $keywords
      * @return $this
      */
-    public function setKeywords(string $keywords){
+    public function setKeywords(string $keywords)
+    {
         $this->keywords = $keywords;
         return $this;
     }
@@ -49,7 +52,8 @@ class SEO{
      * @param string $description
      * @return $this
      */
-    public function setDescription(string $description){
+    public function setDescription(string $description)
+    {
         $this->description = $description;
         return $this;
     }
@@ -61,7 +65,8 @@ class SEO{
      * @param string $callKey
      * @return $this
      */
-    public function setRule(string $key){
+    public function setRule(string $key)
+    {
         $this->key = strtoupper($key);
         return $this;
     }
@@ -74,7 +79,8 @@ class SEO{
      * @param string $value
      * @return $this
      */
-    public function setVariable(string $variableName, string $value){
+    public function setVariable(string $variableName, string $value)
+    {
         $this->variables[strtolower($variableName)] = $value;
         return $this;
     }
@@ -86,7 +92,8 @@ class SEO{
      * @param array $variables
      * @return $this
      */
-    public function setVariables(array $variables){
+    public function setVariables(array $variables)
+    {
         foreach ($variables as $variableName => $variableValue){
             $this->setVariable($variableName,$variableValue);
         }
@@ -99,7 +106,8 @@ class SEO{
      * @date: 2016-11-22
      * @return string
      */
-    public  function generate(){
+    public  function generate()
+    {
         $this->compile();
         return sprintf('<title>%s</title>' . PHP_EOL
             . '    <meta name="keywords" content="%s">'. PHP_EOL
@@ -116,12 +124,9 @@ class SEO{
      * @date: 2016-11-22
      * @param string $key
      */
-    protected function compile(){
+    protected function compile()
+    {
         if (empty($this->key)) {
-            return;
-        }
-        $seoData = D('SysSeo')->where('key',$this->key)->first(['title','keywords','description']);
-        if (empty($seoData)) {
             return;
         }
         $pattens = [];
@@ -133,9 +138,9 @@ class SEO{
 
         $pattens[] = '~\{.*?\}~is';
         $replacements[] = '';
-        $this->setTitle(preg_replace($pattens, $replacements , $seoData->title));
-        $this->setKeywords(preg_replace($pattens, $replacements , $seoData->keywords));
-        $this->setDescription(preg_replace($pattens, $replacements , $seoData->description));
+        $this->setTitle(preg_replace($pattens, $replacements , $this->title));
+        $this->setKeywords(preg_replace($pattens, $replacements , $this->keywords));
+        $this->setDescription(preg_replace($pattens, $replacements , $this->description));
         return;
     }
 }

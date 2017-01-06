@@ -5,20 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\AdminUser;
 
-
-class User extends Authenticatable{
+class User extends Authenticatable
+{
     use Notifiable;
-    /*
-    |--------------------------------------------------------------------------
-    | User Model
-    | @author xingyonghe
-    | @date 2016-11-17
-    |--------------------------------------------------------------------------
-    |
-    | 用户基础模型
-    |
-    */
 
     const STATUS = [
         'delete' => -1,//删除
@@ -54,7 +45,7 @@ class User extends Authenticatable{
         'username','nickname','qq','weixin','email','password','type','custom_id','custom_name', 'is_auth','status','reg_time','reg_ip'
     ];
     protected $guarded = [
-        'id', 'freeze', 'balance','login_time','login_ip'
+        'id', 'balance','login_time','login_ip'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -88,74 +79,16 @@ class User extends Authenticatable{
         return $list;
     }
 
-    /**
-     * 更新/新增数据
-     * @param $request
-     * @return bool
-     */
-    protected function updateData($request){
-        $this->fill($request->all());
-        if(empty($request->id)){
-            //新增
-            $this->password = bcrypt($request->password);
-            $this->is_auth = 0;//手机账户未认证
-            $this->status = 1;//后台添加的账户不用审核
-            $this->reg_time = date('Y-m-d H:i:s');
-            $this->reg_ip = $request->ip();
-            if($this->type ==1){
-                DB::beginTransaction();
-                if($this->save() && UserPersonal::create(array('user_id'=>$this->id))){
-                    $resualt = true;
-                    DB::commit();//如果处理成功,通过 commit 的方法提交事务
-                }else{
-                    $resualt = false;
-                    DB::rollback();//如果处理失败,通过 rollback 的方法回滚事务
-                }
-            }else{
-                DB::beginTransaction();
-                if($this->save() && UserAdvertiser::create(array('user_id'=>$this->id,'company'=>$request->company))){
-                    $resualt = true;
-                    DB::commit();//如果处理成功,通过 commit 的方法提交事务
-                }else{
-                    $resualt = false;
-                    DB::rollback();//如果处理失败,通过 rollback 的方法回滚事务
-                }
-            }
-
-
-        }else{
-            //编辑
-            $info = $this->findOrFail($request->id);
-            if($info->type ==1){
-                $resualt = $info->update(Input::get());
-            }else{
-                $_info = UserAdvertiser::where(array(['user_id',$request->id]))->first();
-                $_info->company = $request->company;
-                DB::beginTransaction();
-                if($info->update(Input::get()) && $_info->save()){
-                    $resualt = true;
-                    DB::commit();//如果处理成功,通过 commit 的方法提交事务
-                }else{
-                    $resualt = false;
-                    DB::rollback();//如果处理失败,通过 rollback 的方法回滚事务
-                }
-            }
-        }
-        if($resualt === false){
-            return false;
-        }
-        return $request;
-    }
 
     protected function register($request){
         $data = $request->except('_token');
         //随机分配客服信息
-        $admin = D('SysAdmin')->where(array(['id','>',1],['status','=',1]))->inRandomOrder()->first();
+        $admin = AdminUser::where(array(['id','>',1],['status','=',1]))->inRandomOrder()->first();
         $data['custom_id']   = $admin['id'];
         $data['custom_name'] = $admin['nickname'];
         $data['password']    = bcrypt($data['password']);
         $data['is_auth']     = self::AUTHEN['pass'];
-        if(C('WEB_REGISTER_VERIFY')){
+        if(configs('WEB_REGISTER_VERIFY')){
             $data['status']  = self::STATUS['verify'];
         }else{
             $data['status']  = self::STATUS['normal'];

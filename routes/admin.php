@@ -70,5 +70,14 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get ('adform/sort',          'AdformController@sort')->name('admin.adform.sort');//排序
         Route::post('adform/order',         'AdformController@order')->name('admin.adform.order');//更新排序
 
+        /*-*-*-*-*-*-*-*-*-*-*用户*-*-*-*-*-*-*-*-*-*-*/
+        Route::get ('bank/index',       'BankController@index')->name('admin.bank.index');//列表
+        Route::get ('bank/create',      'BankController@create')->name('admin.bank.create');//新增
+        Route::get ('bank/edit/{id}',   'BankController@edit')->name('admin.bank.edit')->where('id','\d+');//修改
+        Route::post('bank/update',      'BankController@update')->name('admin.bank.update');       //更新
+        Route::get ('bank/destroy/{id}','BankController@destroy')->name('admin.bank.destroy')->where('id','\d+');//删除
+        Route::get ('bank/sort',        'BankController@sort')->name('admin.bank.sort');//排序
+        Route::post('bank/order',       'BankController@order')->name('admin.bank.order');//更新排序
+
     });
 });

@@ -18,6 +18,7 @@ class IndexController extends Controller
 
     public function index()
     {
+
         SEO::setTitle(configs('WEB_SITE_TITLE'));
         $category = Category::where('model','netred')->orderBy('sort','asc')
             ->orderBy('id','asc')

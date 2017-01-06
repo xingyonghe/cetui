@@ -22,10 +22,10 @@ Route::group(['namespace'=>'Netred'],function(){
         //首页
         Route::get('',               'IndexController@index')->name('netred.index.index');//网红中心首页
         //个人中心
-        Route::get('center/index',     'CenterController@index')->name('netred.center.index');//修改基本资料
-        Route::post('center/update',  'CenterController@update')->name('netred.center.update');//更新基本资料
-        Route::get('center/password', 'CenterController@password')->name('netred.center.password');//修改密码
-        Route::post('center/reset',   'CenterController@reset')->name('netred.center.reset');//更新密码
+        Route::get('center/index',      'CenterController@index')->name('netred.center.index');//修改基本资料
+        Route::post('center/update',    'CenterController@update')->name('netred.center.update');//更新基本资料
+        Route::get('center/password',   'CenterController@password')->name('netred.center.password');//修改密码
+        Route::post('center/reset',     'CenterController@reset')->name('netred.center.reset');//更新密码
 
         //订单管理
         Route::get('order/index',        'OrderController@index')->name('netred.order.index');//订单列表
@@ -52,8 +52,20 @@ Route::group(['namespace'=>'Netred'],function(){
         Route::get('account/pay/{order_id}','AccountController@pay')->name('netred.account.pay');//充值
         Route::get('account/return',        'AccountController@return')->name('netred.account.return');//充值同步地址
         Route::post('account/notify',       'AccountController@notify')->name('netred.account.notify');//充值异步地址
-        Route::get('account/cash',          'AccountController@cash')->name('netred.account.cash');//提现界面
-        Route::post('account/post',         'AccountController@post')->name('netred.account.post');//提现
+
+        Route::get('account/account',      'AccountController@account')->name('netred.account.account');//账户管理
+        Route::get('account/create',       'AccountController@create')->name('netred.account.create');//添加账户
+        Route::post('account/update',      'AccountController@update')->name('netred.account.update');//添加提现
+        Route::get('account/edit/{id}',    'AccountController@edit')->name('netred.account.edit');//修改账户
+        Route::get('account/destroy/{id}', 'AccountController@destroy')->name('netred.account.destroy');//删除账户
+
+        Route::get('account/cash',         'AccountController@cash')->name('netred.account.cash');//提现界面
+        Route::post('account/post',        'AccountController@post')->name('netred.account.post');//提现
+
+
+        //消息中心
+        Route::get('message/index',        'MessageController@index')->name('netred.message.index');//消息列表
+        Route::get('message/show/{id}',    'MessageController@show')->name('netred.message.show');//消息列表
     });
 });
 

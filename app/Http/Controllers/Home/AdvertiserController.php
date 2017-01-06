@@ -2,30 +2,24 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Http\Controllers\Controller;
 use SEO;
 
-class AdvertiserController extends CommonController{
-    /*
-    |--------------------------------------------------------------------------
-    | Advertiser Controller
-    | @author xingyonghe
-    | @date 2016-12-8
-    |--------------------------------------------------------------------------
-    |
-    | 广告主控制器
-    |
-    */
+
+class AdvertiserController extends Controller
+{
+
+
     protected $channel_id = 4;//设置导航选中标志
-    public function __construct(){
+    public function __construct()
+    {
         view()->share('channel_id',$this->channel_id);
     }
-    public function index(){
-        SEO::setRule('WEB_INDEX');
-        SEO::setVariables([
-            'sitename' => C('WEB_SITE_TITLE'),
-            'sitemedia' => '网红',
-            'siteads' => '广告主'
-        ]);
+
+
+    public function index()
+    {
+        SEO::setTitle(configs('WEB_SITE_TITLE'));
         return view('home.ads.index');
     }
 

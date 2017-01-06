@@ -59,7 +59,7 @@ class Controller extends BaseController
     {
         //错误字段集合，每个字段对应相应html元素ID
         $errorIds = $validator->messages()->keys();
-        return response()->json(['status'=>0,'info'=>$validator->messages()->first(),'id'=>$errorIds[0]]);
+        return response()->json(['status'=>-1,'info'=>$validator->messages()->first(),'id'=>$errorIds[0]]);
     }
 
 
