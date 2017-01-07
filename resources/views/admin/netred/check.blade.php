@@ -4,39 +4,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(function () {
-            highlight_subnav("{{ route('admin.netred.system') }}");
-            $('.ajax-import').click(function(){
-                layer.closeAll();
-                var target = $(this).attr('url');
-                $.get(target,function(data){
-                    if(data.status == -1){
-                        updateAlert(data.error);
-                    }else{
-                        layer.open({
-                            type    : 1,
-                            skin    : 'layer-ext-admin',
-                            closeBtn: 1,
-                            title   : data.title,
-                            area    : ['650px'],
-                            btn     : ['确定', '取消'],
-                            content : data.info,
-                            yes     : function(index){
-                                var form = $('.form-datas');
-                                var url = form.get(0).action;
-                                var query = form.serialize();
-                                $.post(url,query,function(datas){
-                                    if(datas.status == -1){
-                                        updateAlert(datas.info);
-                                    }else{
-                                        updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                },'json');
-                return false;
-            })
+            highlight_subnav("{{ route('admin.netred.check') }}");
         })
     </script>
 @endsection
@@ -47,20 +15,20 @@
         </header>
         <div class="panel-body">
             <div class="adv-table editable-table ">
-                <div class="clearfix">
-                    <div class="btn-group">
-                        <a href="javascript:void(0)" url="{{ route('admin.netred.create') }}" class="btn btn-primary ajax-update">
-                            新增 <i class="icon-plus"></i>
-                        </a>
-                    </div>
-                    <div class="btn-group">
-                        <a href="javascript:void(0)" url="{{ route('admin.netred.import') }}" class="btn btn-primary ajax-import">
-                            导入 <i class="icon-signin"></i>
-                        </a>
-                    </div>
-                </div>
+                {{--<div class="clearfix">--}}
+                    {{--<div class="btn-group">--}}
+                        {{--<a href="javascript:void(0)" url="{{ route('admin.netred.import') }}" class="btn btn-primary ajax-import">--}}
+                            {{--通过 <i class="icon-ok-sign"></i>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                    {{--<div class="btn-group">--}}
+                        {{--<a href="javascript:void(0)" url="{{ route('admin.netred.import') }}" class="btn btn-primary ajax-import">--}}
+                            {{--拒绝 <i class="icon-exclamation-sign"></i>--}}
+                        {{--</a>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="row">
-                    <form method="get" action="{{ route('admin.netred.system') }}" class="cmxform form-horizontal">
+                    <form method="get" action="{{ route('admin.netred.check') }}" class="cmxform form-horizontal">
                         <div class="col-lg-3 search_button">
                             <button class="btn btn-primary" type="submit"><i class="fa  icon-zoom-in"></i>搜索</button>
                         </div>
@@ -79,6 +47,7 @@
                         <th class="hidden-phone">艺名</th>
                         <th class="hidden-phone">平台</th>
                         <th class="hidden-phone">添加时间</th>
+                        <th class="hidden-phone">状态</th>
                         <th class="hidden-phone">操作</th>
                     </tr>
                     </thead>
@@ -91,9 +60,13 @@
                             <td>{{ $data->stage_name }}</td>
                             <td class="hidden-phone">{{ get_platform_filed($data['platform_id']) }}</td>
                             <td class="hidden-phone">{{ $data->created_at->format('Y-m-d') }}</td>
+                            <td class="hidden-phone">{!! $data->status_text !!}</td>
                             <td class="hidden-phone">
-                                <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.netred.edit',[$data->id]) }}"><i class="icon-pencil"></i> 修改</a>
-                                <a class="btn btn-danger btn-xs ajax-confirm destroy" href="{{ route('admin.netred.destroy',[$data->id]) }}"><i class="icon-trash "></i> 删除</a>
+                                @if($data->status == 2)
+                                    <a class="btn btn-primary btn-xs" href="{{ route('admin.netred.show',[$data->id]) }}">
+                                        <i class="icon-check-sign"></i> 审核
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

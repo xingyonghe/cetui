@@ -2,17 +2,8 @@
 
 namespace App\Models;
 
-class Region extends CommonModel{
-    /*
-    |--------------------------------------------------------------------------
-    | Region Model
-    | @author xingyonghe
-    | @date 2016-12-24
-    |--------------------------------------------------------------------------
-    |
-    | 内容模型
-    |
-    */
+class Region extends CommonModel
+{
 
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'region';

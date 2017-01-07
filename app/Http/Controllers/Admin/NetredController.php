@@ -4,11 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Messages;
 use App\Models\UserNetred;
+use App\Models\UserNetredAdform;
 
 class NetredController extends Controller
 {
     protected $model = 'netred';
+    public function __construct()
+    {
+        //资源风格
+        $style = configs('NETRED_STYLE');
+        //分类
+        $category = Category::where('model','netred')->orderBy('sort','asc')
+            ->orderBy('id','asc')->get(['id','name','pid'])
+            ->toArray();
+        $category = list_to_tree($category);
+        view()->composer(['admin.netred.show'],function($view) use($style,$category){
+            $view->with('styles',$style)->with('categorys',$category);
+        });
+    }
 
     /**
      * 会员网红
@@ -125,12 +140,12 @@ class NetredController extends Controller
     }
 
     /**
- * 等待审核
- * @author xingyonghe
- * @date 2017-1-4
- * @return
- */
-    public function verify()
+     * 等待审核
+     * @author xingyonghe
+     * @date 2017-1-4
+     * @return
+     */
+    public function check()
     {
         $stage_name = (string)request()->get('stage_name','');
         $lists = UserNetred::whereIn('status',[UserNetred::STATUS_VERIFY,UserNetred::STATUS_FEILED])
@@ -141,15 +156,92 @@ class NetredController extends Controller
             })
             ->orderBy('status', 'asc')
             ->orderBy('created_at', 'desc')
-            ->paginate(C('SYSTEM_LIST_LIMIT') ?? 10);
+            ->paginate(configs('ADMIN_PAGE_LIMIT') ?? 10);
         $this->intToString($lists,[
             'status'=> UserNetred::STATUS_TEXT,
         ]);
         $params = array(
             'stage_name' => $stage_name,
         );
-        return view('admin.netred.verify',compact('lists','params'));
+        return view('admin.netred.check',compact('lists','params'));
     }
+
+    /**
+     * 网红详情
+     * @author xingyonghe
+     * @date 2016-1-7
+     * @param int $id
+     * @return
+     */
+    public function show(int $id){
+        $info = UserNetred::findOrFail($id);
+        $adforms = UserNetredAdform::where('category',$info['type'])->orderBy('sort','asc')->pluck('name','id');
+        return view('admin.netred.show',compact('info','adforms'));
+    }
+
+    /**
+     * 审核通过
+     * @author xingyonghe
+     * @date 2016-1-7
+     * @param int $id
+     * @return
+     */
+    public function verify(){
+        $data = request()->only('ids');
+        $resault = UserNetred::whereIn('id',(array)$data['ids'])
+            ->where('status',UserNetred::STATUS_VERIFY)
+            ->update(['status'=>UserNetred::STATUS_NORMAL]);
+        if($resault){
+            return $this->ajaxReturn('审核成功',0,route('admin.netred.check'));
+        }else{
+            return $this->ajaxReturn('操作失败，请稍后再试');
+        }
+    }
+
+    /**
+     * 审核拒绝
+     * @author xingyonghe
+     * @date 2016-1-7
+     * @param int $id
+     * @return
+     */
+    public function refuse(){
+        $data = request()->all();
+        if(!is_array($data['ids'])){
+            $info = UserNetred::where('status',UserNetred::STATUS_VERIFY)->findOrFail($data['ids']);
+            if(!empty($data['reason']) || isset($data['reasons'])){
+                $resault = \DB::transaction(function () use($info,$data){
+                    $res1 = $info->update(['status'=>UserNetred::STATUS_FEILED]);
+                    $content = '抱歉，你新增的网红信息："'.$info['stage_name'].'"审核未通过,具体原因：<br>';
+                    if(!empty($data['reason'])){
+                        $content .= '* '.$data['reason'].'<br/>';
+                    }
+                    if(isset($data['reasons'])){
+                        foreach($data['reasons'] as $val){
+                            $content .= '* '.$val.'<br/>';
+                        }
+                    }
+                    $res2 = Messages::sendMessages('网红资源审核提示',$content,$info['userid']);
+                    if($res1 && $res2){
+                        return true;
+                    }
+                    return false;
+                });
+            }else{
+                $res1 = $info->update(['status'=>UserNetred::STATUS_FEILED]);
+            }
+        }else{
+            $resault = UserNetred::whereIn('id',(array)$data['ids'])
+                ->where('status',UserNetred::STATUS_VERIFY)
+                ->update(['status'=>UserNetred::STATUS_FEILED]);
+        }
+        if($resault){
+            return $this->ajaxReturn('拒绝操作成功',0,route('admin.netred.check'));
+        }else{
+            return $this->ajaxReturn('操作失败，请稍后再试');
+        }
+    }
+
 
     /**
      * 回收站
@@ -221,7 +313,7 @@ class NetredController extends Controller
             UserNetred::create([
                 'status'      => UserNetred::STATUS_NORMAL,
                 'catids'      => $category,
-                'platform'    => $record[1],
+                'platform_id' => $record[1],
                 'stage_name'  => $record[0],
                 'fans'        => $record[2],
                 'average_num' => $record[3],

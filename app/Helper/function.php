@@ -233,9 +233,21 @@ function create_order_sn(){
 }
 
 /**
+ * 生成随机码
+ * @author xingyonghe
+ * @date 2016-11-23
+ * @return string
+ */
+function create_name(){
+    $name = 'MSG'. strtoupper(dechex(date('m'))).substr(time(),-5).substr(microtime(),2,3).sprintf('%d',rand(0,2));
+    return $name;
+}
+
+
+/**
  * 获取广告平台字段信息
  * @author xingyonghe
- * @date 2015-12-25
+ * @date 2017-1-7
  * @param $id 广告平台ID
  * @param string $field 广告平台字段名称
  * @return string 广告平台字段名称对应的平台ID的值
@@ -255,7 +267,7 @@ function  get_platform_filed($id,$field ='name')
 /**
  * 获取广告平台形式信息
  * @author xingyonghe
- * @date 2015-12-25
+ * @date 2017-1-7
  * @param $id 广告平台ID
  * @param string $field 广告形式字段名称
  * @return string 广告形式字段名称对应的形式ID的值
@@ -266,6 +278,25 @@ function  get_adform_filed($id,$field ='name')
         return '';
     }
     $info = \App\Models\UserNetredAdform::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
+
+/**
+ * 获取用户信息
+ * @author xingyonghe
+ * @date 2017-1-7
+ * @param $id
+ * @param string $field
+ * @return string
+ */
+function get_user($id,$field ='username'){
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\User::find($id);
     if(empty($info)){
         return '';
     }

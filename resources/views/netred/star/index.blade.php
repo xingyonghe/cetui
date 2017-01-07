@@ -6,17 +6,6 @@
         $(function(){
 
         })
-
-        function displaySubMenu(li) {
-
-            var subMenu = li.getElementsByTagName("div")[0];
-            subMenu.style.display = "block";
-        }
-        function hideSubMenu(li) {
-
-            var subMenu = li.getElementsByTagName("div")[0];
-            subMenu.style.display = "none";
-        }
     </script>
 @endsection
 @section('body')
@@ -49,11 +38,11 @@
             </div>
             <div class="fr">
                 <ul>
-                    <li class="tianjia"  onmouseover="displaySubMenu(this)" onmouseout="hideSubMenu(this)"><a href="#" class="adj">添加账号</a>
-                        <div class="xwgkdh" >
-                            <div><a href="{{ route('netred.star.video') }}">添加短视频媒体账户</a></div>
-                            <div><a href="{{ route('netred.star.live') }}">添加直播媒体账户</a></div>
-                        </div>
+                    <li class="tianjia">
+                        <a href="{{ route('netred.star.video') }}" class="adj">添加短视频</a>
+                    </li>
+                    <li class="tianjia">
+                        <a href="{{ route('netred.star.live') }}" class="adj">添加直播</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +58,8 @@
                         <td width="130">类型</td>
                         <td width="110">入驻平台</td>
                         <td width="110">粉丝数</td>
-                        <td width="300">价格有效期</td>
+                        <td width="150">参考报价</td>
+                        <td width="150">价格有效期</td>
                         <td width="120">添加时间</td>
                         <td class="no" width="110">状态</td>
                         <td colspan="3"  width="130">操作</td>
@@ -83,14 +73,13 @@
                             <tr>
                                 <td width="130">{{ $item['stage_name'] }}</td>
                                 <td width="130">@if($item['type'] == 1)直播@else短视频@endif</td>
-                                <td width="110">{{ get_platform_filed($item['platform']) }}</td>
+                                <td width="110">{{ get_platform_filed($item['platform_id']) }}</td>
                                 <td width="110">{{ $item['fans'] }}</td>
-                                <td class="no" width="300">
-                                    @if($item['form_price'])
-                                        @foreach($item['form_price'] as $form=>$price_term)
-                                            <p>{{ get_adform_filed($form) }}：{{ $price_term['price'] }}元(有效期：{{ $price_term['term'] }})</p>
-                                        @endforeach
-                                    @endif
+                                <td class="no" width="150">
+                                    {{ $item['money'] }}元
+                                </td>
+                                <td class="no" width="150">
+                                    {{ $item['term_time']->format('Y-m-d') }}
                                 </td>
                                 <td class="no" width="120">{{ $item['created_at']->format('Y-m-d') }}</td>
                                 <td class="no" width="110">{!! $item['status_text'] !!}</td>

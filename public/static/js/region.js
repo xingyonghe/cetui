@@ -5,9 +5,9 @@ $(function(){
         '{"id":3185,"code":"441502","name":"\u57ce\u533a","parent_id":246,"first_letter":"C","level":2}]');
 
     window.select_region = function(province_id,city_id,district_id){
-        var province = '<option value="">-请选择-</option>';
-        var city = '<option value="">-请选择-</option>';
-        var district = '<option value="">-请选择-</option>';
+        var province = '<option value="0">-请选择-</option>';
+        var city = '<option value="0">-请选择-</option>';
+        var district = '<option value="0">-请选择-</option>';
         for (var  k in region) {
             if(region[k].level == 0){
                 //默认选中省
@@ -44,9 +44,9 @@ $(function(){
     }
 
     window.show_region = function(){
-        var province = '<option value="">-请选择-</option>';
-        var city = '<option value="">-请选择-</option>';
-        var district = '<option value="">-请选择-</option>';
+        var province = '<option value="0">-请选择-</option>';
+        var city = '<option value="0">-请选择-</option>';
+        var district = '<option value="0">-请选择-</option>';
         for (var  k in region) {
             if(region[k].level == 0){
                 province += '<option value="'+region[k].id+'">'+region[k].name+'</option>';
@@ -58,10 +58,10 @@ $(function(){
     }
 
     $('#regoin').on('change','.province',function(){
-        var city = '<option value="">-请选择-</option>';
-        var district = '<option value="">-请选择-</option>';
+        var city = '<option value="0">-请选择-</option>';
+        var district = '<option value="0">-请选择-</option>';
         var value = $(this).val();
-        if(value){
+        if(value > 0){
             for (var  k in region) {
                 if(region[k].parent_id == value){
                     city += '<option value="'+region[k].id+'">'+region[k].name+'</option>';
@@ -73,9 +73,9 @@ $(function(){
     });
 
     $('#regoin').on('change','.city',function(){
-        var district = '<option value="">-请选择-</option>';
+        var district = '<option value="0">-请选择-</option>';
         var value = $(this).val();
-        if(value){
+        if(value  > 0){
             for (var  k in region) {
                 if(region[k].parent_id == value){
                     district += '<option value="'+region[k].id+'">'+region[k].name+'</option>';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Netred;
 
 use App\Http\Controllers\Controller;
 use SEO;
+use App\Models\Messages;
 
 class IndexController extends Controller{
     /*
@@ -28,8 +29,11 @@ class IndexController extends Controller{
      * @return mixed
      */
     public function index(){
+        $messages = Messages::where('userid',auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->take(9)->get();
         SEO::setTitle('首页-网红中心'.configs('WEB_SITE_TITLE'));
-        return view('netred.index.index');
+        return view('netred.index.index',compact('messages'));
     }
 
 

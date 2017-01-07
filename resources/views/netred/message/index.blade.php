@@ -23,23 +23,26 @@
                 <tr class="biaotou">
                     <td>类型</td>
                     <td>信息标题</td>
+                    <td>状态</td>
                     <td>时间</td>
                 </tr>
-                <tr>
-                    <td  class="biaorongmo">公告</td>
-                    <td  class="biaorongmo"><a href="{{ route('netred.message.show',[1]) }}">服务器今晚更新维护，网站暂时无法访问</a></td>
-                    <td class="biaorongmo">2016.11.30</td>
-                </tr>
-                <tr>
-                    <td class="biaorong">站内信</td>
-                    <td class="biaorong"><a href="{{ route('netred.message.show',[1]) }}">您的投标已经被采纳，请查看订单</a></td>
-                    <td class="biaorong">2016.11.30</td>
-                </tr>
-                <tr>
-                    <td class="biaorong">公告</td>
-                    <td class="biaorong"><a href="{{ route('netred.message.show',[1]) }}">服务器今晚更新</a></td>
-                    <td class="biaorong">2016.11.30</td>
-                </tr>
+                @if($lists->total())
+                    @foreach($lists as $key=>$item)
+                        <tr>
+                            <td  class="biaorongmo">@if($item['category'] == 1)系统消息@else系统公告@endif</td>
+                            <td  class="biaorongmo"><a href="{{ route('netred.message.show',[$item['id']]) }}">{{ $item['title'] }}</a></td>
+                            <td  class="biaorongmo">@if($item['status'] == -1)已删除
+                                @elseif($item['status'] == 1)未读
+                                @elseif($item['status'] == 2)已读
+                                @endif</td>
+                            <td class="biaorongmo">{{ $item['created_at']->format('Y-m-d') }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td  class="biaorongmo" colspan="3">暂无消息</td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
         </div>

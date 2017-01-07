@@ -15,8 +15,6 @@
     <script type="text/javascript" src="{{ asset('member/js/jquery-1.8.3.min.js') }}"></script>
     <!-- 自定义验证规则 -->
     <script type="text/javascript" src="{{ asset('static/js/validator.js') }}"></script>
-    <!-- 地区 -->
-    <script type="text/javascript" src="{{ asset('member/js/region.js') }}"></script>
     <!-- layer插件 -->
     <script type="text/javascript" src="{{ asset('static/layer/layer.js') }}"></script>
     <!-- 自定义js -->

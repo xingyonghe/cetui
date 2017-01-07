@@ -9,7 +9,8 @@ use App\Models\UserNetred;
 use App\Models\UserNetredAdform;
 use App\Models\UserNetredPlatform;
 
-class StarController extends Controller{
+class StarController extends Controller
+{
     protected $navkey = 'star';//菜单标识
     public function __construct()
     {
@@ -17,12 +18,15 @@ class StarController extends Controller{
         //资源风格
         $style = configs('NETRED_STYLE');
         //分类
-        $category = Category::where('model','star')->orderBy('sort','asc')->orderBy('id','asc')->get(['id','name','pid'])->toArray();
+        $category = Category::where('model','netred')->orderBy('sort','asc')
+            ->orderBy('id','asc')->get(['id','name','pid'])
+            ->toArray();
         $category = list_to_tree($category);
         view()->composer(['netred.star.live','netred.star.video'],function($view) use($style,$category){
                 $view->with('styles',$style)->with('categorys',$category);
         });
     }
+
 
     /**
      * 资源列表
@@ -139,33 +143,47 @@ class StarController extends Controller{
             'sex'       => 'required',
             'province'   => 'required',
             'city'    => 'required',
-            'platform'   => 'required',
-            'platform_id' => 'required',
+            'platform_id'   => 'required',
+            'form_id' => 'required',
             'fans' => 'required|integer',
-            'average_num' => 'required|integer',
-            'max_num' => 'required_if:type,1|integer',
+            'max_num' => 'sometimes|integer',
+            'average_num' => 'sometimes|integer',
             'style' => 'required',
             'catids' => 'required',
             'form' => 'required',
-            'money' => 'required',
+            'money' => 'required|money',
+            'term_time' => 'required',
         ];
         $msgs = [
             'avatar.required'     => '请上传头像',
-            'stage_name.required'   => '请填写用户名',
-            'sex.required'       => '请选择资源类别',
-            'province.required'   => '请选择直播平台',
-            'city.required'    => '请填写直播平台房间号',
-            'platform.required'   => '请填写直播平台ID',
-            'platform_id.required' => '请填写展现形式及报价',
+            'stage_name.required'   => '请填写艺名',
+            'sex.required'       => '请选择性别',
+            'province.required'   => '请选择省份',
+            'city.required'    => '请选择城市',
+            'platform_id.required'   => '请选择所属平台',
+            'form_id.required' => '请填写所属平台ID',
+            'fans.required' => '请填写粉丝量',
+            'fans.integer' => '粉丝量格式错误',
+            'max_num.integer' => '格式错误',
+            'average_num.integer' => '格式错误',
+            'style.required'   => '请选择风格',
+            'catids.required'   => '请选择类型',
+            'form.required'   => '请选择广告形式',
+            'money.required'   => '请填写参考报价',
+            'money.money'   => '格式错误',
+            'term_time.required'   => '请选择价格有效期',
         ];
         $validator = validator()->make($data,$rules,$msgs);
         if ($validator->fails()) {
             return $this->ajaxValidator($validator);
         }
-        $resualt = UserNetred::toUpdate($data);
+        if(empty($data['max_num'])){
+            $data['max_num'] = 0;
+        }
+        $resualt = UserNetred::updateData($data);
         if($resualt){
             if(!isset($resualt['id'])){
-                return response()->json(['info'=>'资源信息添加成功!','status'=>1,'list_url'=>route('netred.star.index'),'pub_url'=>route('netred.star.video')]);
+                return response()->json(['info'=>'资源信息添加成功!','status'=>1,'list_url'=>route('netred.star.index'),'pub_url'=>url()->previous()]);
             }else{
                 return $this->ajaxReturn('资源信息修改成功!',1,route('netred.star.index'));
             }

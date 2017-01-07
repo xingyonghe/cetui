@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,//提示助手
         Intervention\Image\ImageServiceProvider::class,//图片处理
+        //自定义扩展
+        App\Providers\ValidateExtendServiceProvider::class,//验证扩展
         //自定义面门
         App\Providers\SeoServiceProvider::class,
         App\Providers\SmsServiceProvider::class,

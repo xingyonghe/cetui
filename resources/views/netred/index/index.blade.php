@@ -43,15 +43,18 @@
                 <div class="message_tittle"><p>消息中心</p></div>
                 <div class="xiaoxi">
                     <ul>
-                        <li><a href="#">【公告】今晚服务器维护！<img src="/member/netred/images/weidu.png"/><span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】任务已经审核！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】费用已经支持完！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【公告】今晚服务器维护！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】任务已经审核！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】费用已经支持完！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【公告】今晚服务器维护！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】任务已经审核！<span>2016-12-28</span></a></li>
-                        <li><a href="#">【消息】费用已经支持完！<span>2016-12-28</span></a></li>
+                        @if($messages)
+                            @foreach($messages as $message)
+                                <li><a href="{{ route('netred.message.show',[$message['id']]) }}">【@if($message['category'] == 1)系统消息@endif @if($message['category'] == 2)系统公告@endif】
+                                        {{ $message['title'] }}
+                                        @if($message['status'] == 1)
+                                            <img src="/member/netred/images/weidu.png"/>
+                                        @endif
+                                        <span>{{ $message['created_at']->format('Y-m-d') }}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -51,6 +51,7 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::post('netred/verify',       'NetredController@verify')->name('admin.netred.verify');//审核通过
         Route::post('netred/refuse',       'NetredController@refuse')->name('admin.netred.refuse');//审核不通过
         Route::get('netred/edit/{id}',     'NetredController@edit')->name('admin.netred.edit');//编辑
+        Route::get('netred/show/{id}',     'NetredController@show')->name('admin.netred.show');//详情
         Route::post('netred/update',       'NetredController@update')->name('admin.netred.update');//更新
         Route::get('netred/destroy/{id}',  'NetredController@destroy')->name('admin.netred.destroy');//删除
         //平台管理
@@ -78,6 +79,15 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get ('bank/destroy/{id}','BankController@destroy')->name('admin.bank.destroy')->where('id','\d+');//删除
         Route::get ('bank/sort',        'BankController@sort')->name('admin.bank.sort');//排序
         Route::post('bank/order',       'BankController@order')->name('admin.bank.order');//更新排序
+
+        /*-*-*-*-*-*-*-*-*-*-*站内信*-*-*-*-*-*-*-*-*-*-*/
+        Route::get ('message/index',       'MessageController@index')->name('admin.message.index');//系统消息
+        Route::get ('message/add',         'MessageController@add')->name('admin.message.add');//新增
+        Route::post ('message/send',       'MessageController@send')->name('admin.message.send');//发送
+
+        Route::get ('message/notice',      'MessageController@notice')->name('admin.message.notice');//系统公告
+        Route::get ('message/create',      'MessageController@create')->name('admin.message.create');//新增
+        Route::post ('message/post',       'MessageController@post')->name('admin.message.post');//发送
 
     });
 });

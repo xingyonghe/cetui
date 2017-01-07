@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Netred;
 
 use App\Http\Controllers\Controller;
+use App\Models\Messages;
 use SEO;
 
 class MessageController  extends Controller
@@ -21,8 +22,11 @@ class MessageController  extends Controller
      */
     public function index()
     {
+        $lists = Messages::where('userid',auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(configs('SYSTEM_LIST_LIMIT') ?? 10);
         SEO::setTitle('消息中心-网红中心'.configs('WEB_SITE_TITLE'));
-        return view('netred.message.index');
+        return view('netred.message.index',compact('lists'));
     }
 
     /**
@@ -33,8 +37,12 @@ class MessageController  extends Controller
      */
     public function show(int $id)
     {
+        $info = Messages::where('userid',auth()->id())->findOrFail($id);
+        if($info['status'] == 1){
+            $info->update(['status'=>2]);
+        }
         SEO::setTitle('消息详情-网红中心'.configs('WEB_SITE_TITLE'));
-        return view('netred.message.show');
+        return view('netred.message.show',compact('info'));
     }
 
 
