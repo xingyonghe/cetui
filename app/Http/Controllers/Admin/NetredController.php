@@ -35,6 +35,7 @@ class NetredController extends Controller
     {
         $stage_name = (string)request()->get('stage_name','');
         $lists = UserNetred::where('status',UserNetred::STATUS_NORMAL)
+            ->whereNotNull('userid')
             ->where(function ($query) use($stage_name) {
                 if($stage_name){
                     $query->where('stage_name','like','%'.$stage_name.'%');

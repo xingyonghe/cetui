@@ -9,7 +9,7 @@ class MessagesSys extends CommonModel
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'messages_sys';
     protected $fillable = [
-        'title', 'name', 'content','category','created_at','group'
+        'title', 'content','category','created_at','group'
     ];
     protected $dates = ['created_at'];
 
@@ -26,7 +26,6 @@ class MessagesSys extends CommonModel
             'title'    => $title,
             'content'  => $content,
             'group'    => $group,
-            'name'     => create_name(),
             'category' => $category,
             'created_at' => \Carbon\Carbon::now(),
         ]);

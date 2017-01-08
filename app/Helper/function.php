@@ -27,6 +27,16 @@ function radio($model='admin', $name, $list=[], $cheked=null, $options = [])
 
             }
             break;
+        case 'ads':
+            foreach ($list as $value => $display) {
+                if($cheked == $value){
+                    $html .= '<label><input type="radio" name="'.$name.'" value="'.$value.'" checked=checked '.$option.'>'.$display.'</label>';
+                }else{
+                    $html .= '<label><input type="radio" name="'.$name.'" value="'.$value.'" '.$option.'>'.$display.'</label>';
+                }
+
+            }
+            break;
     }
     return $html;
 }
