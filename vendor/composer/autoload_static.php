@@ -356,7 +356,7 @@ class ComposerStaticInit9c036f869f1761dc89b3e15dc2d0e1d3
         'App\\Models\\Region' => __DIR__ . '/../..' . '/app/Models/Region.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserAccount' => __DIR__ . '/../..' . '/app/Models/UserAccount.php',
-        'App\\Models\\UserAdsTask' => __DIR__ . '/../..' . '/app/Models/UserAdsTask.php',
+        'App\\Models\\UserAdsTask' => __DIR__ . '/../..',
         'App\\Models\\UserNetredAdform' => __DIR__ . '/../..' . '/app/Models/UserNetredAdform.php',
         'App\\Models\\UserNetredPlatform' => __DIR__ . '/../..' . '/app/Models/UserNetredPlatform.php',
         'App\\Models\\UserNetredStar' => __DIR__ . '/../..',

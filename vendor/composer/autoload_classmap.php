@@ -44,7 +44,7 @@ return array(
     'App\\Models\\Region' => $baseDir . '/app/Models/Region.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\UserAccount' => $baseDir . '/app/Models/UserAccount.php',
-    'App\\Models\\UserAdsTask' => $baseDir . '/app/Models/UserAdsTask.php',
+    'App\\Models\\UserAdsTask' => $baseDir . '/app/Models/UserTask.php',
     'App\\Models\\UserNetredAdform' => $baseDir . '/app/Models/UserNetredAdform.php',
     'App\\Models\\UserNetredPlatform' => $baseDir . '/app/Models/UserNetredPlatform.php',
     'App\\Models\\UserNetredStar' => $baseDir . '/app/Models/UserNetred.php',

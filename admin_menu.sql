@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 本地
-Source Server Version : 50547
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : cetui
 
 Target Server Type    : MYSQL
-Target Server Version : 50547
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-01-07 16:50:54
+Date: 2017-01-08 21:50:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ INSERT INTO `admin_menu` VALUES ('16', '广告形式', '10', 'admin/adform/index
 INSERT INTO `admin_menu` VALUES ('17', '系统网红', '10', 'admin/netred/system', 'admin.netred.system', '3', '', '0', '网红管理');
 INSERT INTO `admin_menu` VALUES ('18', '会员网红', '10', 'admin/netred/index', 'admin.netred.index', '4', '', '0', '网红管理');
 INSERT INTO `admin_menu` VALUES ('19', '网红审核', '10', 'admin/netred/check', 'admin.netred.check', '5', '', '0', '网红管理');
-INSERT INTO `admin_menu` VALUES ('20', '回收站', '10', 'admin/netred/recycle', 'admin.netred.recycle', '6', '', '0', '网红管理');
+INSERT INTO `admin_menu` VALUES ('20', '回收站', '10', 'admin/netred/recycle', 'admin.netred.recycle', '6', '', '1', '网红管理');
 INSERT INTO `admin_menu` VALUES ('21', '排序', '5', 'admin/menu/sort', 'admin.menu.sort', '0', '', '1', '系统设置');
 INSERT INTO `admin_menu` VALUES ('22', '更新排序', '5', 'admin/menu/order', 'admin.menu.order', '0', '', '1', '系统设置');
 INSERT INTO `admin_menu` VALUES ('23', '新增', '15', 'admin/platform/create', 'admin.platform.create', '0', '', '1', '模块设置');
@@ -258,23 +258,27 @@ CREATE TABLE `messages` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `userid` int(10) NOT NULL COMMENT '用户ID',
   `title` varchar(100) DEFAULT '' COMMENT '标题',
-  `name` varchar(50) DEFAULT '' COMMENT '群消息标识',
   `content` varchar(1000) DEFAULT '' COMMENT '内容',
   `status` tinyint(4) DEFAULT '1' COMMENT '状态:-1删除1未查看2已查看',
   `category` tinyint(4) DEFAULT '1' COMMENT '分类:1系统消息2系统公告',
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='站内信息';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='站内信息';
 
 -- ----------------------------
 -- Records of messages
 -- ----------------------------
-INSERT INTO `messages` VALUES ('1', '1', '网红资源审核提示', '', '抱歉，你新增的网红信息：撒旦发生法的审核未通过,具体原因：<br>* ASDFADSFDSFDFS<br/>* 理由1<br/>* 理由2<br/>* 理由3<br/>', '2', '1', '2017-01-07 15:19:54');
-INSERT INTO `messages` VALUES ('2', '1', '网红资源审核提示', '', '抱歉，你新增的网红信息：是的幅度萨芬审核未通过,具体原因：<br>* SADFDSAFDSAFDSFDSF<br/>* 理由3<br/>', '1', '1', '2017-01-07 15:19:54');
-INSERT INTO `messages` VALUES ('3', '1', '测试单个发送1', '', '测试单个发送1测试单个发送1测试单个发送1测试单个发送1', '1', '1', '2017-01-07 16:44:16');
-INSERT INTO `messages` VALUES ('4', '1', '测试单个发送2', '', '测试单个发送2测试单个发送2', '1', '1', '2017-01-07 16:45:13');
-INSERT INTO `messages` VALUES ('5', '2', '测试多个发送1', '', '测试多个发送1测试多个发送1测试多个发送1测试多个发送1', '1', '1', '2017-01-07 16:45:55');
-INSERT INTO `messages` VALUES ('6', '1', '测试多个发送1', '', '测试多个发送1测试多个发送1测试多个发送1测试多个发送1', '1', '1', '2017-01-07 16:45:55');
+INSERT INTO `messages` VALUES ('1', '1', '网红资源审核提示', '抱歉，你新增的网红信息：撒旦发生法的审核未通过,具体原因：<br>* ASDFADSFDSFDFS<br/>* 理由1<br/>* 理由2<br/>* 理由3<br/>', '2', '1', '2017-01-07 15:19:54');
+INSERT INTO `messages` VALUES ('2', '1', '网红资源审核提示', '抱歉，你新增的网红信息：是的幅度萨芬审核未通过,具体原因：<br>* SADFDSAFDSAFDSFDSF<br/>* 理由3<br/>', '1', '1', '2017-01-07 15:19:54');
+INSERT INTO `messages` VALUES ('3', '1', '测试单个发送1', '测试单个发送1测试单个发送1测试单个发送1测试单个发送1', '2', '1', '2017-01-07 16:44:16');
+INSERT INTO `messages` VALUES ('4', '1', '测试单个发送2', '测试单个发送2测试单个发送2', '2', '1', '2017-01-07 16:45:13');
+INSERT INTO `messages` VALUES ('5', '2', '测试多个发送1', '测试多个发送1测试多个发送1测试多个发送1测试多个发送1', '2', '1', '2017-01-07 16:45:55');
+INSERT INTO `messages` VALUES ('6', '1', '测试多个发送1', '测试多个发送1测试多个发送1测试多个发送1测试多个发送1', '2', '1', '2017-01-07 16:45:55');
+INSERT INTO `messages` VALUES ('10', '1', '测试群发1', '测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1', '1', '2', '2017-01-07 16:26:15');
+INSERT INTO `messages` VALUES ('11', '1', '测试22', '测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22', '2', '2', '2017-01-07 16:32:09');
+INSERT INTO `messages` VALUES ('12', '1', '测试3', '测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3', '2', '2', '2017-01-07 16:32:18');
+INSERT INTO `messages` VALUES ('13', '2', '测试群发1', '测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1', '2', '2', '2017-01-07 16:26:15');
+INSERT INTO `messages` VALUES ('14', '2', '测试3', '测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3', '2', '2', '2017-01-07 16:32:18');
 
 -- ----------------------------
 -- Table structure for messages_sys
@@ -284,7 +288,6 @@ CREATE TABLE `messages_sys` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT '' COMMENT '标题',
   `group` tinyint(1) DEFAULT '0' COMMENT '0全部1会员2广告主',
-  `name` varchar(50) DEFAULT '' COMMENT '群消息标识',
   `content` varchar(1000) DEFAULT '' COMMENT '内容',
   `category` tinyint(4) DEFAULT '1' COMMENT '分类:1系统消息2系统公告',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -294,9 +297,9 @@ CREATE TABLE `messages_sys` (
 -- ----------------------------
 -- Records of messages_sys
 -- ----------------------------
-INSERT INTO `messages_sys` VALUES ('1', '测试群发1', '0', 'MSG1775757111', '测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1', '2', '2017-01-07 16:26:15');
-INSERT INTO `messages_sys` VALUES ('2', '测试22', '1', 'MSG1779293770', '测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22', '2', '2017-01-07 16:32:09');
-INSERT INTO `messages_sys` VALUES ('3', '测试3', '2', 'MSG1779387830', '测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3', '2', '2017-01-07 16:32:18');
+INSERT INTO `messages_sys` VALUES ('1', '测试群发1', '0', '测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1测试群发1', '2', '2017-01-07 16:26:15');
+INSERT INTO `messages_sys` VALUES ('2', '测试22', '1', '测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22测试22', '2', '2017-01-07 16:32:09');
+INSERT INTO `messages_sys` VALUES ('3', '测试3', '2', '测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3测试3', '2', '2017-01-07 16:32:18');
 
 -- ----------------------------
 -- Table structure for picture
@@ -3555,8 +3558,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '13667635645', '$2y$10$D6JkE5X1i.ShnE5igAaNVOt//HKWHEke1f4ApUS8znYYP24MIDR/K', '2WitdgH0jSICzADOGI6isDVRShRZjotBl6dTUIQHtUfZ5jRPPuZQidYsUHPu', '邢永和', '1', '1', '1342234898', 'sdfddd', '0.00', '', '3', '永和测试', '1', 'asdfasd@qq.com', '2016-11-17 18:46:49', '127.0.0.1', '2017-01-07 08:51:41', '127.0.0.1');
-INSERT INTO `user` VALUES ('2', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', 'Bap70KsObpnZO2MsKHeAtQR33H3y3bT8sao2M2cM95OLNj5qZe9LVewoCKyg', '形影楓', '1', '2', '123123123', '', '0.00', '重庆问问我科技', '3', '永和测试', '1', '', '2016-11-17 19:15:14', '127.0.0.1', '2016-12-27 16:24:13', '127.0.0.1');
+INSERT INTO `user` VALUES ('1', '13667635645', '$2y$10$D6JkE5X1i.ShnE5igAaNVOt//HKWHEke1f4ApUS8znYYP24MIDR/K', '6Ez8hmYB9y4l2RKiwpxTOaQkGilIg6BQ6as7jWvNrL14FgBW2cITEvgMhPrL', '邢永和', '1', '1', '1342234898', 'sdfddd', '0.00', '', '3', '永和测试', '1', 'asdfasd@qq.com', '2016-11-17 18:46:49', '127.0.0.1', '2017-01-08 10:41:13', '127.0.0.1');
+INSERT INTO `user` VALUES ('2', '17723160667', '$2y$10$55bR8O6QHIFe6X70fM0nn.FeyC07/KGZmvBpt4LtWYZ0FelBBx48S', 'Bap70KsObpnZO2MsKHeAtQR33H3y3bT8sao2M2cM95OLNj5qZe9LVewoCKyg', '重庆卓航广告有限公司', '1', '2', '123123123', '阿斯顿发顺风顺丰', '0.00', '重庆问问我科技', '3', '永和测试', '1', '123123123@qq.com', '2016-11-17 19:15:14', '127.0.0.1', '2017-01-08 17:45:58', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_account
@@ -3814,3 +3817,31 @@ INSERT INTO `user_netred_platform` VALUES ('9', '微拍', '/uploads/picture/2016
 INSERT INTO `user_netred_platform` VALUES ('10', '爱拍', '/uploads/picture/2016-12-24/585e0495c5992.jpg', '2', '5', '2016-12-24 13:16:06', '2017-01-04 13:50:41');
 INSERT INTO `user_netred_platform` VALUES ('11', '小咖秀', '/uploads/picture/2016-12-24/585e04a4c0ce2.jpg', '2', '3', '2016-12-24 13:16:21', '2017-01-04 13:50:41');
 INSERT INTO `user_netred_platform` VALUES ('12', '小影', '/uploads/picture/2017-01-04/586c8ca13308e.jpg', '2', '12', '2016-12-24 13:16:38', '2017-01-04 13:51:15');
+
+-- ----------------------------
+-- Table structure for user_task
+-- ----------------------------
+DROP TABLE IF EXISTS `user_task`;
+CREATE TABLE `user_task` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态:-1删除、1待支付、2正常、3待审核、4未通过、5已过期、6已结束',
+  `userid` int(11) NOT NULL DEFAULT '0' COMMENT '广告主用户ID',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '活动名称',
+  `logo` varchar(255) DEFAULT '' COMMENT '推广logo',
+  `money` decimal(12,2) NOT NULL DEFAULT '0.00' COMMENT '推广预算',
+  `type` tinyint(2) DEFAULT '1' COMMENT '投放类型：1直播2短视频',
+  `num` tinyint(4) NOT NULL DEFAULT '0' COMMENT '需要资源的个数',
+  `start_time` timestamp NULL DEFAULT NULL COMMENT '投放开始时间',
+  `end_time` timestamp NULL DEFAULT NULL COMMENT '投放结束时间',
+  `dead_time` timestamp NULL DEFAULT NULL COMMENT '截至时间',
+  `shape` varchar(255) NOT NULL DEFAULT '' COMMENT '广告类型',
+  `demand` varchar(2000) NOT NULL DEFAULT '' COMMENT '网红需求',
+  `notes` varchar(2000) NOT NULL DEFAULT '' COMMENT '活动要求',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推广活动';
+
+-- ----------------------------
+-- Records of user_task
+-- ----------------------------

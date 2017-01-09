@@ -18,7 +18,7 @@ Route::group(['namespace'=>'Netred'],function(){
         Route::get('register',       'RegisterController@showForm')->name('netred.register.form'); //网红注册页面
         Route::post('register/post', 'RegisterController@register')->name('netred.register.post');//注册
     });
-    Route::group(['middleware'=> ['login_netred']],function(){
+    Route::group(['middleware'=> ['login_netred','messages']],function(){
         //首页
         Route::get('',               'IndexController@index')->name('netred.index.index');//网红中心首页
         //个人中心

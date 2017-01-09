@@ -10,7 +10,7 @@ class Messages extends CommonModel
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'messages';
     protected $fillable = [
-        'userid','title', 'name', 'content', 'status','category','created_at'
+        'userid','title', 'content', 'status','category','created_at'
     ];
     protected $dates = ['created_at'];
 

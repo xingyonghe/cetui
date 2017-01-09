@@ -14,10 +14,11 @@ Route::group(['namespace'=>'Ads'],function(){
     Route::group(['middleware'=> ['channel']],function(){
         Route::get('login',            'LoginController@showForm')->name('ads.login.form');//网红登录页面
         Route::post('login/post',      'LoginController@login')->name('ads.login.post');//登录
+        Route::get('logout',           'LoginController@logout')->name('ads.login.logout');//退出登录
         Route::get('register',         'RegisterController@showForm')->name('ads.register.form'); //网红注册页面
         Route::post('register/post',   'RegisterController@register')->name('ads.register.post');//注册
     });
-    Route::group(['middleware'=> ['login_ads']],function(){
+    Route::group(['middleware'=> ['login_ads','messages']],function(){
         //首页
         Route::get('',               'IndexController@index')->name('ads.index.index');//基本资料
         //个人中心
@@ -37,7 +38,7 @@ Route::group(['namespace'=>'Ads'],function(){
         Route::get ('task/destroy/{id}','TaskController@destroy')->name('ads.task.destroy')->where('id','\d+');//任务删除
 
         //订单管理
-        Route::get('order/index',        'NetredOrderController@index')->name('ads.order.index');//订单列表
+        Route::get('order/index',        'OrderController@index')->name('ads.order.index');//订单列表
 
 
         //派单大厅
@@ -69,12 +70,9 @@ Route::group(['namespace'=>'Ads'],function(){
         Route::get('account/cash',          'AccountController@cash')->name('ads.account.cash');//提现界面
         Route::post('account/post',         'AccountController@post')->name('ads.account.post');//提现
 
-        //图片上传
-        Route::post('upload', 'PictrueController@upload')->name('home.pictrue.upload');
-        //头像上传
-        Route::post('avatar', 'PictrueController@avatar')->name('home.pictrue.avatar');
-        //文件上传
-        Route::post('upload', 'FileController@upload')->name('home.file.upload');
+        //消息中心
+        Route::get('message/index',        'MessageController@index')->name('ads.message.index');//消息列表
+        Route::get('message/show/{id}',    'MessageController@show')->name('ads.message.show');//消息列表
     });
 });
 

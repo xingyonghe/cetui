@@ -63,21 +63,48 @@ return [
         'task' => [
             'name' => '推广管理',
             'url' => 'ads.task.index',
-            'child' => [],
+            'child' => [
+                [
+                    'name' => '我的推广',
+                    'url' => 'ads.task.index',
+                ],
+                [
+                    'name' => '发布推广',
+                    'url' => 'ads.task.create',
+                ]
+            ],
         ],
-        'star' => [
+        'order' => [
             'name' => '订单管理',
-            'url' => 'netred.star.index',
+            'url' => 'ads.order.index',
             'child' => [],
         ],
         'account' => [
             'name' => '财务中心',
-            'url' => 'netred.account.index',
+            'url' => 'ads.account.index',
             'child' => [],
         ],
         'center' => [
             'name' => '个人中心',
             'url' => 'ads.center.index',
+            'child' => [
+                [
+                    'name' => '基本资料',
+                    'url' => 'ads.center.index',
+                ],
+                [
+                    'name' => '修改密码',
+                    'url' => 'ads.center.password',
+                ],
+                [
+                'name' => '资料认证',
+                'url' => 'ads.netred.index',
+            ]
+            ],
+        ],
+        'message' => [
+            'name' => '消息中心',
+            'url' => 'ads.message.index',
             'child' => [],
         ],
     ],
