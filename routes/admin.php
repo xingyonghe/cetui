@@ -54,6 +54,7 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get('netred/show/{id}',     'NetredController@show')->name('admin.netred.show');//详情
         Route::post('netred/update',       'NetredController@update')->name('admin.netred.update');//更新
         Route::get('netred/destroy/{id}',  'NetredController@destroy')->name('admin.netred.destroy');//删除
+
         //平台管理
         Route::get ('platform/index',         'PlatformController@index')->name('admin.platform.index');//平台列表
         Route::get ('platform/create',        'PlatformController@create')->name('admin.platform.create');//新增平台
@@ -72,6 +73,7 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::post('adform/order',         'AdformController@order')->name('admin.adform.order');//更新排序
 
         /*-*-*-*-*-*-*-*-*-*-*用户*-*-*-*-*-*-*-*-*-*-*/
+        //用户
         Route::get ('bank/index',       'BankController@index')->name('admin.bank.index');//列表
         Route::get ('bank/create',      'BankController@create')->name('admin.bank.create');//新增
         Route::get ('bank/edit/{id}',   'BankController@edit')->name('admin.bank.edit')->where('id','\d+');//修改
@@ -80,7 +82,12 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get ('bank/sort',        'BankController@sort')->name('admin.bank.sort');//排序
         Route::post('bank/order',       'BankController@order')->name('admin.bank.order');//更新排序
 
-        /*-*-*-*-*-*-*-*-*-*-*站内信*-*-*-*-*-*-*-*-*-*-*/
+        //资料认证
+        Route::get('user/certified',          'UserController@certified')->name('admin.certified.index');//资料列表
+        Route::get('user/agreement/{id}',     'UserController@agreement')->name('admin.certified.agreement');//通过
+        Route::get('user/refuse/{id}',        'UserController@refuse')->name('admin.certified.refuse');//拒绝
+
+        //站内信
         Route::get ('message/index',       'MessageController@index')->name('admin.message.index');//系统消息
         Route::get ('message/add',         'MessageController@add')->name('admin.message.add');//新增
         Route::post ('message/send',       'MessageController@send')->name('admin.message.send');//发送
@@ -89,5 +96,29 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get ('message/create',      'MessageController@create')->name('admin.message.create');//新增
         Route::post ('message/post',       'MessageController@post')->name('admin.message.post');//发送
 
+        /*-*-*-*-*-*-*-*-*-*-*推广活动*-*-*-*-*-*-*-*-*-*-*/
+        //活动
+        Route::get('task/index',         'TaskController@index')->name('admin.task.index');//列表
+        Route::get('task/check',         'TaskController@check')->name('admin.task.check');//待审核
+        Route::get('task/recycle',       'TaskController@recycle')->name('admin.task.recycle');//已删除
+        Route::post('task/verify',       'TaskController@verify')->name('admin.task.verify');//审核通过
+        Route::post('task/refuse',       'TaskController@refuse')->name('admin.task.refuse');//审核不通过
+        Route::get('task/show/{id}',     'TaskController@show')->name('admin.task.show');//详情
+
+        /*-*-*-*-*-*-*-*-*-*-*订单*-*-*-*-*-*-*-*-*-*-*/
+        //订单管理
+        Route::get('order/index',           'OrderController@index')->name('admin.order.index');//预约订单
+        Route::get('order/task',            'OrderController@task')->name('admin.order.task');//活动订单
+        Route::get('order/show/{id}',       'OrderController@show')->name('admin.order.show');//订单详情
+        Route::get('order/agreement/{id}',  'OrderController@agreement')->name('admin.order.agreement');//通过订单
+        Route::get('order/failed/{id}',     'OrderController@failed')->name('admin.order.failed');//失败订单
+
+        //预约管理
+        Route::get('bespeak/index',         'BespeakController@index')->name('admin.bespeak.index');//预约网红
+        Route::get('bespeak/unlogin',       'BespeakController@unlogin')->name('admin.bespeak.unlogin');//意向预约
+        Route::get('bespeak/do/{id}',       'BespeakController@do')->name('admin.bespeak.do');//处理预约
+        Route::get('bespeak/order/{id}',    'BespeakController@order')->name('admin.bespeak.order');//形成订单
+        Route::post('bespeak/post',         'BespeakController@post')->name('admin.bespeak.post');//订单生成提交
+        Route::get('bespeak/faild/{id}',    'BespeakController@faild')->name('admin.bespeak.faild');//预约失败
     });
 });

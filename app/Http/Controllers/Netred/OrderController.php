@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Netred;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use SEO;
 
 class OrderController extends Controller
@@ -33,91 +34,49 @@ class OrderController extends Controller
      * @return
      */
     public function index(){
+        $lists = Order::where('sell_user_id',auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(configs('SYSTEM_LIST_LIMIT') ?? 10);
+        $this->intToString($lists,['status'=>Order::STATUS_TEXT]);
         SEO::setTitle('订单管理-网红中心-'.configs('WEB_SITE_TITLE'));
-        $lists = [];
         return view('netred.order.index',compact('lists'));
     }
 
     /**
-     * 网红修改
+     * 上传凭证
      * @return
      */
-    public function create(){
-        return view('user.star.edit');
-    }
-
-    /**
-     * 网红修改
-     * @return
-     */
-    public function edit(int $id){
-        //允许修改的状态条件
-        $info = D('Media')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
-            ->findOrFail($id);
-        return view('member.star.edit',compact('info'));
-    }
-
-    /**
-     * 网红列表更新
-     * @return
-     */
-    public function update(){
-        $data = request()->all();
-        if(empty($data['platform'])){
-            $data['platform'] = $data['platform_select'];
-        }
-        unset($data['platform_select']);
-        $rules = [
-            'avatar'     => 'required',
-            'username'   => 'required',
-            'type'       => 'required',
-            'platform'   => 'required',
-            'room_id'    => 'required',
-            'homepage'   => 'required',
-            'form_money' => 'required',
-        ];
-        $msgs = [
-            'avatar.required'     => '请上传头像',
-            'avatar.image'        => '头像格式不正确',
-            'username.required'   => '请填写用户名',
-            'type.required'       => '请选择资源类别',
-            'platform.required'   => '请选择直播平台',
-            'room_id.required'    => '请填写直播平台房间号',
-            'homepage.required'   => '请填写直播平台ID',
-            'form_money.required' => '请填写展现形式及报价',
-        ];
-        $validator = validator()->make($data,$rules,$msgs);
-        if ($validator->fails()) {
-            return $this->ajaxValidator($validator);
-        }
-        $resualt = D('Media')->updateData($data);
-        if($resualt){
-            return $this->ajaxReturn(isset($resualt['id'])?'网红信息修改成功!':'网红信息添加成功!',1,route('user.star.index'));
-        }else{
-            return $this->ajaxReturn(D('Media')->getError());
-        }
-    }
-
-    /**
-     * 删除信息
-     * @param int $id
-     * @return
-     */
-    public function destroy(int $id){
-        $info = D('Media')
-            ->where('userid',auth()->id())
-            ->whereIn('status',[D('Media')::STATUS_CREATE,D('Media')::STATUS_FAILED])
-            ->find($id);
+    public function upload(string $id){
+        $info = Order::where('order_sn',$id)
+            ->where('sell_user_id',auth()->id())
+            ->where('status',Order::STATUS_2)
+            ->first();
         if(empty($info)){
-            return $this->ajaxReturn('信息删除失败');
+            $this->ajaxReturn('非法操作');
         }
-        $resualt = $info->update(array('status'=>D('Media')::STATUS_DELETE));
-        if($resualt){
-            return $this->ajaxReturn('信息删除成功',1,url()->previous());
+        $view = view('netred.order.upload',compact('id'));
+        return $this->ajaxReturn($view->render(),0,'','上传凭证');
+    }
+
+    /**
+     * 凭证资料提交
+     * @author xingyonghe
+     * @date 2016-1-7
+     */
+    public function post(){
+        $data =request()->all();
+        $info = Order::where('order_sn',$data['order_sn'])
+            ->where('sell_user_id',auth()->id())
+            ->where('status',Order::STATUS_2)
+            ->first();
+        if(empty($info)){
+            return $this->ajaxReturn('非法操作');
+        }
+        $resault = $info->update(['images'=>$data['images'],'video_target'=>$data['video_target'],'status'=>Order::STATUS_3]);
+        if($resault){
+            return $this->ajaxReturn('上传凭证成功，请等待广告主确认...',0,route('netred.order.index'));
         }else{
-            return $this->ajaxReturn('信息删除失败');
+            return $this->ajaxReturn('操作失败');
         }
     }
 

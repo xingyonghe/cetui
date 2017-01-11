@@ -238,7 +238,7 @@ function configs($name)
  * @return string
  */
 function create_order_sn(){
-    $order_sn = 'ZH'. strtoupper(dechex(date('m'))).date('d').substr(time(),-5).substr(microtime(),2,5).sprintf('%d',rand(0,9));
+    $order_sn = 'CT'. strtoupper(dechex(date('m'))).date('d').substr(time(),-5).substr(microtime(),2,5).sprintf('%d',rand(0,9));
     return $order_sn;
 }
 
@@ -313,4 +313,23 @@ function get_user($id,$field ='username'){
     return $info[$field];
 }
 
+
+/**
+ * 获取网红信息
+ * @author xingyonghe
+ * @date 2017-1-7
+ * @param $id
+ * @param string $field
+ * @return string
+ */
+function get_netred($id,$field ='stage_name'){
+    if(empty($id)){
+        return '';
+    }
+    $info = \App\Models\UserNetred::find($id);
+    if(empty($info)){
+        return '';
+    }
+    return $info[$field];
+}
 

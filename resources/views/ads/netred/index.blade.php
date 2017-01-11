@@ -3,85 +3,147 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        function checkboxClick(that){
-            if( $(that).hasClass("checked_on") ){
-                $(that).removeClass("checked_on");
-            }else{
-                $(that).addClass("checked_on");
-            }
-        }
+        $(function(){
+            //筛选
+            $('.paddLR_20 span').click(function(){
+                var data_id = $(this).attr('data-id');
+                var _first = $(this).siblings('span:first');
+                var _parent = $(this).parent('.paddLR_20');
+                if(_parent.hasClass('multiselect')){
+                    if(data_id == 0){
+                        $(this).siblings('span').removeClass('on');
+                        _parent.find('input:gt(0)').each(function(){
+                            if($(this).is(':checked')){
+                                $(this).prop('checked',false);
+                            }
+                        })
+                        $(this).addClass('on').find('input').prop('checked',true);
+                    }else{
+                        if($(this).hasClass('on')){
+                            $(this).removeClass('on').find('input').prop('checked',false);
+                            //不等于0的都没选中，不限选中
+                            var _check = 0;
+                            $(this).siblings('span').each(function(){
+                                if($(this).hasClass('on')){
+                                    _check = 0;return false;
+                                }else{
+                                    _check = 1;
+                                }
+                            })
+                            if(_check){
+                                _first.addClass('on').find('input').prop('checked',true);
+                            }
+                        }else{
+                            if(_first.hasClass('on')){
+                                _first.removeClass('on').find('input').prop('checked',false);
+                            }
+                            $(this).addClass('on').find('input').prop('checked',true);
+                        }
+                    }
+                }else{
+                    if(data_id == 0){
+                        $(this).siblings('span').removeClass('on');
+                        _parent.find('input:gt(0)').each(function(){
+                            if($(this).is(':checked')){
+                                $(this).prop('checked',false);
+                            }
+                        })
+                        $(this).addClass('on').find('input').prop('checked',true);
+                    }else{
+                        if($(this).hasClass('on')){
+                            $(this).removeClass('on').find('input').prop('checked',false);
+                            if(!_first.hasClass('on')){
+                                _first.addClass('on').find('input').prop('checked',true);
+                            }
+                        }else{
+                            $(this).siblings('span').removeClass('on');
+                            $(this).addClass('on').find('input').prop('checked',true);
+                        }
+                    }
+                }
+                $('#video-form').submit();
+            });
+
+
+        })
     </script>
 @endsection
 @section('body')
     <div class="container">
         <div class="width_1140">
+            <div class="c_route">
+                当前位置：
+                <a href="{{ route('ads.index.index') }}"><span>首页</span></a> >
+                <a href="{{ route('ads.netred.video') }}"><span class="on">直播资源列表</span></a>
+            </div>
+
             <div class="c_box">
                 <div class="c_zylb_box1">
-                    <p class="c_zylb_p">
-                        <b>入驻平台：</b>
-                        <label class="on">不限</label>
-                        <label>快手</label>
-                        <label>秒拍</label>
-                        <label>微拍</label>
-                        <label>爱拍</label>
-                        <label>小咖秀</label>
-                        <label>小影</label>
-                        <label>其他</label>
-                    </p>
-
-                    <p class="c_zylb_p">
-                        <b>风格类型：</b>
-                        <label>不限</label>
-                        <span class="spanWidth_70">
-                            <span>明星/名人</span>
-                            <span>段子手</span>
-                            <span>娱乐搞笑</span>
-                            <span>时尚搭配</span>
-                            <span>美容美妆</span>
-                            <span>游戏/动漫</span>
-                            <span>影视/音乐</span>
-                            <span>体育/健身</span>
-                            <span>美食</span>
-                            <span>户外/旅行</span>
-                            <span>母婴/育儿</span>
-                            <span>汽车</span>
-                            <span>摄影</span>
-                            <span>金融/理财</span>
-                            <span>教育</span>
-                            <span>其他</span>
+                    <form id="video-form"  action="{{ route('ads.netred.index') }}" metho="get">
+                        <p class="c_zylb_p">
+                            <b>入驻平台：</b>
+                            <span class="paddLR_20 multiselect">
+                            @php($params['platform'] = explode(',',$params['platform']))
+                                @foreach($platforms as $key=>$platform)
+                                    <span data-id="{{ $key }}" @if(in_array($key,$params['platform'])) class="platform on" @else class="platform" @endif>
+                                    {{ $platform }}
+                                        <input type="checkbox" @if($key > 0) name="platform[]" @endif value="{{ $key }}" @if(in_array($key,$params['platform'])) checked="checked" @endif>
+                                </span>
+                                @endforeach
                         </span>
-                    </p>
+                        </p>
 
-                    <p class="c_zylb_p">
-                        <b>参考报价：</b>
-                        <label class="on">不限</label>
-                        <span class="spanWidth_90">
-                            <span class="on">5000以下</span>
-                            <span>5000元--1万元</span>
-                            <span>1万元--3万元</span>
-                            <span>3万元--5万元</span>
-                            <span>5万元--10万元</span>
-                            <span>10万元以上</span>
+                        <p class="c_zylb_p">
+                            <b>风格类型：</b>
+                            <span class="paddLR_20 multiselect">
+                            @php($params['style'] = explode(',',$params['style']))
+                                @foreach($styles as $key=>$style)
+                                    <span data-id="{{ $key }}" @if(in_array($key,$params['style'])) class="style on" @else class="style" @endif>
+                                    {{ $style }}
+                                        <input type="checkbox" @if($key > 0) name="style[]" @endif value="{{ $key }}" @if(in_array($key,$params['style'])) checked="checked" @endif>
+                                </span>
+                                @endforeach
                         </span>
-                    </p>
+                        </p>
 
-                    <p class="c_zylb_p">
-                        <b>粉丝量级：</b>
-                        <label class="on">不限</label>
-                        <span class="spanWidth_90">
-                            <span>5000以下</span>
-                            <span>5000--1万</span>
-                            <span>1万--3万</span>
-                            <span>3万--5万</span>
-                            <span>5万--10万</span>
-                            <span>10万以上</span>
+                        <p class="c_zylb_p">
+                            <b>参考报价：</b>
+                            <span class="paddLR_20">
+                            @foreach($moneys as $key=>$money)
+                                    <span data-id="{{ $key }}" @if($key == $params['money']) class="money on" @else class="money" @endif>
+                                    {{ $money }}
+                                        <input type="radio" @if($key > 0) name="money" @endif value="{{ $key }}" @if($key == $params['money']) checked="checked" @endif>
+                                </span>
+                                @endforeach
                         </span>
-                    </p>
+                        </p>
 
-                    <p class="c_zylb_p">
-                        <b>地&nbsp;&nbsp;域：</b>
-                        <label class="on">不限</label>
-                    </p>
+                        <p class="c_zylb_p">
+                            <b>粉丝量级：</b>
+                            <span class="paddLR_20">
+                             @foreach($fans as $key=>$fan)
+                                    <span data-id="{{ $key }}" @if($key == $params['fan']) class="fan on" @else class="fan" @endif>
+                                    {{ $fan }}
+                                        <input type="radio" @if($key > 0) name="fan" @endif value="{{ $key }}" @if($key == $params['fan']) checked="checked" @endif>
+                                </span>
+                                @endforeach
+                        </span>
+                        </p>
+
+                        <p class="c_zylb_p">
+                            <b>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域：</b>
+                            <span class="paddLR_20 multiselect">
+                            @php($params['region'] = explode(',',$params['region']))
+                                @foreach($regions as $key=>$region)
+                                    <span data-id="{{ $key }}" @if(in_array($key,$params['region'])) class="region on" @else class="region" @endif>
+                                    {{ $region }}
+                                        <input type="checkbox" @if($key > 0) name="region[]" @endif value="{{ $key }}" @if(in_array($key,$params['region'])) checked="checked" @endif>
+                                </span>
+                                @endforeach
+                        </span>
+
+                        </p>
+                    </form>
                 </div>
             </div>
             <p class="c_mark">共计{{ $lists->total() }}个资源</p>
@@ -105,7 +167,7 @@
                                 <tr>
                                     <td><i class="checkbox_style" onclick="checkboxClick(this);"></i></td>
                                     <td>
-                                        <small class="face"></small>
+                                        <small class="face"><img src="{{ $item['avatar'] }}" width="70" height="70"></small>
                                         <em>{{ $item['stage_name'] }}</em>
                                     </td>
                                     <td>
@@ -128,10 +190,10 @@
                                     <td>{{ $item['form_id'] }}</td>
                                     <td>{{ $item['fans'] }}</td>
                                     <td width="130">
-                                        <p><label class="ckbj">{{ $item['money'] }}万</label></p>
+                                        <p><label class="ckbj">{{ $item['money'] }}元</label></p>
                                     </td>
                                     <td>
-                                        <label class="gwc on">加入购物车</label>
+                                        <label class="gwc on"><a class="ajax-bespeak" href="javascript:void(0)" url="{{ route('ads.netred.bespeak',[$item['id']]) }}">立即预约</a></label>
                                     </td>
                                 </tr>
                             @endforeach
@@ -143,6 +205,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="pagging">
+                {!! $lists->appends($params)->render() !!}
             </div>
         </div>
     </div>

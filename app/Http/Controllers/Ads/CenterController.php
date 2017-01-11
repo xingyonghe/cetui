@@ -109,6 +109,84 @@ class CenterController extends Controller
         }
     }
 
+    /**
+     * 修改支付密码
+     * @author: xingyonghe
+     * @date: 2016-11-23
+     * @return mixed
+     */
+    public function payword()
+    {
+        SEO::setTitle('密码修改-会员中心-'.configs('WEB_SITE_TITLE'));
+        return view('ads.center.payword');
+    }
+
+    /**
+     * 更新支付密码
+     * @author: xingyonghe
+     * @date: 2016-12-25
+     * @return
+     */
+    public function post()
+    {
+        $data = request()->all();
+
+        if(empty(auth()->user()->payword)){
+            //设置支付密码
+            $rules = [
+                'payword'  => 'required|min:6|confirmed',
+            ];
+            $msgs = [
+                'payword.required' => '请输入支付密码',
+                'payword.min'      => '支付密码最少6位',
+                'payword.confirmed'=> '确认支付密码不一致',
+            ];
+            $validator = validator()->make($data,$rules,$msgs);
+            if ($validator->fails()) {
+                return $this->ajaxValidator($validator);
+            }
+            if((\Hash::check($data['payword'], auth()->user()->password)) === true){
+                return response()->json(['status'=>-1,'info'=>'支付密码不能和登陆密码一致','id'=>'payword']);
+            }
+            $reault = auth()->user()->update(['payword'=>bcrypt($data['payword'])]);
+            if($reault){
+                return $this->ajaxReturn('设置支付密码成功',0,route('ads.center.index'));
+            }else{
+                return $this->ajaxReturn('设置支付密码失败');
+            }
+        }
+        //修改支付密码
+        if($data['payword-old']){
+            if((\Hash::check($data['payword-old'], auth()->user()->payword)) === false){
+                return response()->json(['status'=>-1,'info'=>'旧支付密码输入错误','id'=>'payword-old']);
+            }
+        }
+        if($data['payword-old'] && ($data['payword-old'] == $data['payword'])){
+            return response()->json(['status'=>-1,'info'=>'新支付密码和旧支付密码一致','id'=>'payword']);
+        }
+        $rules = [
+            'payword-old' => 'required',
+            'payword'  => 'required|min:6|confirmed',
+        ];
+        $msgs = [
+            'payword-old.required' => '请输入旧支付',
+            'payword.required' => '请输入新支付密码',
+            'payword.min'      => '支付密码最少6位',
+            'payword.confirmed'=> '确认支付密码不一致',
+        ];
+        $validator = validator()->make($data,$rules,$msgs);
+        if ($validator->fails()) {
+            return $this->ajaxValidator($validator);
+        }
+        $reault = auth()->user()->update(['payword'=>bcrypt($data['payword'])]);
+        if($reault){
+            return $this->ajaxReturn('修改支付密码成功',0,route('ads.center.index'));
+        }else{
+            return $this->ajaxReturn('修改支付密码失败');
+        }
+    }
+
+
 
 
 

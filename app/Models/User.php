@@ -42,13 +42,13 @@ class User extends Authenticatable
     public $timestamps = false;//模型不需要更新/新增时间
     protected $table = 'user';
     protected $fillable = [
-        'username','nickname','qq','weixin','email','password','type','custom_id','custom_name', 'is_auth','status','reg_time','reg_ip'
+        'username','nickname','qq','weixin','email','password','payword','type','custom_id','total_money','custom_name', 'is_auth','status','reg_time','reg_ip'
     ];
     protected $guarded = [
         'id', 'balance','login_time','login_ip'
     ];
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','payword'
     ];
 
     /**

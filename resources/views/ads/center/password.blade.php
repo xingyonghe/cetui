@@ -22,27 +22,27 @@
                 <span class="on">修改密码</span>
             </div>
             <div class="c_center">
-                <form role="form" class="data-form" action="{{ route('ads.center.reset') }}" metho="post">
+                <form role="form" class="data-form" action="{{ route('ads.center.reset') }}" method="post">
                     {{ csrf_field() }}
                     <div class="jbxx">
                         <div class="c_center_line">
                             <div class="c_center_left">原始密码：</div>
                             <div class="c_center_right">
-                                <input type="text" class="width_396" id="password-old" name="password-old" placeholder="请输入旧密码"/>
+                                <input type="password" class="width_396" id="password-old" name="password-old" placeholder="请输入旧密码"/>
                             </div>
                         </div>
 
                         <div class="c_center_line">
                             <div class="c_center_left">新的密码：</div>
                             <div class="c_center_right">
-                                <input type="text" class="width_396" id="password"  name="password" placeholder="请输入新密码"/>
+                                <input type="password" class="width_396" id="password"  name="password" placeholder="请输入新密码"/>
                             </div>
                         </div>
 
                         <div class="c_center_line">
                             <div class="c_center_left">确认新密码：</div>
                             <div class="c_center_right">
-                                <input type="text" class="width_396" id="password-confirm"  type="password" name="password_confirmation" placeholder="确认新密码"/>
+                                <input type="password" class="width_396" id="password-confirm"  type="password" name="password_confirmation" placeholder="确认新密码"/>
                             </div>
                         </div>
 

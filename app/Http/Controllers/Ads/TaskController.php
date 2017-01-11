@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ads;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserAccountLog;
 use SEO;
 use App\Models\UserTask;
 use App\Models\UserPlatform;
@@ -53,14 +54,14 @@ class TaskController extends Controller
     /**
      * 修改派单
      * @author: xingyonghe
-     * @date: 2016-11-25
+     * @date: 2017-01-09
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return 
      */
     public function edit(int $id){
         //允许修改的状态条件
-        $info = UserAdsTask::where('userid',auth()->id())
-            ->whereIn('status',[UserAdsTask::STATUS_6,UserAdsTask::STATUS_3])
+        $info = UserTask::where('userid',auth()->id())
+            ->where('status',UserTask::STATUS_4)
             ->findOrFail($id);
         SEO::setTitle('修改推广活动-广告主中心-'.configs('WEB_SITE_TITLE'));
         return view('ads.task.edit',compact('info'));
@@ -69,7 +70,7 @@ class TaskController extends Controller
     /**
      * 活动更新
      * @author: xingyonghe
-     * @date: 2016-11-25
+     * @date: 2017-01-09
      * @return
      */
     public function update(){
@@ -78,17 +79,17 @@ class TaskController extends Controller
             'title'      => 'required|max:100',
             'money'      => 'required|money',
             'logo'       => 'required',
+            'num'        => 'required|positive_integer',
             'start_time' => 'required|date',
             'end_time'   => 'required|date|after:start_time',
             'dead_time'  => 'required|date|before:start_time',
-            'num'        => 'required|positive_integer',
             'shape'      => 'required',
             'type'       => 'required',
 
         ];
         $msgs = [
             'title.required'      => '请填写活动名称',
-            'title.max'           => '活动名称长度不能超过100个字',
+            'title.max'           => '活动名称长度不能超过60个字',
             'money.required'      => '请填写预算金额',
             'money.money'         => '预算金额格式不正确',
             'logo.required'       => '请上传推广logo',
@@ -111,31 +112,27 @@ class TaskController extends Controller
             return $this->ajaxValidator($validator);
         }
         $data['userid']     = auth()->id();
-        $data['status'] = UserAdsTask::STATUS_6;
-        $resualt = UserAdsTask::toUpdate($data);
-        if($resualt){
-            if(isset($resualt['id'])){
-                return $this->ajaxReturn('派单信息修改成功!',1,route('ads.task.index'));
-            }else{
-                return $this->ajaxReturn('推广活动发布成功,正在跳转支付界面...',1,route('ads.task.index'));
-            }
-        }else{
+        $data['status'] = UserTask::STATUS_3;
+        $resualt = UserTask::updateData($data);
+        if($resualt === false){
             return $this->ajaxReturn('操作失败，请稍后再试');
         }
+        return $this->ajaxReturn('推广活动发布提交成功，请耐心等待审核，您也可以主动联系专属客服跟进该活动',0,route('ads.task.index'));
+//        return $this->ajaxReturn('推广活动发布成功,正在跳转支付界面...',0,route('ads.task.pay',[$resualt['order_id']]));
     }
 
     /**
      * 删除派单
      * @author: xingyonghe
-     * @date: 2016-11-25
+     * @date: 2017-01-09
      * @param int $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return
      */
     public function destroy(int $id){
-        $info = UserAdsTask::where('userid',auth()->id())
-            ->whereIn('status',[UserAdsTask::STATUS_1,UserAdsTask::STATUS_3,UserAdsTask::STATUS_4])
+        $info = UserTask::where('userid',auth()->id())
+            ->where('status',UserTask::STATUS_4)
             ->findOrFail($id);
-        $resualt = $info->update(array('status'=>UserAdsTask::STATUS_D));
+        $resualt = $info->update(array('status'=>UserTask::STATUS_D));
         if($resualt){
             return $this->ajaxReturn('信息删除成功',1,url()->previous());
         }else{
@@ -143,8 +140,36 @@ class TaskController extends Controller
         }
     }
 
+    /**
+     * 活动支付界面
+     * @author xingyonghe
+     * @date 2016-1-7
+     * @return
+     */
+    public function pay(int $id){
 
-
+        $info = UserTask::where('userid',auth()->id())
+            ->where('status',UserTask::STATUS_1)
+            ->findOrFail($id);
+        $log = UserAccountLog::where('userid',auth()->id())->where('relation_id',$id)->first();
+        if(empty($log)){
+            $mark = '推广活动支付，支付金额：'.$info['money'];
+            $log = UserAccountLog::accountLog($info['money'],
+                UserAccountLog::TYPE_2,
+                request()->ip(),
+                UserAccountLog::STATUS_0,
+                $mark,
+                $relation_id = $info['id']);
+            if($log === false){
+                $log = [];
+            }
+        }
+        if(empty($log)){
+            echo '支付信息不存在';die;
+        }
+        SEO::setTitle('活动支付-广告主中心-'.configs('WEB_SITE_TITLE'));
+        return view('ads.task.pay',compact('log'));
+    }
 
 
 }

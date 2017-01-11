@@ -8,18 +8,19 @@ input,textarea,select,button:focus{ outline: none; }
 
 .header, .logoBox, .navBox{ min-width: 1140px; }
 .header{
-    background: #333;
+    background: #fff;
 }
 .header_box{
     overflow: hidden;
     height: 50px;
     line-height: 50px;
+    text-align: right;
 }
 .header_box span{
-    color: #fff;
+    color: #333;
 }
 .header_box a{ 
-    color: #fff;
+    color: #333;
     float: right;
     font-size: 12px;
 }
@@ -54,24 +55,24 @@ input,textarea,select,button:focus{ outline: none; }
 }
 .menuBox{
     height: 50px;
-    background: #3cded8;
+    background: #4a494c;
 }
 .menu { height: 50px; line-height: 50px; }
 .menu li { float: left; position: relative; }
-.menu li.on >a{ color: #fff; background: #ff6476; }
-.menu li a:hover { color: #fff; background: #ff6476; }
+.menu li.on >a{ color: #fff; background: #3cded8; }
+.menu li a:hover { color: #fff; background: #3cded8; }
 .menu li.focus { background:red; }
-.menu li > a { display: block; float: left; font-size: 16px; color: #fff; font-weight: bold; height: 50px; line-height: 50px; padding:0 38px; }
-.menu li ul { position: absolute; left: 0; background: #3cded8; display: none; z-index: 999; }
+.menu li > a { display: block; float: left; font-size: 16px; color: #fff; height: 50px; line-height: 50px; padding:0 38px; }
+.menu li ul { position: absolute; left: 0; background: #4a494c; display: none; z-index: 999; }
 .menu li ul a { color: #fff; width: 100px; font-size: 14px; height: 35px; line-height: 35px; }
 .one { top: 50px; }
-.one li a:hover { color: #fff; background: #ff6476; }
+.one li a:hover { color: #fff; background: #3cded8; }
 .menu li ul.two { left:150px; }
 
 .container{
     padding: 10px 0;
 } 
-.c_route, .c_route span{ font-size: 12px; }
+.c_route, .c_route span{ font-size: 13px; line-height: 30px}
 .c_route span{ 
     color: #333;
 }
@@ -113,18 +114,60 @@ input,textarea,select,button:focus{ outline: none; }
 .text-danger{ color: #ff6476; }
 
 
+/* 广告主后台首页 */
+.c_index_box{ overflow: hidden; }
+.index_left{ width: 730px; height: 286px; border: 1px solid #e7e7e7; float: left; }
+.index_title{ background: #f9f9f9; line-height: 45px; font-size: 16px; color: #666; font-weight: normal; padding: 0 15px; border-bottom: 1px solid #e7e7e7; }
+.index_part1{ overflow: hidden; border-bottom: 1px solid #e7e7e7; margin: 0 15px; }
+.index_part1 span{ width: 33%; padding: 35px 0; text-align: center; display: inline-block; float: left; }
+.index_part1 span p{ font-size: 16px; color: #333; margin-bottom: 20px; }
+.index_part1 span i{ font-size: 20px; color: #ff6476; }
+.index_right{ width: 390px; height: 286px; border: 1px solid #e7e7e7; float: right; }
+.index_part2{ margin: 28px 20px; overflow: hidden; }
+.part2_left{ line-height: 40px; display: inline-block; font-size: 14px; }
+.part2_left i{ color: #ff6476; font-size: 20px; }
+.part2_left i em{ color: #ff6476; }
+.part2_right{ float: right; }
+.part2_right a{padding: 10px 25px;line-height: 40px; width: 114px; height: 40px; color: #fff; cursor: pointer; font-size: 16px; margin: 0 10px 0 20px; background: #ff6476; }
+.index_right ul{ margin: 14px 15px; overflow: hidden; height: 216px; }
+.index_right ul li{ line-height: 20px; margin: 3px 0; }
+.index_right ul li a{ display: block; overflow: hidden; }
+.index_right ul li a:hover span{ color: #999; }
+.index_right ul li.on span{ color: #999; }
+.index_right ul li a small{ padding: 0 5px; background: #ff6476; display: inline-block; color: #fff; border-radius: 3px; }
+.index_right ul li a span.right{ float: right; }
+.index_title span{ color: #666; margin-left: 10px; }
+.c_index_box1{ border: 1px solid #e7e7e7; margin: 20px 0; }
+.index_box1{ overflow: hidden; }
+.index_box1 span{ width: 170px; display: inline-block; padding: 50px 64px 50px 50px; text-align: center; float: left; }
+.index_box1 span.spsan_bg{ background: url(../img/right_icon.png) no-repeat right center; background-size: 25px auto; }
+.index_box1 span h5{ margin-bottom: 15px; }
+.index_box1 span p{ line-height: 22px; }
+
+/* 分页样式 */
+.pagging{ text-align: center; margin: 30px 0; }
+.pagging .pagination{ display: inline-block; overflow: hidden; }
+.pagging .pagination li{ float: left; margin: 0 5px; }
+.pagging .pagination li a{ display: inline-block; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; }
+.pagging .pagination li span{ display: inline-block; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; }
+.pagging .pagination li a:hover{ background: #f9f9f9; }
+.pagging .pagination .active span{ background: #ff6476;color: #FFFFFF}
+
 /* 资源列表 */
 .c_zylb_box1{ padding: 30px; } 
 .c_zylb_box1 p+p{ margin: 20px 0 0 0; }
 .c_zylb_p{ overflow: hidden; }
-.c_zylb_p b{ letter-spacing: 2px; color: #666; display: inline-block; width: 75px; }
-.c_zylb_p label{ padding: 3px 15px; color: #fff; background: #ccc; display: inline-block; border-radius: 15px; }
-.c_zylb_p label.on{ background: #ff6476; }
-.c_zylb_p >span{ display: block; width: 85%; margin-top: -2px; float: right; line-height: 25px; }
-.c_zylb_p >span span{ color: #666; margin: 0 20px 0 0; cursor: pointer; display: inline-block; }
+.c_zylb_p b{ letter-spacing: 2px; float: left; color: #666; line-height: 25px; display: inline-block; width: 75px; margin-right: 8px; }
+.c_zylb_p >span{ display: block; width: 92%; float: left; line-height: 25px;}
+.c_zylb_p >span.width_85p{ width: 80%; height: 25px; overflow: hidden; }
+.c_zylb_p >span span{ color: #666; margin: 5px 20px 0 0; cursor: pointer; display: inline-block; }
+.c_zylb_p >span span.on{ color: #fff; background: #ff6476; display: inline-block; border-radius: 5px; }
+.c_zylb_p >span span:hover{ color: #fff; background: #ff6476; display: inline-block; border-radius: 5px; }
 .c_zylb_p >span.spanWidth_70 span{ width: 70px; }
 .c_zylb_p >span.spanWidth_80 span{ width: 80px; }
-.c_zylb_p >span.spanWidth_90 span{ width: 90px; }
+.c_zylb_p >span.spanMarRight_50 span{ margin-right: 50px; }
+.c_zylb_p >span.paddLR_20 span{ padding: 0 10px;}
+.c_zylb_p >span.paddLR_20 span input{ display: none;}
 .checkbox_style{ display: inline-block; width: 12px; height: 12px; background: url(../img/check_icon.png) no-repeat center center; background-size: 100% 100%; }
 .checked_on{ display: inline-block; width: 12px; height: 12px; background: url(../img/check_on.png) no-repeat center center; background-size: 100% 100%; }
 .c_zylb_box3 table{ width: 100%; }
@@ -134,7 +177,7 @@ input,textarea,select,button:focus{ outline: none; }
 .c_zylb_box3 table tr span{ position: absolute; display: inline-block; width: 20px; height: 5px; background: #fff; z-index: 999; }
 .c_zylb_box3 table tr+tr td{ border-top: 1px solid #e7e7e7; }
 .c_zylb_box3 table tr td small.face{ width: 70px; height: 70px; margin: 20px 0 5px 0; display: inline-block; border-radius: 50%; }
-.face{ background: url(../img/face.png) no-repeat center top; background-size: 100% auto; }
+.c_zylb_box3 table tr td small.face img{ width: 100%; height: 100%; border-radius: 50%; }
 .c_zylb_box3 table tr td em{ display: block; margin: 0 0 20px 0; }
 .c_zylb_box3 table tr td b{ font-weight: normal; color: #666; border: 1px solid #ff6476; padding: 3px 5px; border-radius: 3px; margin: 3px 0; display: inline-block; }
 .tdStyle{ padding: 0 10px; width: 130px; }
@@ -144,6 +187,7 @@ input,textarea,select,button:focus{ outline: none; }
 .c_zylb_box3 table tr td label.ckbj.on{ background: #ff6476; color: #fff; }
 .c_zylb_box3 table tr td label.gwc{ padding: 10px 20px; border-radius: 5px; font-size: 14px; display: inline-block; border: 1px solid #ff6476; color: #ff6476; }
 .c_zylb_box3 table tr td label.gwc.on{ background: #ff6476; color: #fff; font-weight: bold; }
+.lookMore{ line-height: 25px; color: #32c0ea; cursor: pointer; text-decoration: underline; }
 
 
 /* 推广管理 */
@@ -155,7 +199,7 @@ input,textarea,select,button:focus{ outline: none; }
 .c_tggl_right >input{ height: 50px; padding: 0 15px; color: #666; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; } 
 .uploadBox{ display: inline-block; float: left; }
 .c_tggl_right span.uploadImg{ text-align: center; vertical-align: middle; display: table-cell; width: 120px; height: 144px; border: 1px solid #ccc; background: #f7f7f7; }
-.uploadImg img{ width: 60%; }
+
 .file_btn{ position: relative; }
 .file_btn button{ border: 1px solid #ccc; color: #666; margin: 75px 0 0 20px; border-radius: 3px; width: 80px; line-height: 28px; text-align: center; background: #f6f6f6; }
 .file_btn input{ width: 84px; height: 28px; border: 1px solid red; position: absolute; top: -10px; left: 20px; 
@@ -180,16 +224,17 @@ input,textarea,select,button:focus{ outline: none; }
 
 
 /* 个人中心 */
-.c_center{ width: 570px; margin: 0 auto; }
+.c_center{ width: 605px; margin: 0 auto; }
 .c_center_line{ overflow: hidden; margin: 20px 0; }
-.c_center_left{ width: 136px; height: 50px; text-align: right; font-size: 14px; font-weight: bold; color: #666; display: inline-block; line-height: 50px; float: left; }
-.c_center_right{ float: right; display: inline-block; }
+.c_center_left{ width: 126px; height: 50px; padding-right: 10px; text-align: right; font-size: 14px; font-weight: bold; color: #666; display: inline-block; line-height: 50px; float: left; }
+.c_center_right{ float: left; display: inline-block; }
 .c_center_right span{ width: 160px; padding: 10px 0 22px 0; cursor: pointer; display: inline-block; margin: 0 25px 5px 25px; color: #666; font-weight: bold; font-size: 14px; text-align: center; }
 .c_center_right span.on{ background: url(../img/center_spanBg.png) no-repeat center bottom; color: #ff6476; }
 .c_center_right span:hover{ background: url(../img/center_spanBg.png) no-repeat center bottom; color: #ff6476; }
 .c_center_right input{ height: 50px; border: 1px solid #ccc; padding: 0 15px; font-size: 14px; color: #666; border-radius: 5px; }
 .c_center_right button{ height: 50px; width: 426px; margin: 30px 0 50px 0; background: #ff6476; border: 1px solid #ccc; font-size: 16px; color: #fff; cursor: pointer; font-weight: bold; border-radius: 5px; }
 .xgmm{ display: none; }
+.c_center_right small{ float: right; line-height: 50px; }
 
 
 /* 购物车 */
@@ -256,12 +301,12 @@ input,textarea,select,button:focus{ outline: none; }
 .width_80{ width: 80px; }
 .c_pay_box1{ border: 2px solid #999; padding: 0 20px; }
 .c_pay_row{ margin: 25px 0; overflow: hidden; background: url(../img/line.png) repeat-y center center; }
-.c_pay_left{ display: inline-block; float: left; }
+.c_pay_left{ display: inline-block; float: left;margin-bottom: 25px ;width: 548px}
 .c_pay_left button.ljcz{ width: 120px; height: 50px; cursor: pointer; background: #3cded8; font-size: 16px; color: #fff; }
 .c_pay_left span{ display: inline-block; position: relative; top: 6px; margin-right: 20px; }
 .c_pay_left span i{ font-size: 28px; color: #666; }
-.c_pay_right{ display: inline-block; float: right; }
-.c_pay_right button.qrzf{ width: 120px; height: 50px; cursor: pointer; background: #ff595f; font-size: 16px; color: #fff; }
+.c_pay_right{ display: inline-block; float: left;padding-left: 20px}
+.c_pay_left button.qrzf{ width: 120px; height: 50px; cursor: pointer; background: #ff595f; font-size: 16px; color: #fff; }
 .c_pay_right span{ display: inline-block; position: relative; top: 6px; margin-right: 20px; color: #ff595f; }
 .c_pay_right span i{ font-size: 28px; color: #ff595f; }
 
@@ -311,5 +356,23 @@ input,textarea,select,button:focus{ outline: none; }
 .marBottom_5{ margin-bottom: 5px; }
 
 
+
+/* xingyonghe扩展样式*/
+.dialog{}
+.dialog .c_tggl_left{
+    width: 100px;
+}
+.dialog .c_tggl_right {
+    float: none;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+}
+.dialog .c_tggl_right .span-checkbox{
+    padding: 2px 5px;
+    cursor: pointer;
+}
+.dialog .c_tggl_right .uploadImg{
+    width: 110px;height: 110px;float:left;border: 1px solid #cccccc;margin-right: 2.5px;
+}
 
 

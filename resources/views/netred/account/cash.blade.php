@@ -26,60 +26,65 @@
     </script>
 @endsection
 @section('body')
-    <div class="inner_c">
-        <div class="weizhi">当前位置：
-            <a href="{{ route('netred.index.index') }}">首页</a> >
-            <a href="{{ route('netred.account.index') }}">财务中心</a> >
-            <a><span>提现申请</span></a>
-        </div>
-        <div class="dingdan">
-            <div class="fl">
-                <div class="zhang"> 账户余额：<span class="hong">{{ auth()->user()->balance }}元</span></div>
+    <div class="container marTB_15">
+        <div class="width_1140">
+            <div class="c_route">
+                当前位置：
+                <a href="{{ route('netred.index.index') }}"><span>首页</span></a> >
+                <a href="{{ route('netred.account.index') }}"><span>账户中心</span></a> >
+                <a href="{{ route('netred.account.cash') }}"><span class="on">提现申请</span></a>
+
             </div>
-            <div class="fr">
-                <ul>
-                    <li class="tianjia">
-                        还没有提现账户？<a class="adj" href="{{ route('netred.account.create') }}">添加账户</a>
-                    </li>
-                </ul>
+            <div class="c_box">
+                <div class="c_box1">
+                    <span>账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
+                    <span style="margin-left: 50px">还没有提现账户？<a href="{{ route('netred.account.create') }}">添加账户</a></span>
+                </div>
             </div>
-            <div class="qingchu"></div>
-        </div>
-        <div class="biao2ti">
-            <form role="form" class="data-form" action="{{ route('netred.account.post') }}" method="post">
-                {{ csrf_field() }}
-                <table width="100%" border="0" cellspacing="10">
-                    <tbody>
-                    <tr>
-                        <td width="20%" align="right"><span class="hong">*</span>提现金额：</td>
-                        <td align="left">
-                            <input type="text" name="money" id="money" class="textkuangnr"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="hong">*</span>银行账户：</td>
-                        <td align="left">
-                            {!! select('bank_id',$my_bank,'',['class'=>'textkuangnr']) !!}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="hong">*</span>动态码：</td>
-                        <td align="left">
-                            <input type="text" name="code" id="code" class="textkuangnr"/>
-                            <input type="button" value="发送动态验证码" class="adj"/>
-                            认证手机号：{{ substr_replace(auth()->user()->username,'****',3,4) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td align="left">
-                            <input type="submit"  value="提现申请" class="suban ajax-post"/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
+            <div class="c_box">
+                <form role="form" class="data-form" action="{{ route('netred.account.post') }}" method="post">
+                    {{ csrf_field() }}
+                    @if(isset($info))
+                        <input  type="hidden" name="id" value="{{ $info->id }}"/>
+                    @endif
+                    <div class="c_tggl_box">
+
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">
+                                <span>*</span>提现金额：
+                            </div>
+                            <div class="c_tggl_right">
+                                <input type="text" name="money" id="money" class="width_424" placeholder="请填写您要提现的金额"/>
+                            </div>
+                        </div>
+
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">
+                                <span>*</span>银行账户：
+                            </div>
+                            <div class="c_tggl_right">
+                                {!! select('bank_id',$my_bank,'',['class'=>'width_276']) !!}
+                            </div>
+                        </div>
+
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">
+                                <span>*</span>支付密码：
+                            </div>
+                            <div class="c_tggl_right">
+                                <input type="password" name="password" id="password" placeholder="请输入支付密码"  class="width_424"/>
+                            </div>
+                        </div>
+
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left"></div>
+                            <div class="c_tggl_right">
+                                <button class="width_424 ajax-post">提现申请</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="qingchu"></div>
 @endsection

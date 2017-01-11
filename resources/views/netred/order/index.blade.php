@@ -1,85 +1,119 @@
 @extends('netred.layouts.base')
 @section('styles')
+    <link type="text/css" rel="stylesheet" href="{{  asset('static/raty/demo/css/application.css') }}">
+    <link href="{{ asset('static/datetimepicker/datetimepicker.css') }}" rel="stylesheet">
 @endsection
 @section('scripts')
+    <script src="{{ asset('static/raty/lib/jquery.raty.min.js') }}"></script>
+    <script src="{{ asset('static/datetimepicker/jquery.datetimepicker.full.js') }}"></script>
     <script type="text/javascript">
         $(function(){
+            $.datetimepicker.setLocale('ch');
+            $('#start_time').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
+            $('#end_time').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
+            $('#star').raty();
+            $('body').on('click','.ajax-score',function(){
+                var score = $(this).attr('data-score');
+                $('#star').raty({ score: score });
+                var star = $('.star').html();
+                layer.open({
+                    type    : 1,
+                    skin    : 'layer-ext-member',
+                    title   : '消息提醒',
+                    area    : ['600px'],
+                    closeBtn: 1,
+                    shade   : false,
+                    content : star,
+                });
 
+            })
         })
     </script>
 @endsection
 @section('body')
-    <div class="inner_c">
-        <div class="mingxi">
-            <div class="ziys">订单类型：全部订单</div>
-            <div class="queryding">
-                <table width="100%" border="0">
-                    <tbody>
-                    <tr>
-                        <td width="20%" align="right">订单ID：</td>
-                        <td width="30%"><input type="text" name="textfield" id="textfield" class="date" /></td>
-                        <td width="15%" align="right">时间：</td>
-                        <td width="30%"><input type="text" name="textfield2" id="textfield2" class="date"/></td>
-                        <td width="5%">一</td>
-                        <td width="19%"><input type="text" name="textfield3" id="textfield3"  class="date" /></td>
-                        <td width="19%"><input type="" name="button" id="button" class="search"/></td>
-                    </tr>
-                    </tbody>
-                </table>
-
+    <div class="container">
+        <div class="width_1140">
+            <div class="c_box bgColor_f9f9f9">
+                <div class="c_box2">
+                    <span>订单类型：预约订单</span>
+                    <div class="c_box2Right">
+                        时间：
+                        <input type="text" name="start_time" id="start_time"/>
+                        <span> - </span>
+                        <input type="text" name="start_time" id="end_time"/>
+                        <button class="search"></button>
+                    </div>
+                    <div class="c_box2Right marRight_20">
+                        订单ID：
+                        <input type="text" />
+                    </div>
+                </div>
             </div>
-            <div class="qingchu"></div>
+            <p class="c_mark">共计：{{ $lists->total() }} 个订单</p>
+            <div class="c_box">
+                <div class="c_box3">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead class="bgColor_f9f9f9">
+                        <th>订单ID</th>
+                        <th>广告主</th>
+                        <th>网红名称</th>
+                        <th>订单金额</th>
+                        <th>订单日期</th>
+                        <th>支付日期</th>
+                        <th>订单状态</th>
+                        <th>操作</th>
+                        </thead>
+                        <tbody>
+                        @if($lists->total())
+                            @foreach($lists as $key=>$item)
+                                <tr>
+                                    <td>
+                                        {{ $item['order_sn'] }}
+                                        <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                                    </td>
+                                    <td>{{ get_user($item['buy_user_id'],'nickname') }}</td>
+                                    <td>{{ get_netred($item['shop_id']) }}</td>
+                                    <td>{{ $item['money'] }}元</td>
+                                    <td>{{ $item['created_at']->format('Y-m-d') }}</td>
+                                    <td>@if($item['pay_at']) {{ $item['pay_at']->format('Y-m-d') }} @endif</td>
+                                    <td>{!! $item['status_text'] !!}</td>
+                                    <td>
+                                        <a href="">订单详情</a>
+                                        @if($item['status'] == 2)
+                                            |<a href="javascript:void(0)" class="ajax-upload" url="{{ route('netred.order.upload',[$item['order_sn']]) }}">上传凭证</a>
+                                        @endif
+                                        @if($item['status'] == 6)
+                                            |<a href="javascript:void(0)" class="ajax-score" data-score="{{ $item['score'] }}">查看评价</a>
+                                        @endif
+                                        <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="7">暂无预约订单信息</td>
+                            </tr>
+                        @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pagging">
+                {!! $lists->render() !!}
+            </div>
         </div>
-        <div class="jilu">共计：0个订单</div>
-        <div class="xijie">
-            <table width="100%" border="0" cellspacing="0">
-                <tbody>
-                <tr class="biaoti">
-                    <td>订单ID</td>
-                    <td>资源类型</td>
-                    <td>账号名称</td>
-                    <td>活动名称</td>
-                    <td>开始时间-结束时间</td>
-                    <td>价格</td>
-                    <td>订单状态</td>
-                    <td>提交审核</td>
-                </tr>
-                <tr>
-                    <td  class="xiangqingmo">001</td>
-                    <td  class="xiangqingmo">直播</td>
-                    <td class="xiangqingmo">admin</td>
-                    <td class="xiangqingmo">梦幻西游手游推广</td>
-                    <td class="xiangqingmo">2016.11.25-2016.12.30</td>
-                    <td class="xiangqingmo"><span class="no">10000</span></td>
-                    <td class="xiangqingmo">进行中</td>
-                    <td class="xiangqingmo"><a href="#">提交</a></td>
-                </tr>
-                <tr>
-                    <td class="xiangqing">001</td>
-                    <td class="xiangqing">短视频</td>
-                    <td class="xiangqing">admin</td>
-                    <td class="xiangqing">梦幻西游手游推广</td>
-                    <td class="xiangqing">2016.11.25-2016.12.30</td>
-                    <td class="xiangqing"><span class="no">10000</span></td>
-                    <td class="xiangqing">已完成</td>
-                    <td class="xiangqing"><span class="no"><a  href="#">提交</a></span></td>
-                </tr>
-                <tr>
-                    <td class="xiangqing">0015</td>
-                    <td class="xiangqing">直播</td>
-                    <td class="xiangqing">admin</td>
-                    <td class="xiangqing">梦幻西游手游推广</td>
-                    <td class="xiangqing">2016.11.25-2016.12.30</td>
-                    <td class="xiangqing"><span class="no">10000</span></td>
-                    <td class="xiangqing">已完成</td>
-                    <td class="xiangqing"><a href="#">提交</a></td>
-                </tr>
-                </tbody>
-            </table>
-
-
-        </div>
-        <div class="qingchu"></div>
-        <div id="showpage" class="cpage"> <a class="cur" href="#" >1</a><a href="#" >2</a><a href="#">3</a><span>…</span><a href="#">18</a><a href="#">&gt;</a> </div>
-        <div class="qingchu"></div></div>
+    </div>
+    <div style="text-align: left;padding-left:100px;display: none" class="star">
+        <div id="star" style="padding: 10px 20px"></div>
+    </div>
 @endsection

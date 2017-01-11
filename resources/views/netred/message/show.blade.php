@@ -4,28 +4,26 @@
 @section('scripts')
     <script type="text/javascript">
         $(function(){
-            $('.ajax-post').click(function(){
-                var that = $(this);
-                formAjaxPost($('.data-form'),that);
-                return false;
-            });
+
         })
     </script>
 @endsection
 @section('body')
-    <div class="inner_c">
-        <div class="weizhi">当前位置：<a href="{{ route('netred.index.index') }}">首页</a> >
-            <a href="{{ route('netred.message.index') }}">信息中心</a> >
-            <a>消息详情</a></div>
-        <div class="wen">
-            <div class="wen_content">
-                <h1>{{ $info['title'] }}</h1>
-                <h6>{{ $info['created_at']->format('Y-m-d') }}</h6>
-                <div class="duanl">
-                    {!! $info['content'] !!}
+    <div class="container marTB_15">
+        <div class="width_1140">
+            <div class="c_route">
+                当前位置：
+                <a href="{{ route('netred.index.index') }}"><span>首页</span></a> >
+                <a href="{{ route('netred.message.index') }}"><span>信息中心</span></a> >
+                <a href="{{ route('netred.message.show',[$info['id']]) }}"><span class="on">详情</span></a>
+            </div>
+            <div class="c_box">
+                <div class="c_message_box">
+                    <h3>{{ $info['title'] }}</h3>
+                    <span>{{ $info['created_at']->format('Y-m-d') }}</span>
+                    <p>{!! $info['content'] !!}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="qingchu"></div>
 @endsection

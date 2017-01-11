@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ads;
 
 use App\Http\Controllers\Controller;
+use App\Models\Messages;
 use SEO;
 
 class IndexController extends Controller
@@ -21,8 +22,11 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $messages = Messages::where('userid',auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->take(9)->get();
         SEO::setTitle('首页-广告主中心'.configs('WEB_SITE_TITLE'));
-        return view('ads.index.index');
+        return view('ads.index.index',compact('messages'));
     }
 
 

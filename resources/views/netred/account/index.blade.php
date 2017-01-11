@@ -1,84 +1,140 @@
 @extends('netred.layouts.base')
 @section('styles')
+    <link href="{{ asset('static/datetimepicker/datetimepicker.css') }}" rel="stylesheet">
 @endsection
 @section('scripts')
+    <script src="{{ asset('static/datetimepicker/jquery.datetimepicker.full.js') }}"></script>
     <script type="text/javascript">
         $(function(){
-
+            $.datetimepicker.setLocale('ch');
+            $('#start_time').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
+            $('#end_time').datetimepicker({
+                format:"Y-m-d",      //格式化日期
+                todayButton:false,    //关闭选择今天按钮
+                minDate:true,
+                timepicker:false,    //关闭时间选项
+            });
         })
     </script>
 @endsection
 @section('body')
-    <div class="baifen">
-        <div class="inner_nr">
-            <div class="account">
-                <div class="zhang"> 账户余额：<span class="hong">{{ auth()->user()->balance }}元</span></div>
-                <div class="withdrawal"><a href="{{ route('netred.account.cash') }}">立即提现</a></div>
-                <div class="add"><a href="{{ route('netred.account.create') }}">添加账户</a></div>
-                <div class="add"><a href="{{ route('netred.account.account') }}">账户管理</a></div>
-                <div class="qingchu"></div>
+    <div class="container marTB_15">
+        <div class="width_1140">
+            <div class="c_route">
+                当前位置：
+                <a href="{{ route('netred.index.index') }}"><span>首页</span></a> >
+                <a href="{{ route('netred.account.index') }}"><span class="on">财务中心</span></a>
             </div>
-            <div class="mingxi">
-                <div class="ziys">提现明细</div>
-                <div class="query">
-                    <table width="100%" border="0">
+            <div class="c_box">
+                <div class="c_box1">
+                    <span>账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
+                    <a href="{{ route('netred.account.cash') }}">立即提现</a>
+                    <a href="{{ route('netred.account.create') }}">添加账户</a>
+                </div>
+            </div>
+            <div class="c_box bgColor_f9f9f9">
+                <div class="c_box2">
+                    <span class="font_eryh">提现记录</span>
+                    <div class="c_box2Right">
+                        日期查询：
+                        <input type="text" name="start_time" id="start_time"/>
+                        <span> - </span>
+                        <input type="text" name="start_time" id="end_time"/>
+                        <button class="search"></button>
+                    </div>
+                </div>
+            </div>
+            <p class="c_mark">共计：2 条记录</p>
+            <div class="c_box">
+                <div class="c_box3">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead class="bgColor_f9f9f9">
+                        <th>流水号</th>
+                        <th>充值时间</th>
+                        <th>充值金额</th>
+                        <th>付款方式</th>
+                        <th>付款账户</th>
+                        <th>状态</th>
+                        </thead>
                         <tbody>
                         <tr>
-                            <td width="20%" align="right">日期查询：</td>
-                            <td width="30%"><input type="text" name="textfield" id="textfield" class="date" /></td>
-                            <td width="3%">一</td>
-                            <td width="30%"><input type="text" name="textfield2" id="textfield2" class="date"/></td>
-                            <td width="19%"><input type="" name="button" id="button" class="search"/></td>
+                            <td>
+                                11256
+                                <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                            <td>2016.12.13</td>
+                            <td>100</td>
+                            <td>支付宝</td>
+                            <td>5455222122</td>
+                            <td>
+                                已经到账
+                                <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                11256
+                                <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                            <td>2016.12.13</td>
+                            <td>100</td>
+                            <td>支付宝</td>
+                            <td>5455222122</td>
+                            <td>
+                                已经到账
+                                <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                11256
+                                <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                            <td>2016.12.13</td>
+                            <td>100</td>
+                            <td>支付宝</td>
+                            <td>5455222122</td>
+                            <td>
+                                已经到账
+                                <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                11256
+                                <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                            <td>2016.12.13</td>
+                            <td>100</td>
+                            <td>支付宝</td>
+                            <td>5455222122</td>
+                            <td>
+                                已经到账
+                                <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                11256
+                                <span class="left_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
+                            <td>2016.12.13</td>
+                            <td>100</td>
+                            <td>支付宝</td>
+                            <td>5455222122</td>
+                            <td>
+                                已经到账
+                                <span class="right_bgFFF"></span><!-- 只是控制样式，不能删除 -->
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="qingchu"></div>
-            </div>
-
-
-
-            <div class="jilu">
-                共计：2 条记录
-            </div>
-            <div class="xijie">
-                <table width="100%" border="0" cellspacing="0">
-                    <tbody>
-                    <tr class="biaoti">
-                        <td>流水号</td>
-                        <td>提现时间</td>
-                        <td>提现金额</td>
-                        <td>收款方式</td>
-                        <td>收款账户</td>
-                        <td>提现状态</td>
-                    </tr>
-                    <tr>
-                        <td  class="xiangqingmo">12561256</td>
-                        <td  class="xiangqingmo">2016.11.28</td>
-                        <td class="xiangqingmo">1000</td>
-                        <td class="xiangqingmo">支付宝</td>
-                        <td class="xiangqingmo">5452225255425842159</td>
-                        <td class="xiangqingmo"><span class="no">待支付</span></td>
-                    </tr>
-                    <tr>
-                        <td class="xiangqing">12561256001</td>
-                        <td class="xiangqing">2016.11.28</td>
-                        <td class="xiangqing">100000</td>
-                        <td class="xiangqing">支付宝</td>
-                        <td class="xiangqing">2045222525</td>
-                        <td class="xiangqing">已支付</td>
-                    </tr>
-                    <tr>
-                        <td class="xiangqing">01256015</td>
-                        <td class="xiangqing">2016.11.28</td>
-                        <td class="xiangqing">1000</td>
-                        <td class="xiangqing">支付宝</td>
-                        <td class="xiangqing">45222525</td>
-                        <td class="xiangqing">已支付</td>
-                    </tr>
-                    </tbody>
-                </table>
-
             </div>
         </div>
     </div>

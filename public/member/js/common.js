@@ -7,6 +7,115 @@ $(function(){
         extend:'../../static/layer/skin/member/style.css'
     });
 
+    //多选
+    // $('body').on('click','.span-checkbox',function(){
+    //     var i = $(this).find('i');
+    //     var input = $(this).find('input');
+    //     if( i.hasClass("checked_on") ){
+    //         input.prop('checked',false);
+    //         i.removeClass("checked_on");
+    //     }else{
+    //         input.prop('checked',true);
+    //         i.addClass("checked_on");
+    //     }
+    // });
+
+
+
+
+    //立即预约
+    $('body').on('click','.ajax-bespeak',function(){
+        layer.closeAll();
+        var target = $(this).attr('url');
+        $.get(target,function(data){
+            if(data.status > -1){
+                layer.open({
+                    type    : 1,
+                    skin    : 'layer-ext-member',
+                    closeBtn: 1,
+                    title   : data.title,
+                    area    : ['650px'],
+                    btn     : ['确定', '取消'],
+                    content : data.info,
+                    yes     : function(index){
+                        var form = $('.form-datas');
+                        var url = form.get(0).action;
+                        var query = form.serialize();
+                        $.post(url,query,function(datas){
+                            if(datas.status == -1){
+                                layer.msg(datas.info, {icon: 5});
+                            }else{
+                                layer.closeAll();
+                                layer.open({
+                                    type    : 1,
+                                    skin    : 'layer-ext-member',
+                                    title   : '消息提醒',
+                                    area    : ['600px'],
+                                    closeBtn: 1,
+                                    btn     : ['确定', '取消'],
+                                    shade   : false,
+                                    content : datas.info,
+                                    time    : 3000,
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        },'json');
+        return false;
+    });
+
+
+    //上传凭证
+    $('body').on('click','.ajax-upload',function(){
+        layer.closeAll();
+        var target = $(this).attr('url');
+        $.get(target,function(data){
+            if(data.status > -1){
+                layer.open({
+                    type    : 1,
+                    skin    : 'layer-ext-member',
+                    closeBtn: 1,
+                    title   : data.title,
+                    area    : ['650px'],
+                    btn     : ['提交', '取消'],
+                    content : data.info,
+                    yes     : function(index){
+                        var form = $('.form-datas');
+                        var url = form.get(0).action;
+                        var query = form.serialize();
+                        $.post(url,query,function(datas){
+                            if(datas.status == -1){
+                                layer.msg(datas.info, {icon: 5});
+                            }else{
+                                layer.closeAll();
+                                layer.open({
+                                    type    : 1,
+                                    skin    : 'layer-ext-member',
+                                    title   : '消息提醒',
+                                    area    : ['600px'],
+                                    closeBtn: 1,
+                                    btn     : ['确定', '取消'],
+                                    shade   : false,
+                                    content : datas.info,
+                                    time    : 3000,
+                                    yes     :function(){
+                                        window.location = datas.url;
+                                    },
+                                    end     :function(){
+                                        window.location = datas.url;
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        },'json');
+        return false;
+    });
+
 
     /**
      * 表单提交（管理或者继续发布）
@@ -82,6 +191,10 @@ $(function(){
         if($(this).hasClass('resume')){
             confirmDialog('确认要启用该信息吗?',target);
         }
+        if($(this).hasClass('bespeak')){
+            confirmDialog('确认要预约该网红吗?',target);
+        }
+
 
         return false;
     });

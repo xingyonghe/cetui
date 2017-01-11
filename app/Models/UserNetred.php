@@ -20,10 +20,10 @@ class UserNetred extends CommonModel{
     const STATUS_VERIFY = 2;//待审核
     const STATUS_FEILED = 3;//未通过
     const STATUS_TEXT = [
-        self::STATUS_DELETE => '<span class="label label-danger label-mini">删除</span>',
-        self::STATUS_NORMAL => '<span class="label label-success label-mini">正常</span>',
-        self::STATUS_VERIFY => '<span class="label label-info label-mini">待审核</span>',
-        self::STATUS_FEILED => '<span class="label label-warning label-mini">未通过</span>',
+        self::STATUS_DELETE => '<a class="label label-danger label-mini">删除</a>',
+        self::STATUS_NORMAL => '<a class="label label-success label-mini">正常</a>',
+        self::STATUS_VERIFY => '<a class="label label-info label-mini">待审核</a>',
+        self::STATUS_FEILED => '<a class="label label-warning label-mini">未通过</a>',
     ];
 
     protected $table = 'user_netred';

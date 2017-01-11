@@ -22,13 +22,19 @@ Route::group(['namespace'=>'Netred'],function(){
         //首页
         Route::get('',               'IndexController@index')->name('netred.index.index');//网红中心首页
         //个人中心
-        Route::get('center/index',      'CenterController@index')->name('netred.center.index');//修改基本资料
-        Route::post('center/update',    'CenterController@update')->name('netred.center.update');//更新基本资料
-        Route::get('center/password',   'CenterController@password')->name('netred.center.password');//修改密码
-        Route::post('center/reset',     'CenterController@reset')->name('netred.center.reset');//更新密码
+        Route::get('center/index',       'CenterController@index')->name('netred.center.index');//修改基本资料
+        Route::post('center/update',     'CenterController@update')->name('netred.center.update');//更新基本资料
+        Route::get('center/password',    'CenterController@password')->name('netred.center.password');//修改密码
+        Route::post('center/reset',      'CenterController@reset')->name('netred.center.reset');//更新密码
+        Route::get('center/payword',     'CenterController@payword')->name('netred.center.payword');//修改支付密码
+        Route::post('center/post',       'CenterController@post')->name('netred.center.post');//更新支付密码
+        Route::get('center/certified',   'CenterController@certified')->name('netred.center.certified');//认证资料
+        Route::post('center/send',       'CenterController@send')->name('netred.center.send');//提交认证资料
 
         //订单管理
         Route::get('order/index',        'OrderController@index')->name('netred.order.index');//订单列表
+        Route::get('order/upload/{id}',  'OrderController@upload')->name('netred.order.upload');//上传凭证
+        Route::post('order/post',        'OrderController@post')->name('netred.order.post');//上传凭证提交
 
         //派单大厅
         Route::get('dispatch/index',     'DispatchController@index')->name('netred.dispatch.index');//活动列表

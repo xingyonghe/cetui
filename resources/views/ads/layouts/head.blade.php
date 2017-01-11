@@ -3,7 +3,7 @@
         <div class="header_box">
             <span>欢迎您！</span>
             <span>用户名：{{ auth()->user()->username }}</span>
-            <a href="{{ route('ads.login.logout') }}">退出登录</a>
+            |&nbsp;<a href="{{ route('ads.login.logout') }}">退出登录</a>
         </div>
     </div>
 </div>

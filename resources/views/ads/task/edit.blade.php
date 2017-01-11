@@ -61,7 +61,7 @@
                     FileUploaded: function(up,file,response) {
                         var resault = $.parseJSON(response.response);
                         if(resault.code){
-                            updateAlert(resault.error);
+                            updateAlert(resault.error, {icon: 5});
                             $('#logo').html('<img src="{{ asset('member/images/ren.jpg') }}" width="115" height="145">').css('background','');
                         }else{
                             $('#logo').html('<input type="hidden" name="logo" value="'+ resault.file.path +'"><img src="'+resault.file.path+'" width="115" height="145">').css('background','');
@@ -73,14 +73,14 @@
                         //602 不能选择重复文件
                         console.log(err);
                         if(err.code === -602){
-                            updateAlert('不能选择重复图片');
+                            updateAlert('不能选择重复图片', {icon: 5});
                         }
                         if(err.code === -600){
-                            updateAlert('最大只能上传4M的图片');
+                            updateAlert('最大只能上传4M的图片', {icon: 5});
                         }
                         if(err.code === -200){
                             if(err.status == 413){
-                                updateAlert('您上传的图片太大');
+                                updateAlert('您上传的图片太大', {icon: 5});
                             }
                         }
 
@@ -159,6 +159,9 @@
             <div class="c_box">
                 <form role="form" class="data-form" action="{{ route('ads.task.update') }}" method="post">
                     {{ csrf_field() }}
+                    @if(isset($info))
+                        <input  type="hidden" name="id" value="{{ $info->id }}"/>
+                    @endif
                     <div class="c_tggl_box">
                     <div class="c_tggl_line">
                         <div class="c_tggl_left">
@@ -184,7 +187,7 @@
                         </div>
                         <div class="c_tggl_right">
                             <div class="uploadBox">
-                                <span class="uploadImg">
+                                <span class="uploadImg" id="logo">
                                     <input type="hidden" name="logo" value="{{ isset($info['logo']) ? $info['logo'] : '' }}">
                                     <img src="{{ isset($info['logo']) ? asset($info['logo']) :'/member/ads/img/product_logo.png' }}" width="115" height="145"/>
                                 </span>
