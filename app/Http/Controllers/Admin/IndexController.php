@@ -1,24 +1,18 @@
 <?php
 
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+class IndexController extends Controller
+{
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//自动导入网红信息
-//随机分配三个标签
+    /**
+     * 首页
+     * @author xingyonghe
+     * @date 2016-11-10
+     * @return mixed
+     */
+    public function index(){
+        return view('admin.index.index');
+    }
+}

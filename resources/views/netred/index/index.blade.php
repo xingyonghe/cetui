@@ -17,23 +17,25 @@
                     <div class="index_part1">
                         <span>
                             <p>最新活动</p>
-                            <i>8</i>
+                            <a href="{{ route('netred.dispatch.index') }}"><i>{{ $new_count }}</i></a>
                         </span>
                         <span>
-                            <p>邀请我参加的活动</p>
-                            <i>2</i>
+                            <p>我参加的活动</p>
+                            <a href="{{ route('netred.dispatch.index') }}"><i>{{ $new_count }}</i></a>
                         </span>
                         <span>
                             <p>进行中的活动</p>
-                            <i>4</i>
+                            <i>{{ $have_count }}</i>
                         </span>
                         <span>
                             <p>已完成活动</p>
-                            <i>4</i>
+                            <i>{{ $finish_count }}</i>
                         </span>
                     </div>
                     <div class="index_part2">
-                        <span class="part2_left">您的评分：：<i>5.9</i>  &nbsp;&nbsp;&nbsp;&nbsp;账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
+                        <span class="part2_left">
+                            {{--您的评分：：<i>5.9</i>--}}
+                                                 &nbsp;&nbsp;&nbsp;&nbsp;账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
                         <span class="part2_right">
                             <a href="{{ route('netred.account.cash') }}">立即提现</a>
                         </span>
@@ -46,11 +48,11 @@
                         @if($messages)
                             @foreach($messages as $message)
                                 <li><a href="{{ route('netred.message.show',[$message['id']]) }}">【@if($message['category'] == 1)系统消息@endif @if($message['category'] == 2)系统公告@endif】
-                                        {{ $message['title'] }}
+                                        {{ str_limit($message['title'],36) }}
                                         @if($message['status'] == 1)
                                             <small>未读</small>
                                         @endif
-                                        <span style="padding-left: 25px">{{ $message['created_at']->format('Y-m-d') }}</span>
+                                        <span style="float: right">{{ $message['created_at']->format('Y-m-d') }}</span>
                                     </a>
                                 </li>
                             @endforeach

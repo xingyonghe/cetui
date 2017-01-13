@@ -13,7 +13,7 @@
     </script>
 @endsection
 @section('body')
-    <div class="container">
+    <div class="container marTB_15">
         <div class="width_1140">
             <div class="c_route">
                 当前位置：
@@ -21,50 +21,50 @@
                 <a href="{{ route('ads.center.index') }}"><span>个人中心</span></a> >
                 <span class="on">基本资料</span>
             </div>
-            <div class="c_center">
+            <div class="c_box">
                 <form role="form" class="data-form" action="{{ route('ads.center.update') }}" metho="post">
                     {{ csrf_field() }}
-                    <div class="jbxx">
-                        <div class="c_center_line">
-                            <div class="c_center_left">用户名：</div>
-                            <div class="c_center_right">
+                    <div class="c_tggl_box">
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">用户名：</div>
+                            <div class="c_tggl_right">
                                 <input type="text" class="width_396" disabled value="{{ $user->username }}" />
                                 @if($user->is_auth)已认证@else未认证@endif
                             </div>
 
                         </div>
 
-                        <div class="c_center_line">
-                            <div class="c_center_left">公司名称：</div>
-                            <div class="c_center_right">
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">公司名称：</div>
+                            <div class="c_tggl_right">
                                 <input type="text" class="width_396" name="nickname" id="nickname" value="{{ $user->nickname }}"/>
                             </div>
                         </div>
 
-                        <div class="c_center_line">
-                            <div class="c_center_left">微信：</div>
-                            <div class="c_center_right">
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">微信：</div>
+                            <div class="c_tggl_right">
                                 <input type="text" class="width_396" name="weixin"  id="weixin"  value="{{ $user->weixin }}"/>
                             </div>
                         </div>
 
-                        <div class="c_center_line">
-                            <div class="c_center_left">QQ：</div>
-                            <div class="c_center_right">
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">QQ：</div>
+                            <div class="c_tggl_right">
                                 <input type="text" class="width_396" name="qq" id="qq" value="{{ $user->qq }}"/>
                             </div>
                         </div>
 
-                        <div class="c_center_line">
-                            <div class="c_center_left">邮箱：</div>
-                            <div class="c_center_right">
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left">邮箱：</div>
+                            <div class="c_tggl_right">
                                 <input type="text" class="width_396" name="email" id="email" value="{{ $user->email }}" />
                             </div>
                         </div>
-
-                        <div class="c_center_line">
-                            <div class="c_center_right">
-                                <button class="ajax-post" >修改并保存</button>
+                        <div class="c_tggl_line">
+                            <div class="c_tggl_left"></div>
+                            <div class="c_tggl_right">
+                                <button class="width_424 ajax-post" >修改并保存</button>
                             </div>
                         </div>
                     </div>

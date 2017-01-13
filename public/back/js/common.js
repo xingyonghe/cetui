@@ -14,12 +14,13 @@ $(function(){
         var that = this;
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(url,query,function(datas){
-            if(datas.status==1){
-                $(that).removeClass('disabled').prop('disabled',false);
-                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
-            }else{
+            if(datas.status==-1){
                 $(that).removeClass('disabled').prop('disabled',false);
                 updateAlert(datas.info);
+            }else{
+                $(that).removeClass('disabled').prop('disabled',false);
+                updateAlert(datas.info + ' 页面即将自动跳转~','alert-success',datas.url);
+
             }
         });
         return false;

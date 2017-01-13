@@ -47,6 +47,8 @@ class UserNetred extends CommonModel{
      */
     protected function updateData($data)
     {
+        $data['average_num'] = empty($data['average_num']) ? 0 : $data['average_num'];
+        $data['max_num'] = empty($data['max_num']) ? 0 : $data['max_num'];
         //组装地区area字段
         $area = Region::whereIn('id',[$data['province'],$data['city'],$data['district']])->pluck('name')->toArray();
         $data['area'] = implode(',',$area);
@@ -62,9 +64,7 @@ class UserNetred extends CommonModel{
         }else{
             //编辑
             $info = $this->find($data['id']);
-            if($info['status'] == self::STATUS_FEILED){
-                $info['status'] == self::STATUS_VERIFY;
-            }
+            $data['status'] = configs('NETRED_VERIFY') ? self::STATUS_VERIFY : self::STATUS_NORMAL;
             if(empty($info) || $info->update($data)===false){
                 return false;
             }

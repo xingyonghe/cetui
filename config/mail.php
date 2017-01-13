@@ -15,7 +15,7 @@ return [
     |            "ses", "sparkpost", "log"
     |
     */
-
+    // 默认发送邮件驱动
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
@@ -28,7 +28,7 @@ return [
     | the Mailgun mail service which will provide reliable deliveries.
     |
     */
-
+    // 发送邮件主机地址
     'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
@@ -41,7 +41,7 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
-
+    // 发送邮件主机端口
     'port' => env('MAIL_PORT', 587),
 
     /*
@@ -54,10 +54,10 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
+    // 指定发送邮件的邮箱地址和用户名称
     'from' => [
-        'address' => 'hello@example.com',
-        'name' => 'Example',
+        'address' => 'xingyingfeng@sina.cn',
+        'name' => 'TestMail',
     ],
 
     /*
@@ -70,7 +70,7 @@ return [
     | transport layer security protocol should provide great security.
     |
     */
-
+    // 指定发送邮件协议
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
 
     /*
@@ -83,7 +83,7 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-
+    // 邮箱登录账号
     'username' => env('MAIL_USERNAME'),
 
     /*
@@ -96,7 +96,7 @@ return [
     | connection so that the application will be able to send messages.
     |
     */
-
+    // 邮箱登录密码
     'password' => env('MAIL_PASSWORD'),
 
     /*
@@ -109,7 +109,9 @@ return [
     | been provided here, which will work well on most of your systems.
     |
     */
-
+    // 当驱动为 sendmail 时，指定驱动的命令地址
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    // false 发送邮件不记录日志，true 记录日志不发送邮件
+//    'pretend' => false,
 ];

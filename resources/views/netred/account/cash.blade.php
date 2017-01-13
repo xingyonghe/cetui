@@ -38,7 +38,6 @@
             <div class="c_box">
                 <div class="c_box1">
                     <span>账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
-                    <span style="margin-left: 50px">还没有提现账户？<a href="{{ route('netred.account.create') }}">添加账户</a></span>
                 </div>
             </div>
             <div class="c_box">
@@ -63,7 +62,8 @@
                                 <span>*</span>银行账户：
                             </div>
                             <div class="c_tggl_right">
-                                {!! select('bank_id',$my_bank,'',['class'=>'width_276']) !!}
+                                {!! select('account_id',$my_bank,'',['class'=>'width_276','id'=>'account_id']) !!}
+                                @if(empty($my_bank[0])) ?您还没有提现账户，<a href="{{ route('netred.account.create') }}" style="color: #ff595f">添加账户</a> @endif
                             </div>
                         </div>
 
@@ -72,7 +72,11 @@
                                 <span>*</span>支付密码：
                             </div>
                             <div class="c_tggl_right">
-                                <input type="password" name="password" id="password" placeholder="请输入支付密码"  class="width_424"/>
+                                <input type="password" name="payword" id="payword" placeholder="请输入支付密码"  class="width_424"/>
+                                @if(empty(auth()->user()->payword))?您还没有设置支付密码，<a href="{{ route('netred.center.payword') }}" style="color: #ff595f">立即设置</a>
+                                @else
+                                    ?忘记支付密码，<a href="{{ route('netred.center.payword') }}" style="color: #ff595f">前去修改</a>
+                                @endif
                             </div>
                         </div>
 

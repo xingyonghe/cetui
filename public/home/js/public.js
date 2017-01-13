@@ -4,7 +4,7 @@ $(function(){
      */
     //自定义弹出层样式
     layer.config({
-        extend:'../../static/layer/skin/admin/style.css'
+        extend:'../../static/layer/skin/member/style.css'
     });
 
 

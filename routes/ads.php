@@ -55,6 +55,7 @@ Route::group(['namespace'=>'Ads'],function(){
         Route::post('order/refuse',      'OrderController@refuse')->name('ads.order.refuse');//拒绝凭证资料
         Route::get('order/comment/{id}', 'OrderController@comment')->name('ads.order.comment');//评论
         Route::post('order/send',        'OrderController@send')->name('ads.order.send');//评论提交
+        Route::post('order/balance',     'OrderController@balance')->name('ads.order.balance');//余额支付
 
 
         //派单大厅

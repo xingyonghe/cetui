@@ -22,6 +22,7 @@ class IndexController extends Controller
      */
     public function index()
     {
+
         $messages = Messages::where('userid',auth()->id())
             ->orderBy('created_at', 'desc')
             ->take(9)->get();

@@ -17,6 +17,10 @@ Route::group(['namespace'=>'Api'],function(){
     Route::post('logo',       'UploadApiController@logo')->name('api.logo');
 
     //活动支付
+    Route::get('recharge/pay/{order_id}',  'PayApiController@rechargePay')->name('api.recharge.pay');
+    Route::get('recharge/return',          'PayApiController@rechargeReturn')->name('api.recharge.return');//同步地址
+    Route::post('recharge/notify',         'PayApiController@rechargeNotify')->name('api.recharge.notify');//异步地址
+    //活动支付
     Route::get('task/pay/{order_id}',  'PayApiController@pay')->name('api.task.pay');
     Route::get('task/return',          'PayApiController@return')->name('api.task.return');//同步地址
     Route::post('task/notify',         'PayApiController@notify')->name('api.task.notify');//异步地址

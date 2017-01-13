@@ -61,13 +61,9 @@
                             <td>{{ get_netred($data->netred_id) }}</td>
                             <td class="hidden-phone">{{ get_user($data->user_id) }}</td>
                             <td class="hidden-phone">
-                                @foreach($categorys as $category)
-                                    @if(isset($category['_child']))
-                                        @foreach($category['_child'] as $key=>$cate)
-                                            @if(isset($data['catids']) && (in_array('catid_'.$cate['id'],$data['catids'])))
-                                                <span class="label label-info">{{ $cate['name'] }}</span>
-                                            @endif
-                                        @endforeach
+                                @foreach($categorys as $key=>$category)
+                                    @if(isset($data['catids']) && (in_array('catid_'.$key,$data['catids'])))
+                                        <span class="label label-info">{{ $category }}</span>
                                     @endif
                                 @endforeach
                             </td>

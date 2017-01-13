@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use SEO;
 
 class Controller extends BaseController
 {
@@ -62,6 +63,26 @@ class Controller extends BaseController
         return response()->json(['status'=>-1,'info'=>$validator->messages()->first(),'id'=>$errorIds[0]]);
     }
 
+
+    protected function success($msg='',$url='', $time=5){
+        SEO::setTitle('消息提示-'.configs('WEB_SITE_TITLE'));
+        $message = [
+            'msg'  => $msg,
+            'url'  => $url,
+            'time' => $time,
+        ];
+        return view('errors.success',compact('message'));
+    }
+
+    protected function errors($msg='',$url='', $time=5){
+        SEO::setTitle('消息提示-'.configs('WEB_SITE_TITLE'));
+        $message = [
+            'msg'  => $msg,
+            'url'  => $url,
+            'time' => $time,
+        ];
+        return view('errors.errors',compact('message'));
+    }
 
 
 

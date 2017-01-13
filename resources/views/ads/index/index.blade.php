@@ -27,6 +27,10 @@
                             <p>已完成活动</p>
                             <i>4</i>
                         </span>
+                        <span>
+                            <p>已完成活动</p>
+                            <i>2</i>
+                        </span>
                     </div>
                     <div class="index_part2">
                         <span class="part2_left">账户余额：<i>{{ auth()->user()->balance }} <em>元</em></i></span>
@@ -43,11 +47,11 @@
                         @if($messages)
                             @foreach($messages as $message)
                                 <li><a href="{{ route('ads.message.show',[$message['id']]) }}">【@if($message['category'] == 1)系统消息@endif @if($message['category'] == 2)系统公告@endif】
-                                        {{ $message['title'] }}
+                                        {{ str_limit($message['title'],36) }}
                                         @if($message['status'] == 1)
                                             <small>未读</small>
                                         @endif
-                                        <span>{{ $message['created_at']->format('Y-m-d') }}</span>
+                                        <span style="float: right">{{ $message['created_at']->format('Y-m-d') }}</span>
                                     </a>
                                 </li>
                             @endforeach

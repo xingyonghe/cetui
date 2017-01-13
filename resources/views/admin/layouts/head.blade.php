@@ -29,16 +29,16 @@
             <!-- user login dropdown start-->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle">
-                    {{--<span>{{ auth()->guard('admin')->user()->nickname }}</span>--}}
+                    <span>{{ auth()->guard('admin')->user()->nickname }}</span>
                     <b class="caret"></b>
                 </a>
-                {{--<ul class="dropdown-menu extended logout">--}}
-                    {{--<div class="log-arrow-up"></div>--}}
-                    {{--<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>--}}
-                    {{--<li><a href="javascript:void(0)" url="{{ route('admin.warden.resetpass') }}"><i class="icon-edit-sign"></i> 修改密码</a></li>--}}
-                    {{--<li><a href="{{ route('home.index.index') }}" target="_blank"><i class="icon-home"></i> 网站首页</a></li>--}}
-                    {{--<li><a href="{{ route('admin.login.logout') }}"><i class="icon-key"></i> 退出</a></li>--}}
-                {{--</ul>--}}
+                <ul class="dropdown-menu extended logout">
+                    <div class="log-arrow-up"></div>
+                    <li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
+                    <li><a href="{{ route('admin.custom.resetpass') }}"><i class="icon-edit-sign"></i> 修改密码</a></li>
+                    <li><a href="{{ route('home.index.index') }}" target="_blank"><i class="icon-home"></i> 网站首页</a></li>
+                    <li><a href="{{ route('admin.login.logout') }}"><i class="icon-key"></i> 退出</a></li>
+                </ul>
             </li>
             <!-- user login dropdown end -->
         </ul>

@@ -25,7 +25,7 @@ input,textarea,select,button:focus{ outline: none; }
     font-size: 12px;
 }
 .logoBox{
-    padding: 30px 0;
+    padding: 10px 0;
 }
 .logo_info{
     overflow: hidden;
@@ -193,8 +193,9 @@ input,textarea,select,button:focus{ outline: none; }
 .c_tggl_line{ overflow: hidden; margin: 20px 0; }
 .c_tggl_left{ width: 340px; height: 50px; float: left; line-height: 50px; font-size: 14px; color: #666; font-weight: bold; text-align: right; }
 .c_tggl_left >span{ color: #ff3300; margin: 0 2px 0 0; }
-.c_tggl_right{ float: left; margin: 0 0 0 5px; overflow: hidden; }
-.c_tggl_right >input{ height: 50px; padding: 0 15px; color: #666; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; } 
+.c_tggl_right{ float: left; margin: 0 0 0 5px;    width: 60%;}
+.c_tggl_right >input{ height: 50px; padding: 0 15px; color: #666; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; }
+.c_tggl_right .checkbox{height: 20px; color: #666; font-size: 14px;margin-top: 18px;display: inline-block;margin-right: 1px}
 .uploadBox{ display: inline-block; float: left; }
 .c_tggl_right span.uploadImg{ text-align: center; vertical-align: middle; display: table-cell; width: 120px; height: 144px; border: 1px solid #ccc; background: #f7f7f7; }
 
@@ -379,6 +380,12 @@ input,textarea,select,button:focus{ outline: none; }
 }
 .dialog .c_tggl_right .uploadImg{
     width: 110px;height: 110px;float:left;border: 1px solid #cccccc;margin-right: 2.5px;
+}
+.c_box2 .duoxuan{
+    width: 75px;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #e7e7e7;
 }
 
 

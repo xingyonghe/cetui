@@ -2,7 +2,10 @@
 
 Route::group(['namespace'=>'Home','middleware'=> ['channel']],function(){
     Route::get('password/mobile', 'ResetPasswordController@mobile')->name('home.password.mobile');//手机找回密码
+    Route::post('password/post',  'ResetPasswordController@post')->name('home.password.post');//手机找回密码
     Route::get('password/email',  'ResetPasswordController@email')->name('home.password.email');//邮箱找回密码
+    Route::post('password/send',  'ResetPasswordController@send')->name('home.password.send');//发送邮件
+    Route::post('password/update','ResetPasswordController@update')->name('home.password.update');//邮件更新密码
 
 
     /**--**--**--**--**--**--**--**--**--**网站首页**--**--**--**--**--**--**--**--**--**--**/

@@ -7,10 +7,37 @@
  */
 Route::group(['namespace'=>'Admin'], function () {
 
+    /*-*-*-*-*-*-*-*-*-*-*用户登陆*-*-*-*-*-*-*-*-*-*-*/
+    Route::get('/', 'LoginController@showLoginForm')->name('admin.login.form');//登录页面
+    Route::post('post', 'LoginController@login')->name('admin.login.post'); //登录提交
+    Route::get('logout', 'LoginController@logout')->name('admin.login.logout');//退出登录
 
     Route::group(['middleware'=>['admin']], function () {
         /*-*-*-*-*-*-*-*-*-*-*首页*-*-*-*-*-*-*-*-*-*-*/
-        Route::get('/','IndexController@index')->name('admin.index.index');//首页
+        Route::get('index/index','IndexController@index')->name('admin.index.index');//首页
+
+        /*-*-*-*-*-*-*-*-*-*-*客服*-*-*-*-*-*-*-*-*-*-*/
+        //客服
+        Route::get ('custom/index',         'CustomController@index')->name('admin.custom.index'); //管理员列表
+        Route::get ('custom/create',        'CustomController@create')->name('admin.custom.create');//新增
+        Route::post('custom/add',           'CustomController@add')->name('admin.custom.add');//添加管理员
+        Route::get ('custom/edit/{id}',     'CustomController@edit')->name('admin.custom.edit')->where('id','\d+'); //修改
+        Route::post('custom/update',        'CustomController@update')->name('admin.custom.update');//修改管理员
+        Route::get ('custom/forbid/{id}',   'CustomController@forbid')->name('admin.custom.forbid')->where('id','\d+'); //禁用
+        Route::get ('custom/resume/{id}',   'CustomController@resume')->name('admin.custom.resume')->where('id','\d+');//启用
+        Route::get ('custom/destroy/{id}',  'CustomController@destroy')->name('admin.custom.destroy')->where('id','\d+');//删除
+        Route::get ('custom/resetpass',     'CustomController@resetpass')->name('admin.custom.resetpass');//重置密码
+        Route::post('custom/change',        'CustomController@change')->name('admin.custom.change');//更新密码
+
+        //部门
+        Route::get ('group/index',         'GroupController@index')->name('admin.group.index');//用户组列表
+        Route::get ('group/create',        'GroupController@create')->name('admin.group.create');//新增用户组
+        Route::get ('group/edit/{id}',     'GroupController@edit')->name('admin.group.edit')->where('id','\d+');//修改用户组
+        Route::post('group/update',        'GroupController@update')->name('admin.group.update');   //更新用户组
+        Route::get ('group/destroy/{id}',  'GroupController@destroy')->name('admin.group.destroy')->where('id','\d+');   //删除用户组
+        Route::get ('group/access/{id}',   'GroupController@access')->name('admin.group.access')->where('id','\d+'); //用户组授权
+        Route::post('group/write',         'GroupController@write')->name('admin.group.write');//用户组授权写入
+
         /*-*-*-*-*-*-*-*-*-*-*系统*-*-*-*-*-*-*-*-*-*-*/
         //菜单管理
         Route::get('menu/index',         'MenuController@index')->name('admin.menu.index');//列表页
@@ -86,6 +113,11 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::get('user/certified',          'UserController@certified')->name('admin.certified.index');//资料列表
         Route::get('user/agreement/{id}',     'UserController@agreement')->name('admin.certified.agreement');//通过
         Route::get('user/refuse/{id}',        'UserController@refuse')->name('admin.certified.refuse');//拒绝
+
+        //提现记录
+        Route::get('cash/index',              'CashController@index')->name('admin.cash.index');//提现记录
+        Route::get('cash/agreement/{id}',     'CashController@agreement')->name('admin.cash.agreement');//通过
+        Route::get('cash/refuse/{id}',        'CashController@refuse')->name('admin.cash.refuse');//拒绝
 
         //站内信
         Route::get ('message/index',       'MessageController@index')->name('admin.message.index');//系统消息

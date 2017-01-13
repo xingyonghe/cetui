@@ -77,7 +77,9 @@ class StarController extends Controller
     public function live()
     {
         //平台
-        $platforms = UserNetredPlatform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
+        $platforms = UserNetredPlatform::where('category',1)->orderBy('sort','asc')->pluck('name','id')->toArray();
+        $platforms[0] = '请选择平台';
+        ksort($platforms);
         //广告形式
         $adforms = UserNetredAdform::where('category',1)->orderBy('sort','asc')->pluck('name','id');
         SEO::setTitle('添加直播-网红中心-'.configs('WEB_SITE_TITLE'));
@@ -92,7 +94,9 @@ class StarController extends Controller
     public function video()
     {
         //平台
-        $platforms = UserNetredPlatform::where('category',2)->orderBy('sort','asc')->pluck('name','id');
+        $platforms = UserNetredPlatform::where('category',2)->orderBy('sort','asc')->pluck('name','id')->toArray();
+        $platforms[0] = '请选择平台';
+        ksort($platforms);
         //广告形式
         $adforms = UserNetredAdform::where('category',2)->orderBy('sort','asc')->pluck('name','id');
         SEO::setTitle('添加短视频-网红中心-'.configs('WEB_SITE_TITLE'));
@@ -176,9 +180,6 @@ class StarController extends Controller
         $validator = validator()->make($data,$rules,$msgs);
         if ($validator->fails()) {
             return $this->ajaxValidator($validator);
-        }
-        if(empty($data['max_num'])){
-            $data['max_num'] = 0;
         }
         $resualt = UserNetred::updateData($data);
         if($resualt){

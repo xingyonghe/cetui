@@ -1,6 +1,62 @@
 @extends('ads.layouts.base')
 @section('styles')
 @endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(function(){
+            $('.ajax-pay').click(function(){
+                var type = $("input[name='type']:checked").val();
+                var payword = $("input[name='payword']").val();
+                var target = "{{ route('ads.order.balance') }}";
+                var order = "{{ $order['order_sn'] }}";
+                if(type == 1){
+                    if(!payword){
+                        alertTips('请输入支付密码','payword');return false;
+                    }
+                    var query = {'order':order,'payword':payword,'_token' : "{{ csrf_token() }}"};
+                    $.post(target,query).success(function(data){
+                        if (data.status==-1){
+                            if(data.id){
+                                alertTips(data.info,data.id);
+                            }else{
+                                layer.open({
+                                    type    : 1,
+                                    skin    : 'layer-ext-member',
+                                    title   :  '消息提醒',
+                                    area    : ['450px','120px'],
+                                    closeBtn: 0,
+                                    shade   : false,
+                                    content : data.info,
+                                    time    : 3000,
+                                });
+                            }
+                        }else{
+                            layer.open({
+                                type    : 1,
+                                skin    : 'layer-ext-member',
+                                title   :  '消息提醒',
+                                area    : ['450px','120px'],
+                                closeBtn: 0,
+                                shade   : false,
+                                content : data.info,
+                                time    : 3000,
+                                yes     : function(){
+                                    window.location = data.url;
+                                },
+                                end     : function(){
+                                    window.location = data.url;
+                                }
+                            });
+
+                        }
+                    });
+                }
+                return false;
+            });
+        })
+    </script>
+@endsection
+
 @section('body')
     <div class="container marTB_15">
         <div class="width_1140">
@@ -21,9 +77,16 @@
                         <input name="payword" type="password" class="width_114" disabled  placeholder="请输入支付密码">
                         @else
                         {!! radio('ads','type',['1'=>'余额支付'],1) !!}
-                        <input name="payword" type="password" class="width_114"  placeholder="请输入支付密码">
-                        @endif
-                        <button class="qrzf">确定支付</button>
+                        <input name="payword" type="password" id="payword" class="width_114"  placeholder="请输入支付密码">
+                            <div style="position: absolute;margin-left: 30px;padding: 5px 0">
+                                @if(empty(auth()->user()->payword))
+                                    您还没有设置支付密码，<a href="{{ route('ads.center.payword') }}" style="color: #ff595f">立即设置</a>
+                                @else
+                                    忘记支付密码，<a href="{{ route('ads.center.payword') }}" style="color: #ff595f">前去修改</a>
+                                @endif
+                                @endif
+                            </div>
+                        <button class="qrzf ajax-pay" style="margin-left: 110px">确定支付</button>
                     </div>
                     <div class="c_pay_right">
                         您的账户余额为：

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\AdminAuthRule;
 use App\Models\AdminMenu;
 use Closure;
 class AdminMenus
@@ -25,9 +26,10 @@ class AdminMenus
         $menus = session()->get('ADMIN_MENU_LIST.'.$urlCurrent[1]);//加上控制器的名称用来区分菜单的子菜单
         if(empty($menus)){
             //获取用户角色ID
-//            $userGroupId = auth()->guard('admin')->user()->role_id;
+            $userGroupId = auth()->guard('admin')->user()->role_id;
             //获取用户角色的所有权限
-//            $access = D('SysAuthRule')->getUserRules($userGroupId);
+            $access = AdminAuthRule::getUserRules($userGroupId);
+
             //获取所有菜单
             $menus = [];
             $sysmenus = AdminMenu::returnMenus();
@@ -35,16 +37,16 @@ class AdminMenus
                 return ($value['pid'] == 0) && ($value['hide'] == 0);
             });
 
-//            //检查权限。保留用户有权限的菜单
-//            foreach($menus['main'] as $key=>$item){
-//                if(is_administrators()){
-//                    break;
-//                }
-//                if(!in_array($item['url'],$access)){
-//                    unset($menus['main'][$key]);
-//                    continue;//继续循环
-//                }
-//            }
+            //检查权限。保留用户有权限的菜单
+            foreach($menus['main'] as $key=>$item){
+                if(is_administrators()){
+                    break;
+                }
+                if(!in_array($item['name'],$access)){
+                    unset($menus['main'][$key]);
+                    continue;//继续循环
+                }
+            }
 
             //查找当前的链接的PID信息
             $parent = AdminMenu::select('pid')->where('pid','>',0)->where('name',$current)->first();
@@ -82,18 +84,18 @@ class AdminMenus
                         });
 
                         foreach($menuList as $k=>$list){
-//                            if(is_administrators()){
-//                                break;
-//                            }
-//                            if(!in_array($list['url'],$access)){
-//                                unset($menuList[$k]);
-//                                continue;//继续循环
-//                            }
-//                            if($list['name'] == $current){
-//                                $menuList[$k]['current'] = 'active';
-//                            }else{
-//                                $menuList[$k]['current'] = '';
-//                            }
+                            if(is_administrators()){
+                                break;
+                            }
+                            if(!in_array($list['name'],$access)){
+                                unset($menuList[$k]);
+                                continue;//继续循环
+                            }
+                            if($list['name'] == $current){
+                                $menuList[$k]['current'] = 'active';
+                            }else{
+                                $menuList[$k]['current'] = '';
+                            }
                         }
                         $menus['child'][$g['group']] = $menuList;
                     }

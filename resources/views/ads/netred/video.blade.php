@@ -192,7 +192,7 @@
                                         <p><label class="ckbj">{{ $item['money'] }}元</label></p>
                                     </td>
                                     <td>
-                                        <label class="gwc on"><a class="ajax-bespeak" href="javascript:void(0)" url="{{ route('ads.netred.bespeak',[$item['id']]) }}">立即预约</a></label>
+                                        <label class="gwc on"><a class="ajax-bespeak" style="color: #ffffff" href="javascript:void(0)" url="{{ route('ads.netred.bespeak',[$item['id']]) }}">立即预约</a></label>
                                     </td>
                                 </tr>
                             @endforeach

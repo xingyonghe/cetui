@@ -1,38 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Home;
+namespace App\Http\Controllers\Ads;
 
-use App\Http\Controllers\Home\CommonController;
+use App\Http\Controllers\Controller;
 use App\Models\MobileSms;
 use SMS;
 use App\Models\User;
 use SEO;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class RegisterController extends CommonController{
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    | @author xingyonghe
-    | @date 2016-11-17
-    |--------------------------------------------------------------------------
-    |
-    | 用户注册控制器
-    |
-    */
+class RegisterController extends Controller
+{
+    use AuthenticatesUsers;
+
     public function __construct(){
         $this->middleware('guest');
-    }
-
-    /**
-     * 网红注册界面
-     * @author xingyonghe
-     * @date 2015-12-9
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function showRednetForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-网红注册');
-        $resend = config('mobilesms.driver.zdtone.resend');
-        return view('home.auth.register_rednet',compact('resend'));
     }
 
     /**
@@ -41,11 +24,12 @@ class RegisterController extends CommonController{
      * @date 2015-12-9
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showAdsForm(){
-        SEO::setTitle(C('WEB_SITE_TITLE').'-广告主注册');
+    public function showForm(){
+        SEO::setTitle('广告主注册-'.configs('WEB_SITE_TITLE'));
         $resend = config('mobilesms.driver.zdtone.resend');
-        return view('home.auth.register_ads',compact('resend'));
+        return view('ads.auth.register',compact('resend'));
     }
+
 
 
     /**
@@ -70,7 +54,6 @@ class RegisterController extends CommonController{
         $rules = [
             'username' => 'required|mobile|unique:user',
             'code'     => 'required',
-            'captcha'  => 'required|captcha',
             'email'    => 'required|email|unique:user',
             'nickname' => 'required',
             'password' => 'required|min:6|confirmed',
@@ -81,8 +64,6 @@ class RegisterController extends CommonController{
             'username.mobile'   => '手机号格式错误',
             'username.unique'   => '手机号已经注册',
             'code.required'     => '请填写手机动态验证码',
-            'captcha.required'  => '请填写验证码',
-            'captcha.captcha'   => '验证码错误',
             'email.required'    => '请填写邮箱账号',
             'email.email'       => '邮箱账号格式错误',
             'email.unique'      => '邮箱账号已经存在',
@@ -102,13 +83,31 @@ class RegisterController extends CommonController{
         if($resault === false){
             return $this->ajaxReturn('注册失败');
         }else{
-            if($data['type']==1) $back = route('home.login.rednet');
-            else $back = route('home.login.ads');
-            return $this->ajaxReturn('恭喜您，注册成功',1,$back);
+            $credentials['username'] = $data['username'];
+            $credentials['password'] = $data['password'];
+            $credentials['type'] = $data['type'];
+            if ($this->guard()->attempt($credentials, request()->has('remember'))) {
+                //记录登陆时间和登陆IP
+                $user = $this->guard()->user();
+                $login['login_time'] = \Carbon\Carbon::now();
+                $login['login_ip'] = request()->ip();
+                User::where('id',$user['id'])->update($login);
+                request()->session()->regenerate();
+                $this->clearLoginAttempts(request());
+                return $this->ajaxReturn('恭喜您，注册成功',1,route('ads.index.index'));
+            }
         }
 
     }
 
+
+    /**
+     * 调用模型
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
 
 
 

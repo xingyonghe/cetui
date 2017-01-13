@@ -24,12 +24,15 @@ class SmsApiController extends Controller{
      * @date: 2016-11-17
      */
     public function sendSMS(){
-        $data = request()->only('mobile');
+        $data = request()->only('mobile','category');
+        if(!isset($data['category']) || empty($data['category'])){
+            $data['category'] = 1;
+        }
         //频繁验证
-        if(SMS::frequent($data['mobile'],MobileSms::CATEGORY['register'])){
+        if(SMS::frequent($data['mobile'],$data['category'])){
             return $this->ajaxReturn('您的操作过快');
         }
-        $resault = SMS::send($data['mobile'],MobileSms::CATEGORY['register']);
+        $resault = SMS::send($data['mobile'],$data['category']);
         if($resault === false){
             return $this->ajaxReturn('发送失败');
         }

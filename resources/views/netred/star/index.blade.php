@@ -31,7 +31,7 @@
 
                         <div class="c_box2Right marRight_20">
                             艺人名称：
-                            <input type="text" />
+                            <input placeholder="艺人名称" type="text" name="stage_name" value="{{ $params['stage_name'] ?? '' }}"/>
                             <button class="search"></button>
                         </div>
                     </form>
@@ -75,8 +75,8 @@
                                 </tr>
                             @endforeach
                         @else
-                            <tr colspan="8">
-                                暂无资源
+                            <tr>
+                                <td colspan="8">暂无资源</td>
                             </tr>
                         @endif
                         </tbody>

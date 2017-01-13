@@ -24,9 +24,9 @@
 @yield('body')
 @include('ads.auth.footer')
 <!-- layer插件 -->
-<script type="text/javascript" src="{{ asset('assets/static/layer/layer.js') }}"></script>
+<script type="text/javascript" src="{{ asset('static/layer/layer.js') }}"></script>
 <!-- 自定义js -->
-<script type='text/javascript' src='{{ asset('assets/home/js/public.js') }}'></script>
+<script type='text/javascript' src='{{ asset('home/js/public.js') }}'></script>
 @yield('scripts')
 </body>
 </html>

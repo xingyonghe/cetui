@@ -34,7 +34,7 @@ $(function(){
                     skin    : 'layer-ext-member',
                     closeBtn: 1,
                     title   : data.title,
-                    area    : ['650px'],
+                    area    : ['650px','450px'],
                     btn     : ['确定', '取消'],
                     content : data.info,
                     yes     : function(index){

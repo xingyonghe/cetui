@@ -88,7 +88,7 @@
                                     <span data-id="{{ $key }}" @if(in_array($key,$params['platform'])) class="platform on" @else class="platform" @endif>
                                     {{ $platform }}
                                         <input type="checkbox" @if($key > 0) name="platform[]" @endif value="{{ $key }}" @if(in_array($key,$params['platform'])) checked="checked" @endif>
-                                </span>
+                                    </span>
                                 @endforeach
                         </span>
                         </p>
@@ -193,7 +193,7 @@
                                         <p><label class="ckbj">{{ $item['money'] }}元</label></p>
                                     </td>
                                     <td>
-                                        <label class="gwc on"><a class="ajax-bespeak" href="javascript:void(0)" url="{{ route('ads.netred.bespeak',[$item['id']]) }}">立即预约</a></label>
+                                        <label class="gwc on"><a class="ajax-bespeak" style="color: #ffffff" href="javascript:void(0)" url="{{ route('ads.netred.bespeak',[$item['id']]) }}">立即预约</a></label>
                                     </td>
                                 </tr>
                             @endforeach

@@ -4,7 +4,11 @@
 @section('scripts')
     <script type="text/javascript">
         $(function(){
-
+            $('.ajax-post').click(function(){
+                var that = $(this);
+                formAjaxPost($('.data-form'),that);
+                return false;
+            });
         })
     </script>
 @endsection

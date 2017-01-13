@@ -46,7 +46,7 @@ class AdminUser extends Authenticatable
      * @param $data 表单数据
      * @return bool
      */
-    public function updateData($data){
+    protected function updateData($data){
         if(empty($data['id'])){
             //新增
             $data['password'] = bcrypt($data['password']);
@@ -54,14 +54,12 @@ class AdminUser extends Authenticatable
             $data['login_time'] = Carbon::now();
             $resualt = $this->create($data);
             if($resualt === false){
-                $this->error = '新增管理员信息失败';
                 return false;
             }
         }else{
             //编辑
             $info = $this->find($data['id']);
             if(empty($info) || $info->update($data)===false){
-                $this->error = '修改管理员信息失败';
                 return false;
             }
         }
@@ -72,12 +70,12 @@ class AdminUser extends Authenticatable
     /**
      * 重置密码
      */
-    protected function resetPassword($request){
-        $resualt = $this->where(array(['username','=',$request->username]))->update(array('password'=>bcrypt($request->password)));
+    protected function resetPassword($data){
+        $resualt = $this->where('username',$data['username'])->update(['password'=>bcrypt($data['password'])]);
         if($resualt === false){
             return false;
         }
-        return $request;
+        return true;
     }
 
     /**

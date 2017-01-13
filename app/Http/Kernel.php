@@ -34,6 +34,7 @@ class Kernel extends HttpKernel
 
         'admin' => [
             \App\Http\Middleware\AdminMenus::class,
+            \App\Http\Middleware\AdminUserAuth::class,
         ],
 
         'api' => [
@@ -60,5 +61,6 @@ class Kernel extends HttpKernel
         'login_netred' => \App\Http\Middleware\LoginNetred::class,
         'login_ads'    => \App\Http\Middleware\LoginAds::class,
         'messages'    => \App\Http\Middleware\Messages::class,
+        'admin_login'    => \App\Http\Middleware\AdminUserLogin::class,
     ];
 }

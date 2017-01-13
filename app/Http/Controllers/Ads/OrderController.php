@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ads;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\UserAccountLog;
 use App\Models\UserBespeak;
 use SEO;
@@ -63,11 +64,48 @@ class OrderController extends Controller
             ->where('status',Order::STATUS_1)
             ->first();
         if(empty($order)){
-            echo '订单信息不存在';die;
+            return $this->errors('订单信息不存在',url()->previous());
         }
         SEO::setTitle('订单支付-广告主中心-'.configs('WEB_SITE_TITLE'));
         return view('ads.order.pay',compact('order'));
     }
+
+
+    public function balance(){
+        $data = request()->all();
+        $order = Order::where('buy_user_id',auth()->id())
+            ->where('order_sn',$data['order'])
+            ->where('type',Order::TYPE_1)
+            ->where('status',Order::STATUS_1)
+            ->first();
+        if(empty($order)){
+            return $this->ajaxReturn('订单信息不存在');
+        }
+        if(empty(auth()->user()->payword)){
+            return response()->json(['status'=>-1,'info'=>'支付密码未设置','id'=>'payword']);
+        }
+        if((\Hash::check($data['payword'], auth()->user()->payword)) === false){
+            return response()->json(['status'=>-1,'info'=>'支付密码输入错误','id'=>'payword']);
+        }
+        if(auth()->user()->balance < $order['money']){
+            return response()->json(['status' => -1,'info' => '余额不足','id' => 'money']);
+        }
+        $resault = \DB::transaction(function () use($order){
+            if(($order->update(['status'=>Order::STATUS_2,'pay_at'=>\Carbon\Carbon::now()]))
+                && (User::where('id',$order['buy_user_id'])->decrement('balance', $order['money']))
+                && (UserAccountLog::accountLog($order['money'],UserAccountLog::TYPE_2,request()->ip(),UserAccountLog::STATUS_1,'余额支付订单，订单号：'.$order['order_sn']))){
+                return true;
+            }
+            return false;
+        });
+        if($resault){
+            return $this->ajaxReturn('支付成功!',0,route('ads.order.index'));
+        }else{
+            return $this->ajaxReturn('支付失败');
+        }
+
+    }
+
 
     /**
      * 确认凭证资料

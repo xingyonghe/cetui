@@ -39,17 +39,23 @@ class CenterController extends Controller
         $data = request()->all();
         $rules = [
             'nickname' => 'required',
-            'email'  => 'sometimes|email',
+            'email'  => 'required|email',
             'qq'  => 'required',
         ];
         $msgs = [
             'nickname.required' => '请填写联系人姓名',
+            'email.required' => '请填写邮箱',
             'email.email' => '邮箱格式错误',
             'qq.required'    => '请填写QQ账号',
         ];
         $validator = validator()->make($data,$rules,$msgs);
         if ($validator->fails()) {
             return $this->ajaxValidator($validator);
+        }
+        if($data['email'] != auth()->user()->email){
+            if(User::where('email',$data['email'])){
+                return response()->json(['status'=>-1,'info'=>'邮箱已注册','id'=>'email']);
+            }
         }
         $reault = auth()->user()->update($data);
         if($reault){
@@ -193,7 +199,8 @@ class CenterController extends Controller
      * @date 2016-1-11
      * @return
      */
-    public function certified(){
+    public function certified()
+    {
         SEO::setTitle('认证资料-会员中心-'.configs('WEB_SITE_TITLE'));
         $info = UserData::where('userid',auth()->id())->first();
         if(empty($info)){
@@ -216,7 +223,8 @@ class CenterController extends Controller
      * @date 2016-1-11
      * @return
      */
-    public function send(){
+    public function send()
+    {
         $data = request()->all();
         $rules = [
             'truename'   => 'required',

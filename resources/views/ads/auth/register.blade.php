@@ -1,5 +1,5 @@
 @extends('ads.auth.base')
-@section('script')
+@section('scripts')
     <script type="text/javascript">
         $(function(){
             //发送短信验证码
@@ -41,29 +41,29 @@
                 return false;
             });
 
-            //验证验证码
-            $('#code').blur(function(){
-                var that = this;
-                var code = $(this).val();
-                var target = "{{ route('api.verifysms') }}";
-                var mobile = $('#username').val();
-                if(!code && mobile){
-                    alertTips('请输入验证码','code');
-                    return false;
-                }
-                if(mobile && !$(this).hasClass('disabled')){
-                    var _token = "{{csrf_token()}}";
-                    var query = {'mobile':mobile,'code':code,'_token':_token};
-                    $.post(target,query,function(data){
-                        if (data.status==1) {
-                            $(that).addClass('disabled');
-                            alertTips(data.info,'code');
-                        }else{
-                            alertTips(data.info,'code');
-                        }
-                    },'json');
-                }
-            });
+            {{--//验证验证码--}}
+            {{--$('#code').blur(function(){--}}
+                {{--var that = this;--}}
+                {{--var code = $(this).val();--}}
+                {{--var target = "{{ route('api.verifysms') }}";--}}
+                {{--var mobile = $('#username').val();--}}
+                {{--if(!code && mobile){--}}
+                    {{--alertTips('请输入验证码','code');--}}
+                    {{--return false;--}}
+                {{--}--}}
+                {{--if(mobile && !$(this).hasClass('disabled')){--}}
+                    {{--var _token = "{{csrf_token()}}";--}}
+                    {{--var query = {'mobile':mobile,'code':code,'_token':_token};--}}
+                    {{--$.post(target,query,function(data){--}}
+                        {{--if (data.status==1) {--}}
+                            {{--$(that).addClass('disabled');--}}
+                            {{--alertTips(data.info,'code');--}}
+                        {{--}else{--}}
+                            {{--alertTips(data.info,'code');--}}
+                        {{--}--}}
+                    {{--},'json');--}}
+                {{--}--}}
+            {{--});--}}
 
             //ajax post请求
             $('body').on('click','.ajax-register',function(){
@@ -147,10 +147,10 @@
     </div>
     <div class="main">
         <div class="zhucezhong">
-            <form class="form-horizontal data-form" action="{{ route('netred.register.post') }}" method="POST" >
+            <form class="form-horizontal data-form" action="{{ route('ads.register.post') }}" method="POST" >
                 {{ csrf_field() }}
                 <div class="zhuce">
-                    <h3>网红注册</h3>
+                    <h3>广告主注册</h3>
                     <div class="shurukuang">
                         <span>*</span><input name="username" id="username" autofocus autocomplete="off" class="zit" type="text" placeholder="请输入手机号"/>
                     </div>
@@ -173,7 +173,7 @@
                         <span>*</span><input class="zit" type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" placeholder="请确认密码"/>
                     </div>
                     <div class="shurukuang">
-                        <span>*</span><input class="zit" type="text" name="nickname" id="nickname" autocomplete="off" placeholder="请输入联系人姓名"/>
+                        <span>*</span><input class="zit" type="text" name="nickname" id="nickname" autocomplete="off" placeholder="请输入公司名称"/>
                     </div>
                     <div class="shurukuang">
                         <span>*</span><input class="zit" type="text" name="qq" id="qq" autocomplete="off" placeholder="请输入QQ账号"/>
@@ -190,6 +190,7 @@
                         <label for="accept-terms"><span>阅读并同意条款<a href="###">《策推中国用户协议》</a></span></label>
                     </div>
                     <div class="quren2">
+                        <input type="hidden" name="type" value="2">
                         <input class="tijiao ajax-register" id="tijiao" type="button"  style="background-color:#ff6476" value="确认注册"/>
                     </div>
                     <div class="qingchu"></div>

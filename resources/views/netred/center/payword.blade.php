@@ -54,7 +54,7 @@
                             </div>
                         </div>
                     @else
-                        <div class="jbxx">
+                        <div class="c_tggl_box">
                             <br/> <br/> <br/>
                             您还没有设置支付密码，为了您的资金安全，赶紧现在设置吧！
                             <div class="c_tggl_line">

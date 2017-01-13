@@ -11,10 +11,7 @@ class BespeakController extends Controller
 {
 
     public function __construct(){
-        $category = Category::where('model','netred')->orderBy('sort','asc')
-            ->orderBy('id','asc')->get(['id','name','pid'])
-            ->toArray();
-        $categorys = list_to_tree($category);
+        $categorys = configs('ADS_TASK_TYPE');
         //新增/编辑共享直播平台数据
         view()->composer(['admin.bespeak.index','admin.bespeak.unlogin'],function($view) use($categorys){
             $view->with('categorys',$categorys);

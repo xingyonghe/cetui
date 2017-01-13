@@ -243,10 +243,7 @@ class NetredController extends Controller
         if(empty($info)){
             $this->ajaxReturn('非法操作');
         }
-        $category = Category::where('model','netred')->orderBy('sort','asc')
-            ->orderBy('id','asc')->get(['id','name','pid'])
-            ->toArray();
-        $categorys = list_to_tree($category);
+        $categorys = configs('ADS_TASK_TYPE');
         $view = view('ads.netred.bespeak',compact('id','categorys'));
         return $this->ajaxReturn($view->render(),0,'','立即预约');
     }

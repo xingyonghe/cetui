@@ -7,16 +7,11 @@
                 <div class="c_tggl_left">
                     <span>*</span>推广需求：
                 </div>
-                <div class="c_tggl_right" id="catids">
-                    @foreach($categorys as $category)
-                        @if(isset($category['_child']))
-                            @foreach($category['_child'] as $key=>$cate)
-                                <span class="span-checkbox">
-                                    <input type="checkbox" style="display: none" name="catids[]" value="catid_{{ $cate['id'] }}" />
-                                    <i class="labelCheckbox_style"></i>{{ $cate['name'] }}
-                                </span>
-                            @endforeach
-                        @endif
+                <div class="c_tggl_right" id="catids" style="text-align: left;padding-left: 35px">
+                    @foreach($categorys as $key=>$category)
+                        <span style="margin-right: 5px">
+                            <input type="checkbox" style="" name="catids[]" value="catid_{{ $key }}">{{ $category}}
+                        </span>
                     @endforeach
                 </div>
             </div>
