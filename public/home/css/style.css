@@ -43,8 +43,6 @@
 
 #slider {
 	position:relative;
-	width:618px;
-	height:246px;
 	background:url(../images/loading.gif) no-repeat 50% 50%;
 	 margin:auto;
 }

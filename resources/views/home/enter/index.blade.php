@@ -10,8 +10,8 @@
 @endsection
 @section('body')
 <!--S顶部-->
+@include('home.layouts.head')
 <div class="datu3">
-    @include('home.layouts.head')
     <div class="dazi">
         <h1><span>最佳的网红直播自媒体赚钱平台</span></h1>
         <h2><span>利用自身人气获取高额报酬</span></h2>
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="main">
-    <div class="juzhongxia2">
+    <div class="juzhongxia2 paddBottom_60">
         <div class="biaoti">免费加入我们，你将享受以下权益！</div>
         <div class="fenkai">
             <div class="tg">

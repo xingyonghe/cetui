@@ -34,11 +34,11 @@ img {
 	line-height: 22px;
 	position: relative;
 	z-index: 1;
-	
 	height: 695px;
 }
 .header-content .text {
 	width: 820px;
+    margin-left: 50px;
 
 }
 .header-content .copy {
@@ -61,7 +61,7 @@ img {
 
 
 }
-.header-content .button a {padding-top: 15px; font-size: 18px; display: inline-block;}
+.header-content .button a { line-height: 60px; width: 100%; font-size: 18px; color: #fff; display: inline-block;}
 
 .header-content .align-bottom {position: absolute; bottom: 0px;}
 
@@ -159,7 +159,7 @@ img {
 .slider-sections {margin: 0 auto; position: relative;}
 .slider-sections section {
 	position: absolute;
-	top: 177px;
+	top: 130px;
 	left: 2px;
 }
 

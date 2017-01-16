@@ -20,6 +20,7 @@ class AdvertiserController extends Controller
     public function index()
     {
         SEO::setTitle(configs('WEB_SITE_TITLE'));
+
         return view('home.ads.index');
     }
 

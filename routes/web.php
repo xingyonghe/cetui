@@ -13,14 +13,14 @@ Route::group(['namespace'=>'Home','middleware'=> ['channel']],function(){
 
     /**--**--**--**--**--**--**--**--**--**网红推荐**--**--**--**--**--**--**--**--**--**--**/
     Route::get('rednet/index',       'RednetController@index')->name('home.rednet.index');
+    Route::post('rednet/bespeak',    'RednetController@bespeak')->name('home.rednet.bespeak');
     Route::get('rednet/show/{id}',   'RednetController@show')->name('home.rednet.show')->where('id','\d+');
 
     /**--**--**--**--**--**--**--**--**--**客户案例**--**--**--**--**--**--**--**--**--**--**/
     Route::get('case/index',         'CaseController@index')->name('home.case.index');
 
     /**--**--**--**--**--**--**--**--**--**广告主**--**--**--**--**--**--**--**--**--**--**/
-    Route::get('ads/index',          'AdvertiserController@index')->name('home.ads.index');
-
+    Route::get('advertiser/index',          'AdvertiserController@index')->name('home.ads.index');
     /**--**--**--**--**--**--**--**--**--**网红入驻**--**--**--**--**--**--**--**--**--**--**/
     Route::get('enter/index',        'RednetEnterController@index')->name('home.enter.index');
     //关于我们

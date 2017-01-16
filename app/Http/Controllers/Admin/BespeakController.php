@@ -106,13 +106,14 @@ class BespeakController extends Controller
     }
 
     /**
-     * 预约网红列表
+     * 意向预约网红列表
      * @author: xingyonghe
      * @date: 2017-1-6
      * @return mixed
      */
     public function unlogin(){
         $lists = UserBespeak::whereNull('user_ads_id')
+            ->orderBy('status', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(configs('ADMIN_PAGE_LIMIT') ?? 10);
         $this->intToString($lists,['status'=>UserBespeak::STATUS_TEXT]);

@@ -52,12 +52,16 @@
                             </tr>
                             <tr>
                                 <td colspan="2" align="center">
+                                    <p class="inp_login">
                                     <input class="dengkuang" id="username" type="text" name="username" autocomplete="off" autofocus placeholder="请输入手机号"/>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" align="center">
+                                    <p class="inp_reg">
                                     <input class="dengkuang" id="password" type="password" name="password" autocomplete="off" placeholder="密码"/>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>

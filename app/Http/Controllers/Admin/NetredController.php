@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Messages;
 use App\Models\UserNetred;
 use App\Models\UserNetredAdform;
+use App\Models\UserNetredPosition;
 
 class NetredController extends Controller
 {
@@ -80,65 +81,6 @@ class NetredController extends Controller
         return view('admin.netred.system',compact('lists','params'));
     }
 
-    /**
-     * 新增
-     * @author xingyonghe
-     * @date 2017-1-4
-     * @return
-     */
-    public function create()
-    {
-        $view = view('admin.netred.edit');
-        return $this->ajaxReturn($view->render(),0,'','新增平台信息');
-    }
-
-    /**
-     * 修改
-     * @author xingyonghe
-     * @date 2017-1-4
-     * @param int $id
-     * @return
-     */
-    public function edit(int $id)
-    {
-        $info = UserPlatform::find($id);
-        $view = view('admin.netred.edit',compact('info'));
-        return $this->ajaxReturn($view->render(),0,'','编辑平台信息');
-    }
-
-    /**
-     * 更新
-     * @author: xingyonghe
-     * @date: 2017-1-4
-     * @param MenuRequest $request
-     * @return mixed
-     */
-    public function update()
-    {
-        $resault = UserPlatform::toUpdate(request()->all());
-        if($resault){
-            return $this->ajaxReturn(isset($resault['id'])?'平台信息修改成功':'平台信息新增成功',0,url()->previous());
-        }else{
-            return $this->ajaxReturn('操作失败，请稍后再试');
-        }
-    }
-
-    /**
-     * 删除
-     * @author: xingyonghe
-     * @date: 2017-1-4
-     * @param $id
-     * @return mixed
-     */
-    public function destroy(int $id)
-    {
-        $resualt = UserPlatform::destroy($id);
-        if($resualt){
-            return redirect()->back()->withSuccess('删除平台信息成功!');
-        }else{
-            return redirect()->back()->withErrors('删除平台信息失败');
-        }
-    }
 
     /**
      * 等待审核
@@ -323,6 +265,87 @@ class NetredController extends Controller
         }
         return $this->ajaxReturn('批量导入成功',1,url()->previous());
 
+    }
+
+    /**
+     * 推荐
+     * @author xingyonghe
+     * @date 2016-1-11
+     * @param int $id
+     * @return
+     */
+    public function position(int $id){
+        $info = UserNetred::find($id);
+        $p_info = UserNetredPosition::where('netred_id',$id)->get(['position'])->toArray();
+        if(!empty($p_info)){
+            $p_info = array_pluck($p_info,'position');
+        }
+        $view = view('admin.netred.position',compact('info','p_info'));
+        return $this->ajaxReturn($view->render(),0,'','网红推荐');
+    }
+
+    /**
+     * 更新推荐
+     * @author xingyonghe
+     * @date 2016-1-11
+     * @return
+     */
+    public function update(){
+        $data = request()->all();
+        \DB::transaction(function () use($data) {
+            UserNetredPosition::where('netred_id',$data['netred_id'])->delete();
+            foreach($data['position'] as $item){
+                UserNetredPosition::create([
+                    'netred_id' => $data['netred_id'],
+                    'position' => $item
+                ]);
+            }
+        });
+        return $this->ajaxReturn('推荐成功',0,route('admin.netred.index'));
+    }
+
+    /**
+     * 推荐管理
+     * @author xingyonghe
+     * @date 2016-1-11
+     */
+    public function recommend(int $pid=1){
+        $lists = UserNetredPosition::where('position',$pid)->get();
+        return view('admin.netred.recommend',compact('lists'));
+    }
+
+
+    /**
+     * 导航排序
+     * @author: xingyonghe
+     * @date: 2017-1-4
+     * @return
+     */
+    public function sort(int $pid=1)
+    {
+        $datas = UserNetredPosition::where('position',$pid)
+
+            ->orderBy('sort','asc')
+            ->pluck('name','id');
+        $view = view('admin.platform.sort',compact('datas'));
+        return $this->ajaxReturn($view->render(),0,'','平台排序');
+    }
+
+    /**
+     * 更新排序
+     * @author: xingyonghe
+     * @date: 2017-1-4
+     * @return
+     */
+    public function order()
+    {
+        $data = request()->only('ids');
+        $ids = explode(',', $data['ids']);
+        foreach ($ids as $sort=>$id){
+            $platform = UserNetredPlatform::find($id);
+            $platform->update(['sort'=>$sort+1]);
+        }
+        return $this->ajaxReturn('平台信息排序成功',0,url()->previous());
     }
 
 

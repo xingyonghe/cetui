@@ -84,8 +84,8 @@
                                 @else
                                     忘记支付密码，<a href="{{ route('ads.center.payword') }}" style="color: #ff595f">前去修改</a>
                                 @endif
-                                @endif
                             </div>
+                        @endif
                         <button class="qrzf ajax-pay" style="margin-left: 110px">确定支付</button>
                     </div>
                     <div class="c_pay_right">

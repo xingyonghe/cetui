@@ -220,4 +220,7 @@ $(function(){
         $(this).siblings().removeClass('r_on').find('input').prop('checked',false);
         $(this).addClass('r_on').find('input').prop('checked',true);
     });
+
+
+
 })

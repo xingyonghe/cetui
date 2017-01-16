@@ -97,7 +97,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
-            'prefix' => 'ads',
+            'prefix' => 'advertiser',
         ], function ($router) {
             require base_path('routes/ads.php');
         });

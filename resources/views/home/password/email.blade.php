@@ -77,34 +77,58 @@
 <div class="main">
     <div class="zhz">
         <div class="zhaohui">
-            <div class="zhmm">找回密码</div>
-            <div class="zhmima">
-                <div class="phonezhh" ><a href="{{ route('home.password.mobile') }}" >手机找回密码</a></div>
-                <div class="emailzhhxz"><a href="{{ route('home.password.email') }}">邮箱找回密码</a></div>
-            </div>
             <form class="form-horizontal data-form" action="{{ route('home.password.update') }}" method="POST" >
                 {{ csrf_field() }}
-                <div class="zhk">
-                    <span>*</span><input class="zit" name="email"  id="email" type="text" placeholder="请输入注册的邮箱号" />
-                </div>
-                <div class="zhk2">
-                    <span>*</span>
-                    <div class="zhf">
-                        <input class="zit" maxlength="6" name="code"  id="code" type="text" style="width: 272px" placeholder="请输入验证码" >
-                        <div class="dianh">
-                            <input type="button" id="get-code" style="color: #ff6476;background: #ffffff;width: 131px;position: relative;" value="发送邮件">
-                        </div>
-                    </div>
-                </div>
-                <div class="zhk">
-                    <span>*</span><input class="zit" name="password"  id="password" type="password" placeholder="输入密码" />
-                </div>
-                <div class="zhk">
-                    <span>*</span><input class="zit" name="password_confirmation"  id="password_confirmation" type="password"  placeholder="请再次输入您的密码"/>
-                </div>
-                <div class="quren3">
-                    <input class="tijiao ajax-reset" type="submit" style="background-color:#ff6476" value="确认注册"/>
-                </div>
+                <table width="465" border="0" cellspacing="10">
+                    <tbody>
+                    <tr>
+                        <td colspan="3" class="biaotizi"><h5>找回密码</h5></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="right" class="fense">
+                            <div class="phonezhhxz" ><a href="{{ route('home.password.mobile') }}" >手机找回密码</a></div>
+                            <div class="emailzhh on"><a href="{{ route('home.password.email') }}">邮箱找回密码</a></div>
+                        </td>
+                    </tr>
+                    <tr height="60">
+                        <td width="30" align="right" class="fense">*</td>
+                        <td colspan="2" align="left">
+                            <input class="ankuan" name="email"  id="email" type="text" placeholder="请输入注册的邮箱号" />
+                        </td>
+                    </tr>
+                    <tr height="60">
+                        <td width="30" align="right" class="fense">*</td>
+                        <td align="left" colspan="2">
+                            <div class="zhfkuang">
+                                <div class="sryzm">
+                                    <input class="ankuanduan" maxlength="6" name="code"  id="code" type="text"  placeholder="请输入验证码" >
+                                </div>
+                                <div class="xian"></div>
+                                <div class="djan">
+                                    <input type="button" id="get-code" class="yanzheng" value="发送邮件">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr height="60">
+                        <td width="30" align="right" class="fense">*</td>
+                        <td colspan="2" align="left">
+                            <input class="ankuan" name="password"  id="password" type="password" placeholder="输入密码" />
+                        </td>
+                    </tr>
+                    <tr height="60">
+                        <td width="30" align="right" class="fense">*</td>
+                        <td colspan="2" align="left">
+                            <input class="ankuan" name="password_confirmation"  id="password_confirmation" type="password"  placeholder="请再次输入您的密码"/>
+                        </td>
+                    </tr>
+                    <tr height="90">
+                        <td width="30" align="right" class="fense">&nbsp;</td>
+                        <td colspan="3" align="center">
+                            <input type="button" name="button" id="button" value="确定提交" class="hongan ajax-reset"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </form>
         </div>
     </div>

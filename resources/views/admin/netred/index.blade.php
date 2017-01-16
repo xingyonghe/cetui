@@ -67,6 +67,11 @@
                                 <a class="btn btn-primary btn-xs" href="{{ route('admin.netred.show',[$data->id]) }}">
                                     <i class="icon-check-sign"></i> 详情
                                 </a>
+                                @if($data->status == 1)
+                                    <a class="btn btn-primary btn-xs ajax-update" href="javascript:void(0)" url="{{ route('admin.netred.position',[$data->id]) }}">
+                                        <i class="icon-check-sign"></i> 推荐
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

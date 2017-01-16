@@ -150,50 +150,82 @@
             <form class="form-horizontal data-form" action="{{ route('ads.register.post') }}" method="POST" >
                 {{ csrf_field() }}
                 <div class="zhuce">
-                    <h3>广告主注册</h3>
-                    <div class="shurukuang">
-                        <span>*</span><input name="username" id="username" autofocus autocomplete="off" class="zit" type="text" placeholder="请输入手机号"/>
-                    </div>
-                    <div id="error-username"></div>
-                    <div class="shurukuang2">
-                        <span>*</span>
-                        <div class="fenkuang">
-                            <input class="zit" name="code" maxlength="6" id="code" type="text" placeholder="请输入动态验证码"/>
-                            <div class="dianjif">
-                                <p>
-                                    <input type="button" name="code" id="get-code" style="color: #ff6476;background: #ffffff;width: 131px;position: relative;bottom: 13px" value="获取验证码">
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span><input class="zit" type="password" name="password" id="password" autocomplete="off" placeholder="请输入密码"/>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span><input class="zit" type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" placeholder="请确认密码"/>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span><input class="zit" type="text" name="nickname" id="nickname" autocomplete="off" placeholder="请输入公司名称"/>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span><input class="zit" type="text" name="qq" id="qq" autocomplete="off" placeholder="请输入QQ账号"/>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span><input class="zit" type="text" name="weixin" id="weixin" autocomplete="off" placeholder="请输入微信帐号"/>
-                    </div>
-                    <div class="shurukuang">
-                        <span>*</span>
-                        <input class="zit" type="text" name="email" id="email" autocomplete="off" placeholder="请输入邮箱"/>
-                    </div>
-                    <div class="gouxuan">
-                        <input class="ziti" type="checkbox" name="protocol" id="protocol" value="1" id="accept-terms">
-                        <label for="accept-terms"><span>阅读并同意条款<a href="###">《策推中国用户协议》</a></span></label>
-                    </div>
-                    <div class="quren2">
-                        <input type="hidden" name="type" value="2">
-                        <input class="tijiao ajax-register" id="tijiao" type="button"  style="background-color:#ff6476" value="确认注册"/>
-                    </div>
-                    <div class="qingchu"></div>
+                    <table width="465" border="0" cellspacing="10">
+                        <tbody>
+                        <tr>
+                            <td colspan="3" class="biaotizi"><h5>广告主注册</h5></td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input name="username" id="username" autofocus autocomplete="off" class="ankuan" type="text" placeholder="请输入手机号"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td  align="left" colspan="2">
+                                <div class="zhfkuang">
+                                    <div class="sryzm">
+                                        <input class="ankuanduan" name="code" maxlength="6" id="code" type="text" placeholder="请输入动态验证码"/>
+                                    </div>
+                                    <div class="xian"></div>
+                                    <div class="djan">
+                                        <input type="button" id="get-code" class="yanzheng" value="获取验证码">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="password" name="password" id="password" autocomplete="off" placeholder="请输入密码"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="password" name="password_confirmation" id="password_confirmation" autocomplete="off" placeholder="请确认密码"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="text" name="nickname" id="nickname" autocomplete="off" placeholder="请输入公司名称"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="text" name="qq" id="qq" autocomplete="off" placeholder="请输入QQ账号"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="text" name="weixin" id="weixin" autocomplete="off" placeholder="请输入微信帐号"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">*</td>
+                            <td colspan="2" align="left">
+                                <input class="ankuan" type="text" name="email" id="email" autocomplete="off" placeholder="请输入邮箱"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">&nbsp;</td>
+                            <td colspan="2" align="left" class="huise">
+                                <label class="label_style">
+                                    <input  type="checkbox" name="protocol" id="protocol" value="1">
+                                    阅读并同意条款<a href="#">《策推中国用户协议》</a>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30" align="right" class="fense">&nbsp;<input  type="hidden" name="type" value="2"></td>
+                            <td colspan="3" align="center"><input type="button" name="button" id="button" value="确定注册"  class="hongan ajax-register" ></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </form>
         </div>

@@ -48,8 +48,9 @@
                             </div>
 
                             <div class="c_tggl_line">
+                                <div class="c_tggl_left"></div>
                                 <div class="c_tggl_right">
-                                    <button class="ajax-post" >修改并保存</button>
+                                    <button class="width_424 ajax-post" >修改并保存</button>
                                 </div>
                             </div>
                         </div>

@@ -46,18 +46,22 @@
                         <table width="100%" border="0" cellspacing="10">
                             <tbody>
                             <tr>
-                                <td><div class="cur"><a href="javascript:void(0)">网红登录</a></div></td>
-                                <td><div class="zzi" ><a href="{{ route('netred.register.form') }}">网红注册</a></div>
+                                <td align="center"><div class="cur on"><a href="javascript:void(0)">网红登录</a></div></td>
+                                <td align="center"><div class="cur" ><a href="{{ route('netred.register.form') }}">网红注册</a></div>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" align="center">
-                                    <input class="dengkuang" id="username" type="text" name="username" autocomplete="off" autofocus placeholder="请输入手机号"/>
+                                    <p class="inp_login">
+                                        <input class="dengkuang" id="username" type="text" name="username" autocomplete="off" autofocus placeholder="请输入手机号"/>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" align="center">
-                                    <input class="dengkuang" id="password" type="password" name="password" autocomplete="off" placeholder="密码"/>
+                                    <p class="inp_reg">
+                                        <input class="dengkuang" id="password" type="password" name="password" autocomplete="off" placeholder="密码"/>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>

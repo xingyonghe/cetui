@@ -18,30 +18,34 @@
         <div class="parallax-bg" id="slider-wrap">
             <div class="slider parallax-bg" id="slider">
                 <div class="slider-sections sandbox">
-                    <section class="first">
-                        <div class="text" style="padding-top: 10px;"><h2>专业的网红自媒体广告投放平台</h2>
+                    <section class="first marTop_40">
+                        <div class="text">
+                            <h2>专业的网红自媒体广告投放平台</h2>
                             <p class="copy">精准营销从此开始</p>
                             <p class="button"><a href="{{ route('netred.login.form') }}">网络入住</a></p>
                             <p class="button"><a href="{{ route('ads.login.form') }}">广告投放</a></p>
                         </div>
                     </section>
-                    <section>
-                        <div class="text" style="padding-top: 10px;"><h2>专业的网红自媒体广告投放平台22</h2>
+                    <section class="marTop_40">
+                        <div class="text">
+                            <h2>专业的网红自媒体广告投放平台22</h2>
                             <p class="copy">单页面、单广告等模块。</p>
                             <p class="button">
                                 <a href="http://www.lanrentuku.com/" onclick="_gaq.push(['_trackPageview', 'http://www.lanrentuku.com/']);">Download</a>
-                                <a class="dimmed" onclick="_gaq.push(['_trackPageview', 'http://www.lanrentuku.com/']);" href="http://www.lanrentuku.com/">Learn
-                                                                                                                                                           More</a>
-                            </p></div>
+                                <a class="dimmed" onclick="_gaq.push(['_trackPageview', 'http://www.lanrentuku.com/']);" href="http://www.lanrentuku.com/">Learn More</a>
+                            </p>
+                        </div>
                     </section>
-                    <section>
-                        <div class="text"><h2>专业的网红自媒体广</h2>
+                    <section class="marTop_40">
+                        <div class="text">
+                            <h2>专业的网红自媒体广</h2>
                             <p class="copy">全站生成纯静态页。</p>
                             <p class="button">
                                 <a href="http://www.lanrentuku.com/" onclick="_gaq.push(['_trackPageview', 'http://www.lanrentuku.com/']);">Download</a>
                                 <a class="dimmed" onclick="_gaq.push(['_trackPageview', 'http://www.lanrentuku.com/']);" href="http://www.lanrentuku.com/">Learn
                                                                                                                                                            More</a>
-                            </p></div>
+                            </p>
+                        </div>
                     </section>
                 </div>
             </div>
@@ -52,10 +56,11 @@
     </div>
     <div class="qingchu"></div>
     <!--E顶部-->
+
     <!--S中间-->
     <div class="main">
         <div class="juzhongxia2">
-            <div class="biaoti">精品网红资源展示</div>
+            <div class="biaoti_one">精品网红资源展示</div>
             <div class="shang">
                 @foreach($category as $key=>$item)
                     <div class="zuo">
@@ -63,7 +68,7 @@
                         <div class="xiao2">
                             @if(isset($item['_child']) && is_array($item['_child']))
                                 @foreach($item['_child'] as $child)
-                                    <a href="#">{{ $child['name'] }}</a>
+                                    <a href="{{ route('home.rednet.index').'?catid='.$child['id'] }}">{{ $child['name'] }}</a>
                                 @endforeach
                             @endif
 
@@ -75,7 +80,6 @@
                 @endforeach
                 <div class="qingchu"></div>
             </div>
-
         </div>
     </div>
     <!--Emain-->

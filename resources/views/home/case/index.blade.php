@@ -14,9 +14,9 @@
 @endsection
 @section('body')
 <!--S顶部-->
-<div class="datu2">
-    @include('home.layouts.head')
-</div>
+@include('home.layouts.head')
+<div class="khal_top"></div>
+
 <div class="main">
     <div class="juzhong">
         <div class="biaoti">精品网红资源展示</div>
@@ -32,8 +32,9 @@
         </div>
     </div>
 </div>
+
 <div class="kehu">
-    <div class="juzhong">
+    <div class="juzhongxia2">
         <div class="biaoti">我们的客户</div>
         <h5>基于专业的大数据分析，为广告主量身打造最为高效的推广方案，因此，以下客户选择了我们！</h5>
     </div>

@@ -79,8 +79,12 @@ Route::group(['namespace'=>'Admin'], function () {
         Route::post('netred/refuse',       'NetredController@refuse')->name('admin.netred.refuse');//审核不通过
         Route::get('netred/edit/{id}',     'NetredController@edit')->name('admin.netred.edit');//编辑
         Route::get('netred/show/{id}',     'NetredController@show')->name('admin.netred.show');//详情
-        Route::post('netred/update',       'NetredController@update')->name('admin.netred.update');//更新
         Route::get('netred/destroy/{id}',  'NetredController@destroy')->name('admin.netred.destroy');//删除
+        Route::get('netred/position/{id}', 'NetredController@position')->name('admin.netred.position');//推荐
+        Route::post('netred/update',       'NetredController@update')->name('admin.netred.update');//更新
+        Route::get('netred/recommend/{pid?}',    'NetredController@recommend')->name('admin.netred.recommend');//更新
+        Route::get ('netred/sort/{pid?}',   'NetredController@sort')->name('admin.netred.sort');//排序
+        Route::post('netred/order',         'NetredController@order')->name('admin.netred.order');//更新排序
 
         //平台管理
         Route::get ('platform/index',         'PlatformController@index')->name('admin.platform.index');//平台列表

@@ -4,18 +4,122 @@
 @section('scripts')
 <script type="text/javascript">
     $(function(){
+        var bespeak = $.parseJSON('{!! $bespeak !!}');
+        console.log(bespeak);
+        var token = "{{ csrf_token() }}";
+        var target = "{{ route('home.rednet.bespeak') }}";
+        $('body').on('click','.unlogin_b',function(){
+            var netred_id = $(this).attr('data-netred-id');
+            var bespeak_html = '<form role="form" class="form-datas" method="post">' +
+                '<input name="_token" value="'+token+'" type="hidden">' +
+                '<input name="netred_id" value="'+netred_id+'" type="hidden"><div class="bespeak"><table width="100%">' +
+                '<tr><td class="bespeak_left">联系电话</td><td class="bespeak_right"><input type="text" id="mobile" name="mobile" placeholder="请输入正确的手机号码"></td></tr>';
+                bespeak_html += '<tr><td class="bespeak_left">推广产品</td><td class="bespeak_right">';
+                for(var i in bespeak){
+                    bespeak_html += '<span><input type="checkbox" name="catids[]" value="catid_'+i+'">'+bespeak[i]+'</span>';
+                }
+                bespeak_html += '</td></tr>' +
+                '<tr><td class="bespeak_left">推广预算</td><td class="bespeak_right"><input type="text" id="money" name="money" placeholder="请输入您的推广预算"></td></tr>' +
+                '</table></div> </form>';
+            layer.closeAll();
+            layer.open({
+                type    : 1,
+                skin    : 'layer-ext-member',
+                closeBtn: 1,
+                title   : '预约网红',
+                area    : ['650px','450px'],
+                btn     : ['确定', '取消'],
+                content : bespeak_html,
+                yes     : function(index){
+                    var mobile = $('#mobile').val();
+                    if(!mobile){
+                        $('#mobile').focus();return false;
+                    }
+                    if(!isMobile(mobile)){
+                        $('#mobile').val('');
+                        $('#mobile').focus();return false;
+                    }
+                    var form = $('.form-datas');
+                    var query = form.serialize();
+                    $.post(target,query,function(datas){
+                        if(datas.status == -1){
+                            $('#mobile').focus();return false;
+                        }else{
+                            layer.closeAll();
+                            layer.open({
+                                type    : 1,
+                                skin    : 'layer-ext-member',
+                                title   : '消息提醒',
+                                area    : ['600px'],
+                                closeBtn: 1,
+                                btn     : ['确定', '取消'],
+                                shade   : false,
+                                content : datas.info,
+                                time    : 3000,
+                            });
+                        }
+                    });
+                }
+            });
+            return false;
+        })
 
+
+        $('body').on('click','.login_b',function(){
+            var netred_id = $(this).attr('data-netred-id');
+            var bespeak_html = '<form role="form" class="form-datas" method="post">' +
+                '<input name="_token" value="'+token+'" type="hidden">' +
+                '<input name="netred_id" value="'+netred_id+'" type="hidden"><div class="bespeak"><table width="100%">';
+            bespeak_html += '<tr><td class="bespeak_left">推广产品</td><td class="bespeak_right">';
+            for(var i in bespeak){
+                bespeak_html += '<span><input type="checkbox" name="catids[]" value="catid_'+i+'">'+bespeak[i]+'</span>';
+            }
+            bespeak_html += '</td></tr>' +
+                '<tr><td class="bespeak_left">推广预算</td><td class="bespeak_right"><input type="text" id="money" name="money" placeholder="请输入您的推广预算"></td></tr>' +
+                '</table></div> </form>';
+            layer.closeAll();
+            layer.open({
+                type    : 1,
+                skin    : 'layer-ext-member',
+                closeBtn: 1,
+                title   : '预约网红',
+                area    : ['650px','450px'],
+                btn     : ['确定', '取消'],
+                content : bespeak_html,
+                yes     : function(index){
+                    var form = $('.form-datas');
+                    var query = form.serialize();
+                    $.post(target,query,function(datas){
+                        if(datas.status == -1){
+                            layer.msg(datas.info, {icon: 5});return false;
+                        }else{
+                            layer.closeAll();
+                            layer.open({
+                                type    : 1,
+                                skin    : 'layer-ext-member',
+                                title   : '消息提醒',
+                                area    : ['600px'],
+                                closeBtn: 1,
+                                btn     : ['确定', '取消'],
+                                shade   : false,
+                                content : datas.info,
+                                time    : 3000,
+                            });
+                        }
+                    });
+                }
+            });
+            return false;
+        })
     });
 </script>
 @endsection
 @section('body')
-<!--S顶部-->
-<div class="datu4">
-    @include('home.layouts.head')
-</div>
+@include('home.layouts.head')
+<div class="whtj_topBg"></div>
 <div class="hui">
     <div class="juzhongxia2">
-        <div class="xie">
+        <div class="xie paddTop_30">
             @foreach($category as $key=>$item)
                 <div class="zuo">
                     @if($key == 0)
@@ -30,7 +134,7 @@
                     <div class="xiao">
                         @if(isset($item['_child']) && is_array($item['_child']))
                             @foreach($item['_child'] as $child)
-                                <a href="#">{{ $child['name'] }}</a>
+                                <a @if($params['catid'] == $child['id']) style="font-weight: 700;font-size: 14px" @endif href="{{ route('home.rednet.index').'?catid='.$child['id'] }}">{{ $child['name'] }}</a>
                             @endforeach
                         @endif
 
@@ -45,30 +149,18 @@
         <div class="pingtai">
             <ul>
                 <li>网红平台:</li>
-                <li><a href="#">全部</a></li>
-                <li><a href="#">爱奇异</a></li>
-                <li><a href="#">一直播</a></li>
-                <li><a href="#">虎牙</a></li>
-                <li><a href="#">斗鱼</a></li>
-                <li><a href="#">映客</a></li>
-                <li><a href="#">一起秀</a></li>
-                <li><a href="#">花椒</a></li>
-                <li><a href="#">美拍</a></li>
-                <li><a href="#">秒拍</a></li>
-                <li><a href="#">更多>></a></li>
+                @foreach($platforms as $key=>$platform_val)
+                <li><a @if($params['platform'] == $key) style="font-weight: 700;font-size: 14px" @endif href="{{ route('home.rednet.index').'?platform='.$key }}">{{ $platform_val }}</a></li>
+                @endforeach
             </ul>
             <div class="qingchu"></div>
         </div>
         <div class="liang">
             <ul>
                 <li>粉丝量级：</li>
-                <li><a href="#">1万以下</a></li>
-                <li><a href="#">1—5万</a></li>
-                <li><a href="#">5—10万</a></li>
-                <li><a href="#">10—30万</a></li>
-                <li><a href="#">30—50万</a></li>
-                <li><a href="#">50—100万</a></li>
-                <li><a href="#">100万以上</a></li>
+                @foreach($fans as $key=>$fan_val)
+                    <li><a @if($params['fan'] == $key) style="font-weight: 700;font-size: 14px" @endif href="{{ route('home.rednet.index').'?fan='.$key }}">{{ $fan_val }}</a></li>
+                @endforeach
             </ul>
             <div class="qingchu"></div>
         </div>
@@ -85,9 +177,15 @@
                     <div class="order">
                         <div class="mingzi">{{ $data['stage_name'] }}</div>
                         <div class="tubiao">
-                            <a href="#">
-                                <img src="/home/images/anniu.png" onMouseOver="this.src='/home/images/anniu.png'" onMouseOut="this.src='/home/images/anniu.png'" width="69"; height="28"/>
-                            </a>
+                            @if(auth()->guard()->check())
+                                <a href="javascript:void(0)" @if(auth()->user()->type == 2) class="login_b" data-netred-id="{{ $data['id'] }}" @endif>
+                                    <img src="/home/images/anniu.png" onMouseOver="this.src='/home/images/anniu.png'" onMouseOut="this.src='/home/images/anniu.png'" width="69"; height="28"/>
+                                </a>
+                            @else
+                                <a href="javascript:void(0)" class="unlogin_b" data-netred-id="{{ $data['id'] }}">
+                                    <img src="/home/images/anniu.png" onMouseOver="this.src='/home/images/anniu.png'" onMouseOut="this.src='/home/images/anniu.png'" width="69"; height="28"/>
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="fen">
@@ -96,24 +194,27 @@
                             <tr>
                                 <td align="center">粉丝</td>
                                 <td align="center">平均播放数</td>
+                                <td align="center">参考报价</td>
                                 <td width="36" rowspan="2">
-                                    <img src="{{ get_platform_filed($data['platform'],'icon') }}" width="36"; height="36"/>
+                                    <img src="{{ get_platform_filed($data['platform_id'],'icon') }}" width="36"; height="36"/>
                                 </td>
                             </tr>
                             <tr align="center">
                                 <td>{{ $data['fans'] }}</td>
                                 <td>{{ $data['average_num'] }}</td>
+                                <td>{{ $data['money'] }}元</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             @endforeach
-        <div class="qingchu"></div>
-    </div>
+            <div class="qingchu"></div>
+        </div>
 
-    <div id="showpage">
-        {!! $lists->render() !!}
+        <div class="pagging">
+            {!! $lists->appends($params)->render() !!}
+        </div>
     </div>
 </div>
 @endsection
